@@ -1,0 +1,15 @@
+{
+  "name": "mmserver",
+  "version": "0.0.1",
+  "description": "",
+  "main": "Server.js",
+  "scripts": {
+    "start": "node Server.js"
+  },
+  "keywords": [
+    "server"
+  ],
+  "author": "Samuel A. Matheson",
+  "license": "ISC",
+  "dependencies": {}
+}
