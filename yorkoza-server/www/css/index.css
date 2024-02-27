@@ -1,0 +1,71 @@
+* {
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    /* make transparent link selection, adjust last value opacity 0 to 1.0 */
+}
+
+@font-face {
+    src: url(../fonts/handwriting-black-draft_DEMO.otf);
+    font-family: handwriting;
+}
+
+/* Handwriting font */
+@font-face {
+    src: url(../fonts/Minecrafter.Reg.ttf);
+    font-family: minecraft;
+}
+
+/* Minecraft clean font */
+@font-face {
+    src: url(../fonts/Minecrafter.Alt.ttf);
+    font-family: minecraft_cracked;
+}
+
+/* Minecraft cracked font */
+@font-face {
+    src: url(../fonts/LexendDeca-Regular.ttf);
+    font-family: Lexend_Deca;
+}
+
+:root,.light {
+    /*root used primarily for theming*/
+    --accent-color: hsl(204, 100%, 50%);
+    --text-color: rgb(0, 0, 0);
+    --background-color: rgb(255, 255, 255);
+    --grey: rgb(212, 212, 212);
+    --inversion_factor: invert(0);
+    
+}
+
+.dark {
+    --text-color: rgb(255, 255, 255);
+    --background-color: rgb(0, 0, 0);
+    --grey: rgb(54, 54, 54);
+    --inversion_factor: invert(1);/*Invert black and white images*/
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --text-color: rgb(255, 255, 255);
+        --background-color: rgb(0, 0, 0);
+        --grey: rgb(54, 54, 54);
+    }
+}
+
+body {
+    font-family: Lexend_Deca, system-ui, -apple-system, -apple-system-font, 'Segoe UI', 'Roboto', sans-serif;
+    margin: 0px;
+    padding: 0px;
+    padding: env(safe-area-inset-top, 0px) env(safe-area-inset-right, 0px) env(safe-area-inset-bottom, 0px) env(safe-area-inset-right, 0px);
+    height: 100%;
+    width: 100%;
+    color: var(--text-color);
+    background-color: var(--background-color);
+}
+
+
+/*    <--  Landscape layout (with min-width) -->     */
+
+@media screen and (min-aspect-ratio: 1/1) and (min-width:400px) {
+
+
+}
