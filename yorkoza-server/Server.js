@@ -1,13 +1,11 @@
 //'node server.js'
-const port = 1999;//port for the server 80, 443, 8080
+const port = 8080;//port for the server 80, 443, 8080 test
 
 const express = require('express');
 const app = express();
 const fs = require('fs');
 const path = require('path');
 const logs = require('./logger');
-const database = require('./database');
-const { log } = require('console');
 
 async function notfoundpage(response, url) {//404 page goes here
     response.writeHead(404);
@@ -89,5 +87,3 @@ async function writeresponce(res, filepath) {
         logs.error(error);
     }
 }
-
-database.initalize();
