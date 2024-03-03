@@ -15,9 +15,9 @@ async function notfoundpage(response, url) {//404 page goes here
 
 app.use(express.static('www'))
 
-app.get('/', (request, response) => { startingpoint(response) });//starting point request
+app.get('/', (request, response) => { })//startingpoint(response) });//starting point request
 
-app.get('/index.html', (request, response) => { startingpoint(response) });//starting point request
+app.get('/index.html', (request, response) => { })//startingpoint(response) });//starting point request
 
 //A test get
 app.get('/get/test', (req, res) => {

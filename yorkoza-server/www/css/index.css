@@ -26,21 +26,25 @@
     font-family: Lexend_Deca;
 }
 
-:root,.light {
+:root,
+.light {
     /*root used primarily for theming*/
     --accent-color: hsl(204, 100%, 50%);
     --text-color: rgb(0, 0, 0);
     --background-color: rgb(255, 255, 255);
-    --grey: rgb(212, 212, 212);
+    --offwhite: rgb(234, 234, 234);
+    --grey: rgb(192, 192, 192);
     --inversion_factor: invert(0);
-    
+
 }
 
 .dark {
     --text-color: rgb(255, 255, 255);
     --background-color: rgb(0, 0, 0);
-    --grey: rgb(54, 54, 54);
-    --inversion_factor: invert(1);/*Invert black and white images*/
+    --offwhite: rgb(36, 36, 36);
+    --grey: rgb(79, 79, 79);
+    --inversion_factor: invert(1);
+    /*Invert black and white images*/
 }
 
 @media (prefers-color-scheme: dark) {
@@ -62,32 +66,68 @@ body {
     background-color: var(--background-color);
 }
 
-.main_view{
+.main_view,
+.main_view_visible {
     /* A main view pannel*/
     position: absolute;
-    top: 2rem;
+    top: 3rem;
     width: 100%;
-    height: calc(100% - 2rem);
+    height: calc(100% - 3rem);
     left: 0;
     background-color: var(--background-color);
     cursor: default;
+    display: hidden;
+}
+
+.visible,
+.main_view_visible {
+    display: block;
 }
 
 /* Header containing navigation */
-.headbar{
+.headbar {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
-    height: 2rem;
+    height: 3rem;
     background-color: var(--background-color);
 }
 
-/*  */
+/* code inputs */
+.code_text_box_container {
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: calc(100% - 10px);
+    width: 50%;
+    box-sizing: border-box;
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+}
+
+.code_text_box_container #codeinput {
+    content: none;
+    appearance: none;
+    -webkit-appearance: none;
+    height: 99% !important;
+    width: 95% !important;
+    font-size: 1.1rem;
+    box-sizing: content-box;
+    border: 0.2rem solid var(--text-color);
+    transition: border 300ms, padding 300ms;
+    padding: calc(0.3rem + 3px);
+    outline: none;
+    border-radius: 0.5rem;
+}
+
+.code_text_box_container #codeinput:focus {
+    border: 0.5rem solid var(--accent-color);
+    padding: calc(0rem + 3px);
+}
 
 /*    <--  Landscape layout (with min-width) -->     */
 
-@media screen and (min-aspect-ratio: 1/1) and (min-width:400px) {
-
-
-}
+@media screen and (min-aspect-ratio: 1/1) and (min-width:400px) {}
