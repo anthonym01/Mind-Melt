@@ -120,14 +120,26 @@ body {
     appearance: none;
     -webkit-appearance: none;
     border: none;
+    border-top: 0.3rem solid var(--offwhite);
     border-bottom: 0.3rem solid var(--offwhite);
     cursor: pointer;
     background-color: var(--offwhite);
+    transition: transform 300ms, border 300ms;
 }
+
+
 .menu_container .menu_item:hover {
     border-bottom: 0.3rem solid var(--accent-color);
 }
 
+.menu_container .menu_item:active {
+    border-bottom: 0.3rem solid var(--accent-color);
+    transition: transform 100ms, border 300ms;
+    transform: translateY(0.4rem);
+    /*border-top: 0.3rem solid var(--accent-color);
+    background-color: var(--accent-color);
+    color: var(--background-color);*/
+}
 
 /* code inputs */
 .code_text_box_container {
@@ -166,7 +178,9 @@ body {
     padding: calc(0.1rem + 3px);
 }
 
-/* Console area */
+/* 
+    Console area 
+*/
 .console_container {
     position: absolute;
     top: 0;
@@ -184,7 +198,7 @@ body {
 .console_emulation_space {
     position: relative;
     margin-top: calc(0.1rem + 3px);
-    height: 90%;
+    height: calc(100% - 2rem);
     width: calc(100% - 0.6rem);
     margin-left: 0.3rem;
     margin-right: 0.3rem;
@@ -198,6 +212,29 @@ body {
     border-radius: 0.5rem;
 }
 
+/* Console Menu */
+.console_menu_container{
+    position: absolute;
+    bottom:0;
+    left: 0;
+    width: 100%;
+    height: 1.5rem;
+    display: flex;
+    overflow: auto;
+}
+
+.console_menu_button{
+    appearance: none;
+    height: 100%;
+    min-width: 4rem;
+    width: fit-content;
+    font-size: 0.9rem;
+    background-color: var(--offwhite);
+    color: var(--text-color);
+    cursor: pointer;
+}
+
+/*Console contents*/
 .Console_block {
     position: relative;
     display: block;
@@ -220,7 +257,7 @@ body {
     width: calc(50% - 3rem);
     box-sizing: content-box;
     border-radius: 1rem;
-    background-color: var(--background-color);
+    background-color: var(--offwhite);
     border: 0.25rem solid var(--text-color);
     color: var(--text-color);
     font-size: 1.8rem;
