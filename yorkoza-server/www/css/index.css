@@ -93,7 +93,11 @@ body {
     left: 0;
     width: 100%;
     height: 3rem;
-    background-color: var(--background-color);
+    background-color: var(--offwhite);
+}
+
+.headbar .menu_container{
+    
 }
 
 /* code inputs */
@@ -140,7 +144,40 @@ body {
     height: calc(100% - 6rem);
     right: 0;
     width: 50%;
+    box-sizing: border-box;
+    display: block;
+    color: var(--text-color);
+    background-color: var(--background-color);
+    box-sizing: border-box;
+
 }
+
+.console_emulation_space {
+    position: relative;
+    margin-top: calc(0.1rem + 3px);
+    height: 90%;
+    width: calc(100% - 0.6rem);
+    margin-left: 0.3rem;
+    margin-right: 0.3rem;
+    font-size: 1rem;
+    padding: 0.5rem;
+    box-sizing: border-box;
+    border: 0.2rem solid var(--text-color);
+    color: var(--text-color);
+    background-color: var(--background-color);
+    display: block;
+    border-radius: 0.5rem;
+}
+
+.Console_block{
+    position: relative;
+    display: block;
+    font-size: inherit;
+    background-color: inherit;
+    cursor: text;
+}
+
+.centered{text-align: center;}
 
 .compile_button {
     appearance: none;
