@@ -228,6 +228,8 @@ body {
     height: 100%;
     min-width: 4rem;
     width: fit-content;
+    margin-left: 0.3rem;
+    border: 0.05rem double var(--offwhite);
     font-size: 0.9rem;
     background-color: var(--offwhite);
     color: var(--text-color);
