@@ -5,14 +5,18 @@ window.addEventListener('load', async function () {//Starting point
     } catch (err) {
         console.warn('Something bad happened: ', err)
     } finally {
-
+        this.document.getElementById('compile_button').addEventListener('click', compile_and_run);
     }
 });
+
+let state = {
+    running: false,
+}
 
 //local storage handler
 let config = {
     data: {//Loacal app data
-        
+
     },
     save: async function () {//Save the config file
         console.table('Configuration is being saved', config.data)
@@ -29,5 +33,54 @@ let config = {
         console.table(config.data);
         config.data = {};
     },
+
+}
+
+async function compile_and_run() {
+    if (state.running) {
+        console.log('Program allready running');
+        return false;
+    }
+    try {
+        let code_string = document.getElementById('codeinput').value;
+        console.log('compile and run', code_string)
+        state.running = true;
+
+        /* This block of code is making a POST request to the server with the code input provided by the user. */
+        const response = await fetch('/post/code_string', {
+            method: "POST",
+            body: JSON.stringify({ code_string }),
+            headers: { "Content-type": "application/json; charset=UTF-8" }
+        });
+        if (!response.ok) { throw new Error('Network failiure'); }
+
+        const code_output = await response.json();
+        console.log(code_output);
+
+        document.getElementById('console_emulation_space').innerHTML = "";
+
+        for (const line_number in code_output.console_put) {
+            let Console_block = document.createElement('div');
+            Console_block.classList = "Console_block";
+            Console_block.setAttribute('name', line_number)
+            Console_block.setAttribute('id', line_number)
+
+            Console_block.innerText = `${code_output.console_put[line_number]}`;
+
+            document.getElementById('console_emulation_space').appendChild(Console_block)
+        }
+        /*
+        code_output.console_put.forEach(console_line_text => {
+            let Console_block = document.createElement('div');
+            Console_block.classList="Console_block";
+            Console_block.setAttribute('name',console_line_text)
+            Console_block.innerText=console_line_text;
+            
+            document.getElementById('console_emulation_space').appendChild(Console_block)
+        });*/
+
+    } catch (error) {
+
+    }
 
 }

@@ -15,38 +15,21 @@ async function notfoundpage(response, url) {//404 page goes here
 
 app.use(express.static('www'))
 
-app.get('/', (request, response) => { })//startingpoint(response) });//starting point request
+app.get('/', (request, response) => { })//startingpoint(response) });
 
-app.get('/index.html', (request, response) => { })//startingpoint(response) });//starting point request
+app.get('/index.html', (request, response) => { })//startingpoint(response) });
 
-//A test get
-app.get('/get/test', (req, res) => {
-    // Receive a small amount of test data and send back a response
-    try {
-        console.log('test get server');
-        req.on('data', function (data) {
-            console.log('get raw payload: ', data, ' Parsed: ', JSON.parse(data));
-            res.end(JSON.stringify({ test: "test get received" }));
-        });
-        res.writeHead(200, { 'Content-type': 'application/json' });
-        res.send(JSON.stringify({ test: 'test get is okay' }));
-    } catch (error) {
-        console.log('Catastrophy on test get: ', err);
-    }
-});
+/*Receive code from User */
+app.post('/post/code_string', (request, response) => {
 
-//a test post
-app.post('/post/test', (req, res) => {
-    //receive more data than a get
-    logs.info('test post to server');
-    req.on('data', function (data) {
-        logs.info('Posted : ' + data + ' Parsed: ' + JSON.parse(data));
-        res.end(JSON.stringify({ test: "test post received" }));
+    logs.info('Code upload');
+    request.on('data', function (data) {
+        logs.info('received : ' + data);
+        response.end(JSON.stringify({ console_put: ["Language server offline","Please contact administrator","samuelmatheson20@gmail.com"] }));
     });
 });
 
 app.listen(port, () => { logs.info('Running on port ' + port) })//Listen for requests, this starts the server
-
 
 async function startingpoint(response) {//serve index.html
     try {

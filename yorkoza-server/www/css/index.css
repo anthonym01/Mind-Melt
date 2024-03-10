@@ -115,11 +115,12 @@ body {
     height: 3rem;
     width: fit-content;
     min-width: 5rem;
-    font-size: 1.5rem;
+    font-size: 1.3rem;
     box-sizing: border-box;
     appearance: none;
     -webkit-appearance: none;
     border: none;
+    color: var(--text-color);
     border-top: 0.3rem solid var(--offwhite);
     border-bottom: 0.3rem solid var(--offwhite);
     cursor: pointer;
@@ -236,6 +237,12 @@ body {
     cursor: pointer;
 }
 
+.console_menu_button:active{
+    box-shadow: 0rem 0rem 0.1rem 0rem inset var(--background-color);
+    background-color: var(--accent-color);
+    color: var(--background-color);
+}
+
 /*Console contents*/
 .Console_block {
     position: relative;
@@ -259,11 +266,24 @@ body {
     width: calc(50% - 3rem);
     box-sizing: content-box;
     border-radius: 1rem;
-    background-color: var(--offwhite);
-    border: 0.25rem solid var(--text-color);
+    background-color: var(--background-color);
+    border: 0.15rem solid var(--text-color);
     color: var(--text-color);
-    font-size: 1.8rem;
+    box-shadow: 0rem 0rem 0.5rem 0rem inset var(--text-color);
+    transition:box-shadow 300ms, transform 300ms, border 300ms;
+    font-size: 1.5rem;
+    transform: scaleZ(1);
     cursor: pointer;
+}
+
+.compile_button:active {
+    box-shadow: 0rem 0rem 1rem 0rem inset var(--accent-color);
+    border: 0.15rem solid var(--accent-color);
+    transition: box-shadow 100ms, transform 100ms, border 100ms;
+    transform: scale(0.92);
+    /*border-top: 0.3rem solid var(--accent-color);
+    background-color: var(--accent-color);
+    color: var(--background-color);*/
 }
 
 .compile_button .icon {
