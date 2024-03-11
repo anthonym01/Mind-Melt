@@ -135,7 +135,7 @@ body {
 
 .menu_container .menu_item:active {
     border-bottom: 0.3rem solid var(--accent-color);
-    transition: transform 100ms, border 100ms;
+    transition: transform 20ms, border 100ms;
     transform: translateY(0.4rem);
     /*border-top: 0.3rem solid var(--accent-color);
     background-color: var(--accent-color);
@@ -250,7 +250,7 @@ body {
     box-shadow: 0rem 0rem 0.1rem 0rem inset var(--background-color);
     background-color: var(--accent-color);
     color: var(--background-color);
-    transition: box-shadow 0ms, background-color 100ms,color 0ms, transform 100ms;
+    transition: box-shadow 0ms, background-color 0ms,color 0ms, transform 0ms;
     transform: scale(0.85);
 
 }

@@ -25,6 +25,10 @@ app.post('/post/code_string', (request, response) => {
     logs.info('Code upload');
     request.on('data', function (data) {
         logs.info('received : ' + data);
+
+        /* Talk to java server from here */
+
+        //placeholder
         response.end(JSON.stringify({ console_put: ["Language server offline","Please contact administrator","samuelmatheson20@gmail.com"] }));
     });
 });
