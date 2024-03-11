@@ -36,12 +36,23 @@ let config = {
 
 }
 
+
 async function compile_and_run() {
+    /**
+ * The function `compile_and_run` takes user input code, sends a POST request to a server, receives
+ * output, and displays it in a console emulation space on a webpage.
+ * @returns The `compile_and_run` function is returning `false` if the program is already running. If
+ * there is an error during the execution of the function, it does not explicitly return anything, so
+ * it implicitly returns `undefined`.
+ */
+
     if (state.running) {
         console.log('Program allready running');
         return false;
     }
     try {
+        document.getElementById('console_emulation_space').classList="console_emulation_space_focus";
+        
         let code_string = document.getElementById('codeinput').value;
         console.log('compile and run', code_string)
         state.running = true;
@@ -52,6 +63,7 @@ async function compile_and_run() {
             body: JSON.stringify({ code_string }),
             headers: { "Content-type": "application/json; charset=UTF-8" }
         });
+
         if (!response.ok) { throw new Error('Network failiure'); }
 
         const code_output = await response.json();

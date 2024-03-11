@@ -135,7 +135,7 @@ body {
 
 .menu_container .menu_item:active {
     border-bottom: 0.3rem solid var(--accent-color);
-    transition: transform 100ms, border 300ms;
+    transition: transform 100ms, border 100ms;
     transform: translateY(0.4rem);
     /*border-top: 0.3rem solid var(--accent-color);
     background-color: var(--accent-color);
@@ -196,7 +196,7 @@ body {
 
 }
 
-.console_emulation_space {
+.console_emulation_space,.console_emulation_space_focus {
     position: relative;
     margin-top: calc(0.1rem + 3px);
     height: calc(100% - 2rem);
@@ -208,10 +208,17 @@ body {
     box-sizing: border-box;
     border: 0.2rem solid var(--text-color);
     color: var(--text-color);
+    transition: border 150ms, padding 100ms;
     background-color: var(--background-color);
     display: block;
     border-radius: 0.5rem;
 }
+.console_emulation_space_focus {
+    border: 0.4rem solid var(--accent-color);
+    transition: border 150ms, padding 100ms;
+    padding: 0.3rem;
+}
+
 
 /* Console Menu */
 .console_menu_container{
@@ -235,12 +242,17 @@ body {
     background-color: var(--offwhite);
     color: var(--text-color);
     cursor: pointer;
+    transition: box-shadow 300ms, background-color 300ms,color 300ms, transform 300ms;
+    transform: scale(1);
 }
 
 .console_menu_button:active{
     box-shadow: 0rem 0rem 0.1rem 0rem inset var(--background-color);
     background-color: var(--accent-color);
     color: var(--background-color);
+    transition: box-shadow 0ms, background-color 100ms,color 0ms, transform 100ms;
+    transform: scale(0.85);
+
 }
 
 /*Console contents*/
