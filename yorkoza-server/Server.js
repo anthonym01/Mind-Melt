@@ -6,6 +6,8 @@ const app = express();
 const fs = require('fs');
 const path = require('path');
 const logs = require('./logger');
+const { default: axios } = require('axios');
+axios.defaults.baseURL = 'http://localhost:8001';
 
 async function notfoundpage(response, url) {//404 page goes here
     response.writeHead(404);
@@ -25,11 +27,20 @@ app.post('/post/code_string', (request, response) => {
     logs.info('Code upload');
     request.on('data', function (data) {
         logs.info('received : ' + data);
+        try{
+            axios.post('/process/code_string', JSON.parse(data).code_string)
+            .then(function (axiosresponse) {
+                logs.info(axiosresponse);
+            })
+            .catch(function (error) {
+                logs.error(error) 
+            });
 
-        /* Talk to java server from here */
+        }catch(error){
+            logs.error(error);
+        }
 
-        //placeholder
-        response.end(JSON.stringify({ console_put: ["Language server offline","Please contact administrator","samuelmatheson20@gmail.com"] }));
+        response.end(JSON.stringify({ console_put: ["hello", "user"] }));
     });
 });
 
@@ -47,9 +58,9 @@ async function startingpoint(response) {//serve index.html
             } else {
                 response.write(databuffer);
             }
-            logs.info("User came online "+response);
+            logs.info("User came online " + response);
             response.end();//end response
-            
+
         });
     } catch (err) {
         logs.error('Catastrophy on index: \n' + err);
