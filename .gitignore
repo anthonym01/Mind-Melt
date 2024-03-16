@@ -18,6 +18,7 @@ pids
 .venv/*
 venv
 .venv
+/.venv
 *.venv
 .venv/
 pyvenv.cfg
