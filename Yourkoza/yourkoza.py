@@ -3,14 +3,15 @@
 
 port = 8080;
 
-from flask import Flask
+from html import escape
+from flask import Flask, render_template
 
 app = Flask(__name__)
 
 
 @app.route('/')
 def index():
-    return 'Index Page'
+    return render_template('index.html')
 
 @app.route("/<name>")
 def hello(name):
