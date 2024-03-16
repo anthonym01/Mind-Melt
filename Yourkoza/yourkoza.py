@@ -1,5 +1,5 @@
 # Yet another interprited language using ply
-# flask --app yourkoza run --host=0.0.0.0 --debug
+# flask --app yourkoza run --host=0.0.0.0 --debug --port=8080
 
 port = 8080;
 
@@ -17,4 +17,7 @@ def index():
 def process_code():
     
     print(request.get_data())
-    return ["Brackene"]
+    return ["Brackene","Morphine","folorine","adenazine","mathene"]
+
+if __name__ == '__yourkoza__':
+    app.run(debug=True, port=8080)
