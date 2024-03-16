@@ -71,18 +71,18 @@ async function compile_and_run() {
 
         document.getElementById('console_emulation_space').innerHTML = "";
 
-        for (const line_number in code_output.console_put) {
+        for (const line_number in code_output) {
             let Console_block = document.createElement('div');
             Console_block.classList = "Console_block";
             Console_block.setAttribute('name', line_number)
             Console_block.setAttribute('id', line_number)
 
-            Console_block.innerText = `${code_output.console_put[line_number]}`;
+            Console_block.innerText = `${code_output[line_number]}`;
 
             document.getElementById('console_emulation_space').appendChild(Console_block)
         }
         /*
-        code_output.console_put.forEach(console_line_text => {
+        code_output.forEach(console_line_text => {
             let Console_block = document.createElement('div');
             Console_block.classList="Console_block";
             Console_block.setAttribute('name',console_line_text)

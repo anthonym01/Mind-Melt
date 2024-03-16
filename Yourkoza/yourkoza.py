@@ -4,7 +4,7 @@
 port = 8080;
 
 from html import escape
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 
 app = Flask(__name__)
 
@@ -13,6 +13,8 @@ app = Flask(__name__)
 def index():
     return render_template('index.html')
 
-@app.route("/<name>")
-def hello(name):
-    return f"Hello, {escape(name)}!"
+@app.route('/post/code_string', methods=['GET', 'POST'])
+def process_code():
+    
+    print(request.get_data())
+    return ["Brackene"]
