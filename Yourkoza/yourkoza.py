@@ -21,14 +21,14 @@ def process_code():
     
     code_input = json.loads(request.get_data())["code_string"]
     
-    code_output = ['pain','pain']
+    code_output = []
     
     # Give the lexer some input
     lexer.input(code_input)
     # Tokenize
     while True:
         tok = lexer.token()
-        #code_output.append(tok)
+        code_output.append(str(tok))
         if not tok: 
             break     # No more input
         print(tok)
@@ -115,5 +115,5 @@ t_ignore  = ' \t'
 # Error handling rule
 def t_error(t):
     print("Illegal character '%s'" % t.value[0])
-    #code_output.append("Illegal character '%s'" % t.value[0])
+    code_output.append(str("Illegal character '%s'" % t.value[0]))
     t.lexer.skip(1)
