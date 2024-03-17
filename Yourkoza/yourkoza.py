@@ -34,6 +34,8 @@ def process_code():
     return code_lines
 
 
+# PLY lexer
+
 import ply.lex as lex
 
 # List of token names. This is always required
