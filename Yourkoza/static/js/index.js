@@ -48,6 +48,10 @@ async function compile_and_run() {
 
     if (state.running) {
         console.log('Program allready running');
+        state.running = false;
+
+        //Replace with reset function later
+        compile_and_run()
         return false;
     }
     try {

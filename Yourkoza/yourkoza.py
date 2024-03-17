@@ -4,9 +4,11 @@
 port = 8080;
 
 from html import escape
+import json
 from flask import Flask, render_template, request
 
 app = Flask(__name__)
+code_output = ["test"]
 
 
 @app.route('/')
@@ -17,21 +19,26 @@ def index():
 def process_code():
     lexer = lex.lex()
     
-    code_lines = ["test"]
+    code_input = json.loads(request.get_data())["code_string"]
+    
+    code_output = ['pain','pain']
     
     # Give the lexer some input
-    lexer.input("pain pain pain pain")
+    lexer.input(code_input)
     # Tokenize
     while True:
         tok = lexer.token()
+        #code_output.append(tok)
         if not tok: 
             break     # No more input
-        #print(tok)
-        
-    print(request.get_data())
-    print(request.get_data())
+        print(tok)
     
-    return code_lines
+    print("Input: ")
+    print(code_input)
+    print("Output: ")
+    print(code_output)
+    
+    return code_output # An array of lines of code output
 
 
 # PLY lexer
@@ -80,13 +87,13 @@ tokens = (
 )
 
 # Regular expression rules for simple tokens
-t_PLUS    = r'\+'
-t_MINUS   = r'\-'
-t_TIMES   = r'\*'
+t_PLUS    = r'PLUS'
+t_MINUS   = r'MINUS'
+t_TIMES   = r'TIMES'
 t_LPAREN  = r'\('
-t_DIVIDE  = r'/'
+t_DIVIDE  = r'DIVIDE'
 t_RPAREN  = r'\)'
-t_POWER = r'\^'
+t_POWER   = r'RAISED_TO'
 
 # A regular expression rule with some action code
 def t_NUMBER(t):
@@ -108,4 +115,5 @@ t_ignore  = ' \t'
 # Error handling rule
 def t_error(t):
     print("Illegal character '%s'" % t.value[0])
+    #code_output.append("Illegal character '%s'" % t.value[0])
     t.lexer.skip(1)
