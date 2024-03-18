@@ -86,6 +86,27 @@ tokens = (
     'COMMENT',
 )
 
+# Handling reserved words
+reserved = {
+   'if' : 'IF',
+   'then' : 'THEN',
+   'else' : 'ELSE',
+   'while' : 'WHILE',
+   'join' : 'JOIN',
+    'in' : 'IN',
+    'do' : 'DO',
+    'let' : 'LET',
+    'if' : 'IF',
+    'else' : 'ELSE',
+    'while' : 'WHILE',
+    'for' : 'FOR',
+    'funtion' : 'FUNCTION',
+    'return' : 'RETURN',
+    'show' : 'SHOW',
+    'risk' : 'RISK',
+    'save' : 'SAVE',
+}
+
 # Regular expression rules for simple tokens
 t_PLUS    = r'PLUS'
 t_MINUS   = r'MINUS'
