@@ -45,7 +45,7 @@ def process_code():
 
 import ply.lex as lex
 
-# List of token names. This is always required
+# List of token names.
 tokens = (
     'INTEGER',
     'IDENTIFIER',
@@ -88,11 +88,11 @@ tokens = (
 
 # Handling reserved words
 reserved = {
-   'if' : 'IF',
-   'then' : 'THEN',
-   'else' : 'ELSE',
-   'while' : 'WHILE',
-   'join' : 'JOIN',
+    'if' : 'IF',
+    'then' : 'THEN',
+    'else' : 'ELSE',
+    'while' : 'WHILE',
+    'join' : 'JOIN',
     'in' : 'IN',
     'do' : 'DO',
     'let' : 'LET',
@@ -100,12 +100,17 @@ reserved = {
     'else' : 'ELSE',
     'while' : 'WHILE',
     'for' : 'FOR',
-    'funtion' : 'FUNCTION',
+    'function' : 'FUNCTION',
     'return' : 'RETURN',
     'show' : 'SHOW',
     'risk' : 'RISK',
     'save' : 'SAVE',
 }
+
+def t_ID(t):
+    r'[a-zA-Z_][a-zA-Z_0-9]*'
+    t.type = reserved.get(t.value,'IDENTIFIER')    # Check for reserved words
+    return t
 
 # Regular expression rules for simple tokens
 t_PLUS    = r'PLUS'
@@ -115,6 +120,10 @@ t_LPAREN  = r'\('
 t_DIVIDE  = r'DIVIDE'
 t_RPAREN  = r'\)'
 t_POWER   = r'RAISED_TO'
+
+###
+### Rules
+###
 
 # A regular expression rule with some action code
 def t_NUMBER(t):
@@ -128,9 +137,13 @@ def t_newline(t):
     r'\n+'
     t.lexer.lineno += len(t.value)
 
-
 # A string containing ignored characters (spaces and tabs)
 t_ignore  = ' \t'
+
+#def t_ID(t):
+#    # Look up symbol table information and return a tuple
+#    t.value = (t.value, symbol_lookup(t.value))
+#    return t
 
 
 # Error handling rule
