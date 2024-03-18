@@ -5,7 +5,7 @@ window.addEventListener('load', async function () {//Starting point
     } catch (err) {
         console.warn('Something bad happened: ', err)
     } finally {
-        this.document.getElementById('compile_button').addEventListener('click', compile_and_run);
+        code_handler.initalize();
     }
 });
 
@@ -36,67 +36,84 @@ let config = {
 
 }
 
+let code_handler = {
+    state: {
+        running: false,
+    },
+    initalize: async function () {
+        document.getElementById('compile_button').addEventListener('click', code_handler.compile_and_run);
+    },
+    compile_and_run: async function () {
 
-async function compile_and_run() {
-    /**
- * The function `compile_and_run` takes user input code, sends a POST request to a server, receives
- * output, and displays it in a console emulation space on a webpage.
- * @returns The `compile_and_run` function is returning `false` if the program is already running. If
- * there is an error during the execution of the function, it does not explicitly return anything, so
- * it implicitly returns `undefined`.
- */
+        /**
+     * The function `compile_and_run` takes user input code, sends a POST request to a server, receives
+     * output, and displays it in a console emulation space on a webpage.
+     * @returns The `compile_and_run` function is returning `false` if the program is already running. If
+     * there is an error during the execution of the function, it does not explicitly return anything, so
+     * it implicitly returns `undefined`.
+     */
 
-    if (state.running) {
-        console.log('Program allready running');
-        state.running = false;
+        if (code_handler.state.running) {
+            console.log('Program allready running');
+            code_handler.state.running = false;
 
-        //Replace with reset function later
-        compile_and_run()
-        return false;
-    }
-    try {
-        document.getElementById('console_emulation_space').classList="console_emulation_space_focus";
-        
-        let code_string = document.getElementById('codeinput').value;
-        console.log('compile and run', code_string)
-        state.running = true;
-
-        /* This block of code is making a POST request to the server with the code input provided by the user. */
-        const response = await fetch('/post/code_string', {
-            method: "POST",
-            body: JSON.stringify({ code_string }),
-            headers: { "Content-type": "application/json; charset=UTF-8" }
-        });
-
-        if (!response.ok) { throw new Error('Network failiure'); }
-
-        const code_output = await response.json();
-        console.log(code_output);
-
-        document.getElementById('console_emulation_space').innerHTML = "";
-
-        for (const line_number in code_output) {
-            let Console_block = document.createElement('div');
-            Console_block.classList = "Console_block";
-            Console_block.setAttribute('name', line_number)
-            Console_block.setAttribute('id', line_number)
-
-            Console_block.innerText = `${code_output[line_number]}`;
-
-            document.getElementById('console_emulation_space').appendChild(Console_block)
+            //Replace with reset function later
+            code_handler.compile_and_run()
+            return false;
         }
-        /*
-        code_output.forEach(console_line_text => {
-            let Console_block = document.createElement('div');
-            Console_block.classList="Console_block";
-            Console_block.setAttribute('name',console_line_text)
-            Console_block.innerText=console_line_text;
-            
-            document.getElementById('console_emulation_space').appendChild(Console_block)
-        });*/
+        try {
+            document.getElementById('console_emulation_space').classList = "console_emulation_space_focus";
 
-    } catch (error) {
+            let code_string = document.getElementById('codeinput').value;
+            console.log('compile and run', code_string)
+            code_handler.state.running = true;
+
+            /* This block of code is making a POST request to the server with the code input provided by the user. */
+            const response = await fetch('/post/code_string', {
+                method: "POST",
+                body: JSON.stringify({ code_string }),
+                headers: { "Content-type": "application/json; charset=UTF-8" }
+            });
+
+            if (!response.ok) { throw new Error('Network failiure'); }
+
+            const code_output = await response.json();
+            console.log(code_output);
+
+            document.getElementById('console_emulation_space').innerHTML = "";
+
+            for (const line_number in code_output) {
+                let Console_block = document.createElement('div');
+                Console_block.classList = "Console_block";
+                Console_block.setAttribute('name', line_number)
+                Console_block.setAttribute('id', line_number)
+
+                Console_block.innerText = `${code_output[line_number]}`;
+
+                document.getElementById('console_emulation_space').appendChild(Console_block)
+            }
+            /*
+            code_output.forEach(console_line_text => {
+                let Console_block = document.createElement('div');
+                Console_block.classList="Console_block";
+                Console_block.setAttribute('name',console_line_text)
+                Console_block.innerText=console_line_text;
+                
+                document.getElementById('console_emulation_space').appendChild(Console_block)
+            });*/
+
+        } catch (error) {
+
+        }
+
+    },
+    abort_run:async function(){
+
+    },
+    reset_run: async function(){
+
+    },
+    clear_screen:async function(){
 
     }
-
 }
