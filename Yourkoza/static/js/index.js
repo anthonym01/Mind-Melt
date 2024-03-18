@@ -36,6 +36,12 @@ let config = {
 
 }
 
+let ui_handler = {
+    initalize: async function(){
+        
+    }
+}
+
 let code_handler = {
     state: {
         running: false,

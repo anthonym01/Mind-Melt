@@ -32,7 +32,7 @@
     --accent-color: hsl(196, 100%, 50%);
     --text-color: rgb(0, 0, 0);
     --background-color: rgb(255, 255, 255);
-    --transparent_background-color: rgba(255,255,255,0.7);
+    --transparent_background-color: rgba(255,255,255,0.3);
     --offwhite: rgb(234, 234, 234);
     --grey: rgb(192, 192, 192);
     --inversion_factor: invert(0);
@@ -43,7 +43,7 @@
     --text-color: rgb(255, 255, 255);
     --accent-color: hsl(204, 100%, 50%);
     --background-color: rgb(0, 0, 0);
-    --transparent_background-color: rgba(0, 0, 0, 0.7);
+    --transparent_background-color: rgba(0, 0, 0, 0.3);
     --offwhite: rgb(36, 36, 36);
     --grey: rgb(79, 79, 79);
     --inversion_factor: invert(1);
@@ -55,7 +55,7 @@
         --text-color: rgb(255, 255, 255);
         --background-color: rgb(0, 0, 0);
         --accent-color: hsl(204, 100%, 50%);
-        --transparent_background-color: rgba(0, 0, 0, 0.7);
+        --transparent_background-color: rgba(0, 0, 0, 0.3);
         --offwhite: rgb(36, 36, 36);
         --grey: rgb(79, 79, 79);
         --inversion_factor: invert(1);
@@ -82,8 +82,10 @@ body {
     overflow: hidden;
     z-index: 10;
     background-color: var(--transparent_background-color);
-    filter: blur(3px);
+    filter: blur(2px);
 }
+
+.blured{filter: blur(2px);}
 
 .main_view,
 .main_view_visible {
