@@ -6,6 +6,8 @@ port = 8080;
 from html import escape
 import json
 from flask import Flask, render_template, request
+import ply.yacc as yacc
+import ply.lex as lex
 
 app = Flask(__name__)
 code_output = ["test"]
@@ -43,7 +45,6 @@ def process_code():
 
 # PLY lexer
 
-import ply.lex as lex
 
 # List of token names.
 tokens = (
