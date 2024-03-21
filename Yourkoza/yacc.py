@@ -102,7 +102,7 @@ def p_list(p):
 
 def p_expression_list(p):
     '''expression_list : expression
-                       | expression_list COMMA expression'''
+                       | expression_list , expression'''
     pass
 
 def p_function(p):
@@ -111,7 +111,7 @@ def p_function(p):
 
 def p_parameters(p):
     '''parameters : IDENTIFIER
-                  | parameters COMMA IDENTIFIER'''
+                  | parameters , IDENTIFIER'''
     pass
 
 def p_return_statement_opt(p):
@@ -133,15 +133,6 @@ parser = yacc.yacc()
 
 ## Errors to fix
 ''''
-ERROR: /home/samuel/Code_bin/Mind-Melt/Yourkoza/yacc.py:34: Symbol 'TO' used, but not defined as a token or a rule
-ERROR: /home/samuel/Code_bin/Mind-Melt/Yourkoza/yacc.py:38: Symbol 'THEN' used, but not defined as a token or a rule
-ERROR: /home/samuel/Code_bin/Mind-Melt/Yourkoza/yacc.py:86: Symbol 'TO' used, but not defined as a token or a rule
-ERROR: /home/samuel/Code_bin/Mind-Melt/Yourkoza/yacc.py:86: Symbol 'INPUT' used, but not defined as a token or a rule
-ERROR: /home/samuel/Code_bin/Mind-Melt/Yourkoza/yacc.py:99: Symbol 'LBRACKET' used, but not defined as a token or a rule
-ERROR: /home/samuel/Code_bin/Mind-Melt/Yourkoza/yacc.py:99: Symbol 'RBRACKET' used, but not defined as a token or a rule
-ERROR: /home/samuel/Code_bin/Mind-Melt/Yourkoza/yacc.py:105: Symbol 'COMMA' used, but not defined as a token or a rule
-ERROR: /home/samuel/Code_bin/Mind-Melt/Yourkoza/yacc.py:109: Symbol 'LBRACE' used, but not defined as a token or a rule
-ERROR: /home/samuel/Code_bin/Mind-Melt/Yourkoza/yacc.py:109: Symbol 'RBRACE' used, but not defined as a token or a rule
-ERROR: /home/samuel/Code_bin/Mind-Melt/Yourkoza/yacc.py:109: Symbol 'RBRACE' used, but not defined as a token or a rule
-ERROR: /home/samuel/Code_bin/Mind-Melt/Yourkoza/yacc.py:114: Symbol 'COMMA' used, but not defined as a token or a rule
+ERROR: :105: Illegal name ',' in rule 'expression_list'
+ERROR: :114: Illegal name ',' in rule 'parameters'
 '''

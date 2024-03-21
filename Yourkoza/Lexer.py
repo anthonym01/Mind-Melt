@@ -50,6 +50,12 @@ tokens = (
     'BE',
     'EQUAL',
     'TO',
+    'THEN',
+    'LBRACKET',
+    'RBRACKET',
+    'LBRACE',
+    'RBRACE',
+    'COMMA',
 )
 
 # Handling reserved words
@@ -73,8 +79,11 @@ reserved = {
     'save' : 'SAVE',
     'be':'BE',
     'equal':'EQUAL',
-    'to': 'TO'
+    'to': 'TO',
+    'then':'THEN',
 }
+
+literals = [ '+','-','*','/','{', '}','[',']','(',')' ]
 
 def t_ID(t):
     r'[a-zA-Z_][a-zA-Z_0-9]*'
