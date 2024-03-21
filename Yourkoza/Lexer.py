@@ -1,11 +1,14 @@
 # ------------------------------------------------------------
-# yorkozaLexer.py
+# yorkoza's Lexer.py
 #
 # tokenizer for the language Yorkoza
 # ------------------------------------------------------------
 import ply.lex as lex
 
-#List of token names.
+
+# PLY lexer
+
+# List of token names.
 tokens = (
     'INTEGER',
     'IDENTIFIER',
@@ -44,8 +47,39 @@ tokens = (
     'RISK',
     'SAVE',
     'COMMENT',
+    'BE',
+    'EQUAL',
+    'TO',
 )
 
+# Handling reserved words
+reserved = {
+    'if' : 'IF',
+    'then' : 'THEN',
+    'else' : 'ELSE',
+    'while' : 'WHILE',
+    'join' : 'JOIN',
+    'in' : 'IN',
+    'do' : 'DO',
+    'let' : 'LET',
+    'if' : 'IF',
+    'else' : 'ELSE',
+    'while' : 'WHILE',
+    'for' : 'FOR',
+    'function' : 'FUNCTION',
+    'return' : 'RETURN',
+    'show' : 'SHOW',
+    'risk' : 'RISK',
+    'save' : 'SAVE',
+    'be':'BE',
+    'equal':'EQUAL',
+    'to': 'TO'
+}
+
+def t_ID(t):
+    r'[a-zA-Z_][a-zA-Z_0-9]*'
+    t.type = reserved.get(t.value,'IDENTIFIER')    # Check for reserved words
+    return t
 
 # Regular expression rules for simple tokens
 t_PLUS    = r'PLUS'
@@ -56,6 +90,9 @@ t_DIVIDE  = r'DIVIDE'
 t_RPAREN  = r'\)'
 t_POWER   = r'RAISED_TO'
 
+###
+### Rules
+###
 
 # A regular expression rule with some action code
 def t_NUMBER(t):
@@ -69,34 +106,23 @@ def t_newline(t):
     r'\n+'
     t.lexer.lineno += len(t.value)
 
-
 # A string containing ignored characters (spaces and tabs)
 t_ignore  = ' \t'
+
+#def t_ID(t):
+#    # Look up symbol table information and return a tuple
+#    t.value = (t.value, symbol_lookup(t.value))
+#    return t
+
 
 
 # Error handling rule
 def t_error(t):
     print("Illegal character '%s'" % t.value[0])
+    # code_output.append(str("Illegal character '%s'" % t.value[0]))
     t.lexer.skip(1)
 
-
-# Build the lexer
-lexer = lex.lex()
-
-
-# Test it out
-data = '''
-3 PLUS 4 TIMES 10
-  PLUS -20 TIMES 2
-'''
-
-# Give the lexer some input
-lexer.input(data)
-
-# Tokenize
-while True:
-    tok = lexer.token()
-    if not tok: 
-        break      # No more input
-    print(tok)
-
+def Tokenize(code_string):
+    tokens = [] # empty list
+    
+    
