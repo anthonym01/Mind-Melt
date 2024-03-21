@@ -38,9 +38,14 @@ let config = {
 
 let ui_handler = {
     initalize: async function(){
-        'headbar'
-        'blurser'
-        'Coding_view'
+        
+    },
+    blurse:async function(){
+        console.log('Blur UI')
+        document.getElementById('headbar').classList = "headbar blured"
+        document.getElementById('blurser').classList = "blurser visible"
+        document.getElementById('Coding_view').classList="main_view visible blured"
+
     }
 }
 

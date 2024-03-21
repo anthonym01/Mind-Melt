@@ -90,8 +90,7 @@ body {
 
 .visible{display: block;}
 
-.main_view,
-.main_view_visible {
+.main_view {
     /* A main view pannel*/
     position: absolute;
     top: 3rem;
@@ -103,10 +102,6 @@ body {
     display: hidden;
 }
 
-.visible,
-.main_view_visible {
-    display: block;
-}
 
 /* Header containing navigation */
 .headbar {
