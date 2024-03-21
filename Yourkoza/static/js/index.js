@@ -38,7 +38,9 @@ let config = {
 
 let ui_handler = {
     initalize: async function(){
-        
+        'headbar'
+        'blurser'
+        'Coding_view'
     }
 }
 
