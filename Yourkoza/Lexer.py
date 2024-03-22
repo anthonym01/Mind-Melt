@@ -4,7 +4,9 @@
 # tokenizer for the language Yorkoza
 # ------------------------------------------------------------
 import ply.lex as lex
-
+#import json
+#from flask import Flask, render_template, request
+#import ply.yacc as yacc
 
 # PLY lexer
 
@@ -83,7 +85,43 @@ reserved = {
     'then':'THEN',
 }
 
-literals = [ '+','-','*','/','{', '}','[',']','(',')' ]
+literals = ['{', '}','[',']','(',')',',']
+
+def t_LBRACKET(t):
+    r'\['
+    t.type = '['      # Set token type to the expected literal
+    return t
+
+def t_RBRACKET(t):
+    r'\]'
+    t.type = ']'      # Set token type to the expected literal
+    return t
+
+def t_LPAREN(t):
+    r'\('
+    t.type = '('      # Set token type to the expected literal
+    return t
+
+def t_RPAREN(t):
+    r'\)'
+    t.type = ')'      # Set token type to the expected literal
+    return t
+
+def t_LBRACE(t):
+    r'\{'
+    t.type = '{'      # Set token type to the expected literal
+    return t
+
+def t_RBRACE(t):
+    r'\}'
+    t.type = '}'      # Set token type to the expected literal
+    return t
+
+def t_COMMA(t):
+    r'\,'
+    t.type = ','      # Set token type to the expected literal
+    return t
+
 
 def t_ID(t):
     r'[a-zA-Z_][a-zA-Z_0-9]*'
@@ -94,9 +132,9 @@ def t_ID(t):
 t_PLUS    = r'PLUS'
 t_MINUS   = r'MINUS'
 t_TIMES   = r'TIMES'
-t_LPAREN  = r'\('
+#t_LPAREN  = r'\('
 t_DIVIDE  = r'DIVIDE'
-t_RPAREN  = r'\)'
+#t_RPAREN  = r'\)'
 t_POWER   = r'RAISED_TO'
 
 ###
@@ -132,6 +170,17 @@ def t_error(t):
     t.lexer.skip(1)
 
 def Tokenize(code_string):
+    lexer = lex.lex()
+    
     tokens = [] # empty list
+    
+    lexer.input(code_string)
+    while True:
+        tok = lexer.token()
+        tokens.append(str(tok))
+        if not tok: 
+            break     # No more input
+        print(tok)
+    return tokens
     
     

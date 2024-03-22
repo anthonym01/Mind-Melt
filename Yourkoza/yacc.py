@@ -131,7 +131,7 @@ def p_error(p):
 # Build the parser
 parser = yacc.yacc()
 
-## Errors to fix
+## Errors to fix (I ran it)
 ''''
 ERROR: :105: Illegal name ',' in rule 'expression_list'
 ERROR: :114: Illegal name ',' in rule 'parameters'

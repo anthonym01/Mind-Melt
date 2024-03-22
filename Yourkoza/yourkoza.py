@@ -8,7 +8,7 @@ import json
 from flask import Flask, render_template, request
 import ply.yacc as yacc
 import ply.lex as lex
-from Lexer import tokenize
+from Lexer import Tokenize
 
 app = Flask(__name__)
 
@@ -21,21 +21,12 @@ def index():
 
 @app.route('/post/code_string', methods=['GET', 'POST'])
 def process_code():
-    lexer = lex.lex()
+    
     
     code_input = json.loads(request.get_data())["code_string"]
-    
+
     code_output = []
-    
-    # Give the lexer some input
-    lexer.input(code_input)
-    # Tokenize
-    while True:
-        tok = lexer.token()
-        code_output.append(str(tok))
-        if not tok: 
-            break     # No more input
-        print(tok)
+    code_output = Tokenize(code_input)
     
     print("Input: ")
     print(code_input)
