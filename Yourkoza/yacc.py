@@ -83,7 +83,7 @@ def p_factor(p):
         p[0] = p[1]
 
 def p_input(p):
-    '''input : LET IDENTIFIER BE EQUAL TO SHOW INPUT LPAREN STRING_LITERAL RPAREN'''
+    '''input : LET IDENTIFIER BE EQUAL TO SHOW IDENTIFIER LPAREN STRING_LITERAL RPAREN'''
     pass
 
 def p_display(p):
@@ -102,7 +102,7 @@ def p_list(p):
 
 def p_expression_list(p):
     '''expression_list : expression
-                       | expression_list , expression'''
+                       | expression_list COMMA expression'''
     pass
 
 def p_function(p):
@@ -111,7 +111,7 @@ def p_function(p):
 
 def p_parameters(p):
     '''parameters : IDENTIFIER
-                  | parameters , IDENTIFIER'''
+                  | parameters COMMA IDENTIFIER'''
     pass
 
 def p_return_statement_opt(p):
@@ -130,9 +130,3 @@ def p_error(p):
 
 # Build the parser
 parser = yacc.yacc()
-
-## Errors to fix (I ran it)
-''''
-ERROR: :105: Illegal name ',' in rule 'expression_list'
-ERROR: :114: Illegal name ',' in rule 'parameters'
-'''

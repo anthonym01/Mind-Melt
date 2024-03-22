@@ -58,6 +58,7 @@ tokens = (
     'LBRACE',
     'RBRACE',
     'COMMA',
+    'INPUT',
 )
 
 # Handling reserved words
@@ -83,6 +84,7 @@ reserved = {
     'equal':'EQUAL',
     'to': 'TO',
     'then':'THEN',
+    'input':'INPUT',
 }
 
 literals = ['{', '}','[',']','(',')',',']
