@@ -10,6 +10,8 @@ import ply.yacc as yacc
 import ply.lex as lex
 from Lexer import Tokenize
 
+from parsetab import *
+
 app = Flask(__name__)
 
 code_output = ["test"]
