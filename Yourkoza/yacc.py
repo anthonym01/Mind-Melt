@@ -1,6 +1,7 @@
 import ply.yacc as yacc
 import ply.lex as lex
 
+#from ply import *
 from Lexer import *
 
 precedence = (
