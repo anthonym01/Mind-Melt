@@ -147,3 +147,5 @@ Yourkoza/.venv/pyvenv.cfg
 Yourkoza/__pycache__/yourkoza.cpython-312.pyc
 /Yourkoza/__pycache__
 *.pyc
+*.cfg
+Yourkoza/.venv/pyvenv.cfg
