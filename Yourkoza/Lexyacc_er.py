@@ -350,7 +350,7 @@ from parsetab import *
 
 # Define a symbol table to store variable information
 symbol_table = {}
-symbol_table['add'] = {'args': [{'type': 'int'}, {'type': 'int'}], 'return_type': 'int'}
+#symbol_table['add'] = {'args': [{'type': 'int'}, {'type': 'int'}], 'return_type': 'int'}
 
 # Function to add a variable to the symbol table
 def add_variable(name, type):
@@ -405,9 +405,15 @@ def parsex(program_code):
     
     ast = parser.parse(program_code,lexer) # [0] for testing, parser.parse expects a string. This may imply there is somerthing fundamentally wrong with the way we are trying to go about this project
     
+    print("\n-------------------------------------------------------------------")
     print("Ast: ")
     print(ast)
+    
+    
+    print("\n-------------------------------------------------------------------")
+    print("Symbol table: ")
     #semantic_analysis(ast)
+    print(symbol_table)
     return ast
 
 parsex('let x be u + 2')# Test parse code

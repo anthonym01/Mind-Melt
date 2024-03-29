@@ -63,7 +63,7 @@ let code_handler = {
             //theme: "ace/theme/twilight",
             theme: "ace/theme/vibrant_ink",
             mode: "ace/mode/javascript",
-            maxLines: 30,
+            //maxLines: 30,
             wrap: true,
             autoScrollEditorIntoView: true
         });
