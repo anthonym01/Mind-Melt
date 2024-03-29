@@ -53,13 +53,22 @@ let code_handler = {
     state: {
         running: false,
     },
+    editor: false,
     initalize: async function () {
         document.getElementById('compile_button').addEventListener('click', code_handler.compile_and_run);
 
-        let editor = ace.edit("editor");
-        editor.setTheme("ace/theme/monokai");
-        editor.session.setMode("ace/mode/javascript");
-        editor.maxLines(30);
+        this.editor = ace.edit("editor", {
+            //theme: "ace/theme/GitHub",
+            //theme: "ace/theme/dracula",
+            //theme: "ace/theme/twilight",
+            theme: "ace/theme/vibrant_ink",
+            mode: "ace/mode/javascript",
+            maxLines: 30,
+            wrap: true,
+            autoScrollEditorIntoView: true
+        });
+        //editor.setTheme("ace/theme/monokai");
+        //editor.session.setMode("ace/mode/javascript");
     },
     compile_and_run: async function () {
 
@@ -82,7 +91,8 @@ let code_handler = {
         try {
             document.getElementById('console_emulation_space').classList = "console_emulation_space_focus";
 
-            let code_string = document.getElementById('codeinput').value;
+            let code_string = code_handler.editor.getValue();
+
             console.log('compile and run', code_string)
             code_handler.state.running = true;
 
