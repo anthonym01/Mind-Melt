@@ -180,17 +180,18 @@ def Tokenize(code_string):
     
     while True:
         tok = lexer.token()
-        tokenx.append(str(tok))
         if not tok: 
             break     # No more input
-        print(tok)
+        #tokenx.append(tok)
+        tokenx.append(str(tok))
+        #print(tok)
     return tokenx
     
 
 import ply.yacc as yacc
 
 precedence = (
-    ('nonassoc', 'IS_LESS_THAN', 'IS_GREATER_THAN','IS_EQUAL_TO', 'IS_NOT_EQUAL_TO'),  # fix maybe
+    ('nonassoc', 'IS_LESS_THAN', 'IS_GREATER_THAN','IS_EQUAL_TO','IS_NOT_EQUAL_TO'),  # fix maybe
     ('left', 'PLUS', 'MINUS'),
     ('left', 'TIMES', 'DIVIDE'),
     ('right', 'POWER'),
@@ -398,13 +399,15 @@ def semantic_analysis(ast):
 #parser = yacc.yacc()
 
 
-def parse(program_code):
-
-    ast = parser.parse(Tokenize(program_code)[0],lexer)
-    #ast = parser.parse(program_code,lexer)
+def parsex(program_code):
+    tokenx = Tokenize(program_code)
+    print(tokenx)
+    
+    ast = parser.parse(tokenx[1],lexer) # [0] for testing, parser.parse expects a string. This may imply there is somerthing fundamentally wrong with the way we are trying to go about this project
+    
     print("Ast: ")
     print(ast)
-    semantic_analysis(ast)
+    #semantic_analysis(ast)
     return ast
 
-parse("let x be 10")# Test parse code
+parsex('let x be 10')# Test parse code
