@@ -397,16 +397,14 @@ def semantic_analysis(ast):
 
 #parser = yacc.yacc()
 
-input_string = 'let x be 10'
-
-ast = parser.parse(Tokenize(input_string)[0],lexer)
-#ast = parser.parse(input_string,lexer)
-print("Ast: ")
-print(ast)
-
-#semantic_analysis(ast)
 
 def parse(program_code):
-    ast = parser.parse(program_code)
-    semantic_analysis(ast)
+
+    ast = parser.parse(Tokenize(program_code)[0],lexer)
+    #ast = parser.parse(program_code,lexer)
+    print("Ast: ")
+    print(ast)
+    #semantic_analysis(ast)
     return ast
+
+parse("let x be 10")# Test parse code
