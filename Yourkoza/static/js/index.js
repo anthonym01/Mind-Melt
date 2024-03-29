@@ -37,14 +37,14 @@ let config = {
 }
 
 let ui_handler = {
-    initalize: async function(){
-        
+    initalize: async function () {
+
     },
-    blurse:async function(){
+    blurse: async function () {
         console.log('Blur UI')
         document.getElementById('headbar').classList = "headbar blured"
         document.getElementById('blurser').classList = "blurser visible"
-        document.getElementById('Coding_view').classList="main_view visible blured"
+        document.getElementById('Coding_view').classList = "main_view visible blured"
 
     }
 }
@@ -55,6 +55,11 @@ let code_handler = {
     },
     initalize: async function () {
         document.getElementById('compile_button').addEventListener('click', code_handler.compile_and_run);
+
+        let editor = ace.edit("editor");
+        editor.setTheme("ace/theme/monokai");
+        editor.session.setMode("ace/mode/javascript");
+        editor.maxLines(30);
     },
     compile_and_run: async function () {
 
@@ -120,13 +125,13 @@ let code_handler = {
         }
 
     },
-    abort_run:async function(){
+    abort_run: async function () {
 
     },
-    reset_run: async function(){
+    reset_run: async function () {
 
     },
-    clear_screen:async function(){
+    clear_screen: async function () {
 
     }
 }
