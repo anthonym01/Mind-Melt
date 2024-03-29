@@ -209,7 +209,7 @@ def p_program(p):
 
 def p_statements(p):
     '''statements : statements statement
-                  | statement'''
+                | statement'''
     if len(p) == 2:
         p[0] = ('statements', p[1],p[2])
     else:
@@ -218,19 +218,19 @@ def p_statements(p):
 
 def p_statement(p):
     '''statement : assignment
-                 | conditional
-                 | loop
-                 | function
-                 | display
-                 | input
-                 | COMMENT'''
+                | conditional
+                | loop
+                | function
+                | display
+                | input
+                | COMMENT'''
     p[0] = ('statement', p[1])
 
 
 def p_assignment(p):
     '''assignment : LET IDENTIFIER BE EQUAL TO expression'''
     p[0] = ('assignment', p[2], p[5])
-   
+
 
 def p_conditional(p):
     '''conditional : IF condition THEN statements else_statements_opt'''
@@ -238,22 +238,22 @@ def p_conditional(p):
 
 def p_else_statements_opt(p):
     '''else_statements_opt : ELSE statements
-                           | empty'''
+                        | empty'''
     if len(p) == 3:
         p[0] = ('else_statements_opt', p[2])
 
 
 def p_condition(p):
     '''condition : expression IS_LESS_THAN expression
-                 | expression IS_EQUAL_TO expression
-                 | expression IS_GREATER_THAN expression
-                 | expression IS_NOT_EQUAL_TO expression'''
+                | expression IS_EQUAL_TO expression
+                | expression IS_GREATER_THAN expression
+                | expression IS_NOT_EQUAL_TO expression'''
     p[0] = ('condition', p[1], p[2], p[3])
 
 def p_expression(p):
     '''expression : expression PLUS term
-                  | expression MINUS term
-                  | term'''
+                | expression MINUS term
+                | term'''
     if len(p) == 4:
         if p[2] == '+':
             p[0] = p[1] + p[3]
@@ -276,7 +276,7 @@ def p_term(p):
 
 def p_factor(p):
     '''factor : NUMBER
-              | LPAREN expression RPAREN'''
+            | LPAREN expression RPAREN'''
     if len(p) == 4:
         p[0] = p[2]
     else:
@@ -294,7 +294,7 @@ def p_loop(p):
     '''loop : FOR IDENTIFIER IN list DO statements
             | WHILE condition DO statements'''
     p[0] = ('loop', p[1], p[2], p[4], p[6])
-   
+
 
 def p_list(p):
     '''list : LBRACKET expression_list RBRACKET
@@ -305,7 +305,7 @@ def p_list(p):
 
 def p_expression_list(p):
     '''expression_list : expression
-                       | expression_list COMMA expression'''
+                        | expression_list COMMA expression'''
     if len(p) == 2:
         p[0] = ('expression_list', p[1])
     else:
@@ -317,7 +317,7 @@ def p_function(p):
 
 def p_parameters(p):
     '''parameters : IDENTIFIER
-                  | parameters COMMA IDENTIFIER'''
+                | parameters COMMA IDENTIFIER'''
     if len(p) == 2:
         p[0] = ('parameters', p[1])
     else:
@@ -331,11 +331,11 @@ def p_return_statement_opt(p):
     
 
 def p_empty(p):
-    '''empty :'''
+    '''empty : '''
     p[0] = None
 
 def p_error(p):
-    print("Syntax error in input!")
+    print("Syntax error in input!: ")
     print(p)
     
 
@@ -403,11 +403,11 @@ def parsex(program_code):
     tokenx = Tokenize(program_code)
     print(tokenx)
     
-    ast = parser.parse(tokenx[1],lexer) # [0] for testing, parser.parse expects a string. This may imply there is somerthing fundamentally wrong with the way we are trying to go about this project
+    ast = parser.parse(program_code,lexer) # [0] for testing, parser.parse expects a string. This may imply there is somerthing fundamentally wrong with the way we are trying to go about this project
     
     print("Ast: ")
     print(ast)
     #semantic_analysis(ast)
     return ast
 
-parsex('let x be 10')# Test parse code
+parsex('let x be u + 2')# Test parse code

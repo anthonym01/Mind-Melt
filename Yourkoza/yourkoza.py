@@ -9,6 +9,7 @@ from flask import Flask, render_template, request
 import ply.yacc as yacc
 import ply.lex as lex
 from Lexyacc_er import Tokenize
+from Lexyacc_er import parsex
 
 from parsetab import *
 
@@ -27,11 +28,12 @@ def process_code():
     code_input = json.loads(request.get_data())["code_string"]
 
     code_output = []
-    code_output = Tokenize(code_input)
+    #code_output = Tokenize(code_input)
+    code_output.append(parsex(code_input))
     
     print("Input: ")
     print(code_input)
     print("Output: ")
     print(code_output)
     
-    return code_output # An array of lines of code output
+    return code_output # An array of tokens
