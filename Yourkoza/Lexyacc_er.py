@@ -9,9 +9,33 @@ import ply.lex as lex
 #import ply.yacc as yacc
 
 # PLY lexer
+# Handling reserved words
+reserved = {
+    'if' : 'IF',
+    'then' : 'THEN',
+    'else' : 'ELSE',
+    'while' : 'WHILE',
+    'join' : 'JOIN',
+    'in' : 'IN',
+    'do' : 'DO',
+    'let' : 'LET',
+    'if' : 'IF',
+    'while' : 'WHILE',
+    'for' : 'FOR',
+    'function' : 'FUNCTION',
+    'return' : 'RETURN',
+    'show' : 'SHOW',
+    'risk' : 'RISK',
+    'save' : 'SAVE',
+    'be':'BE',
+    'equal':'EQUAL',
+    'to': 'TO',
+    'then':'THEN',
+    'input':'INPUT',
+}
 
 # List of token names.
-tokens = (
+tokens = list(reserved.values())+[
     'INTEGER',
     'IDENTIFIER',
     'REAL',
@@ -40,7 +64,7 @@ tokens = (
     'DO',
     'LET',
     'IF',
-    'ELSE',
+    #'ELSE',
     'WHILE',
     'FOR',
     'FUNCTION',
@@ -59,33 +83,8 @@ tokens = (
     'RBRACE',
     'COMMA',
     'INPUT',
-)
+]
 
-# Handling reserved words
-reserved = {
-    'if' : 'IF',
-    'then' : 'THEN',
-    'else' : 'ELSE',
-    'while' : 'WHILE',
-    'join' : 'JOIN',
-    'in' : 'IN',
-    'do' : 'DO',
-    'let' : 'LET',
-    'if' : 'IF',
-    'else' : 'ELSE',
-    'while' : 'WHILE',
-    'for' : 'FOR',
-    'function' : 'FUNCTION',
-    'return' : 'RETURN',
-    'show' : 'SHOW',
-    'risk' : 'RISK',
-    'save' : 'SAVE',
-    'be':'BE',
-    'equal':'EQUAL',
-    'to': 'TO',
-    'then':'THEN',
-    'input':'INPUT',
-}
 
 literals = ['{', '}','[',']','(',')',',']
 
