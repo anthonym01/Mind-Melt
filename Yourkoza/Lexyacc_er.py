@@ -404,7 +404,7 @@ def parse(program_code):
     #ast = parser.parse(program_code,lexer)
     print("Ast: ")
     print(ast)
-    #semantic_analysis(ast)
+    semantic_analysis(ast)
     return ast
 
 parse("let x be 10")# Test parse code
