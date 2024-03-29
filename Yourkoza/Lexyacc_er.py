@@ -170,14 +170,15 @@ def t_error(t):
     t.lexer.skip(1)
 
 lexer = lex.lex()
-#print('lexer :')
-#print(str(lexer))
 
 def Tokenize(code_string):
     
     tokenx = [] # empty list
+    print("Tokenize: ")
+    print(code_string)
     
     lexer.input(code_string)
+    
     while True:
         tok = lexer.token()
         tokenx.append(str(tok))
@@ -188,10 +189,6 @@ def Tokenize(code_string):
     
 
 import ply.yacc as yacc
-#import ply.lex as lex
-
-#from ply import *
-#from Lexer import *
 
 precedence = (
     ('nonassoc', 'IS_LESS_THAN', 'IS_GREATER_THAN','IS_EQUAL_TO', 'IS_NOT_EQUAL_TO'),  # fix maybe
@@ -201,14 +198,23 @@ precedence = (
 )
 
 # Grammar rules
+
+#Define start symbol of grammar
+start = 'program'
+
 def p_program(p):
-    '''program : statements'''
-    pass
+    '''program : statements
+                | expression'''
+    p[0] = ('program',p[1])
 
 def p_statements(p):
     '''statements : statements statement
                   | statement'''
-    pass
+    if len(p) == 2:
+        p[0] = ('statements', p[1],p[2])
+    else:
+        p[0] = ('statements', p[1])
+
 
 def p_statement(p):
     '''statement : assignment
@@ -218,27 +224,31 @@ def p_statement(p):
                  | display
                  | input
                  | COMMENT'''
-    pass
+    p[0] = ('statement', p[1])
+
 
 def p_assignment(p):
     '''assignment : LET IDENTIFIER BE EQUAL TO expression'''
-    pass
+    p[0] = ('assignment', p[2], p[5])
+   
 
 def p_conditional(p):
     '''conditional : IF condition THEN statements else_statements_opt'''
-    pass
+    p[0] = ('conditional', p[1], p[2], p[4], p[5])
 
 def p_else_statements_opt(p):
     '''else_statements_opt : ELSE statements
                            | empty'''
-    pass
+    if len(p) == 3:
+        p[0] = ('else_statements_opt', p[2])
+
 
 def p_condition(p):
     '''condition : expression IS_LESS_THAN expression
                  | expression IS_EQUAL_TO expression
                  | expression IS_GREATER_THAN expression
                  | expression IS_NOT_EQUAL_TO expression'''
-    pass
+    p[0] = ('condition', p[1], p[2], p[3])
 
 def p_expression(p):
     '''expression : expression PLUS term
@@ -274,52 +284,64 @@ def p_factor(p):
 
 def p_input(p):
     '''input : LET IDENTIFIER BE EQUAL TO SHOW IDENTIFIER LPAREN STRING_LITERAL RPAREN'''
-    pass
+    p[0] = ('input', p[2], p[9])
 
 def p_display(p):
     '''display : SHOW expression'''
-    pass
+    p[0] = ('display', p[2])
 
 def p_loop(p):
     '''loop : FOR IDENTIFIER IN list DO statements
             | WHILE condition DO statements'''
-    pass
+    p[0] = ('loop', p[1], p[2], p[4], p[6])
+   
 
 def p_list(p):
     '''list : LBRACKET expression_list RBRACKET
             | empty'''
-    pass
+    if len(p) == 4:
+        p[0] = ('list', p[2])
+
 
 def p_expression_list(p):
     '''expression_list : expression
                        | expression_list COMMA expression'''
-    pass
+    if len(p) == 2:
+        p[0] = ('expression_list', p[1])
+    else:
+        p[0] = ('expression_list', p[1], p[3])
 
 def p_function(p):
     '''function : FUNCTION IDENTIFIER LPAREN parameters RPAREN LBRACE statements RBRACE return_statement_opt RBRACE'''
-    pass
+    p[0] = ('function', p[2], p[4], p[7], p[9])
 
 def p_parameters(p):
     '''parameters : IDENTIFIER
                   | parameters COMMA IDENTIFIER'''
-    pass
+    if len(p) == 2:
+        p[0] = ('parameters', p[1])
+    else:
+        p[0] = ('parameters', p[1], p[3])
 
 def p_return_statement_opt(p):
     '''return_statement_opt : RETURN expression
                             | empty'''
-    pass
+    if len(p) == 3:
+        p[0] = ('return_statement_opt', p[2])
+    
 
 def p_empty(p):
     '''empty :'''
-    pass
+    p[0] = None
 
 def p_error(p):
     print("Syntax error in input!")
+    print(p)
     
 
 
 # Build the parser
-parser = yacc.yacc()
+parser = yacc.yacc() 
 
 
 #from yacc import parser
@@ -375,9 +397,12 @@ def semantic_analysis(ast):
 #input_string = "add(x, y)"
 
 #parser = yacc.yacc()
-input_string = "Lauren "
-#ast = parser.parse(Tokenize(input_string))
-ast = parser.parse(input_string)
+
+input_string = 'let x be 10'
+
+ast = parser.parse(Tokenize(input_string)[0],lexer)
+#ast = parser.parse(input_string,lexer)
+print("Ast: ")
 print(ast)
 
 #semantic_analysis(ast)
