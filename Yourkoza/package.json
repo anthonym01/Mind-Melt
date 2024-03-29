@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "bundle": "browserify static/js/codemirror.mjs -o static/js/codemirror_bundle.js"
+    "bundle": "browserify static/js/codemirror.js -o static/js/codemirror_bundle.js"
   },
   "author": "",
   "license": "ISC",
