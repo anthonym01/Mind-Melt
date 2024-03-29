@@ -23,8 +23,7 @@ def index():
 
 @app.route('/post/code_string', methods=['GET', 'POST'])
 def process_code():
-    
-    
+
     code_input = json.loads(request.get_data())["code_string"]
 
     code_output = []

@@ -96,7 +96,7 @@ let code_handler = {
             console.log('compile and run', code_string)
             code_handler.state.running = true;
 
-            /* This block of code is making a POST request to the server with the code input provided by the user. */
+            //call to server
             const response = await fetch('/post/code_string', {
                 method: "POST",
                 body: JSON.stringify({ code_string }),
