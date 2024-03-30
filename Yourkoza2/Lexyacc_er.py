@@ -207,7 +207,7 @@ start = 'program'
 
 def p_program(p):
     '''program : statements
-                | expression'''
+               | expression'''
     p[0] = ('program',p[1])
 
 def p_statements(p):
