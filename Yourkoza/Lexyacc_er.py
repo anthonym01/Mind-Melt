@@ -368,16 +368,19 @@ def semantic_analysis(ast):
             var_name = node['var_name']
             var_type = node['var_type']
             add_variable(var_name, var_type)
+        
         elif node['type'] == 'expression':
             # Example: Check if variables used in expression are declared
             if node['op'] in ['PLUS', 'MINUS', 'TIMES', 'DIVIDE']:
                 check_variable(node['left'])
                 check_variable(node['right'])
+        
         elif node['type'] == 'function_call':
             function_name = node['function_name']
             # Example: Check if function exists and argument types match
             if function_name not in symbol_table:
                 raise Exception(f"Function '{function_name}' not defined")
+            
             expected_args = symbol_table[function_name]['args']
             passed_args = node['arguments']
             if len(expected_args) != len(passed_args):
@@ -403,12 +406,12 @@ def parsex(program_code):
     tokenx = Tokenize(program_code)
     print(tokenx)
     
-    ast = parser.parse(program_code,lexer) # [0] for testing, parser.parse expects a string. This may imply there is somerthing fundamentally wrong with the way we are trying to go about this project
+    #ast = parser.parse(program_code,lexer)
+    ast = parser.parse(program_code)
     
     print("\n-------------------------------------------------------------------")
     print("Ast: ")
     print(ast)
-    
     
     print("\n-------------------------------------------------------------------")
     print("Symbol table: ")
