@@ -1,0 +1,330 @@
+* {
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    /* make transparent link selection, adjust last value opacity 0 to 1.0 */
+}
+
+@font-face {
+    src: url(../fonts/handwriting-black-draft_DEMO.otf);
+    font-family: handwriting;
+}
+
+/* Handwriting font */
+@font-face {
+    src: url(../fonts/Minecrafter.Reg.ttf);
+    font-family: minecraft;
+}
+
+/* Minecraft clean font */
+@font-face {
+    src: url(../fonts/Minecrafter.Alt.ttf);
+    font-family: minecraft_cracked;
+}
+
+/* Minecraft cracked font */
+@font-face {
+    src: url(../fonts/LexendDeca-Regular.ttf);
+    font-family: Lexend_Deca;
+}
+
+:root,
+.light {
+    /*root used primarily for theming*/
+    --accent-color: hsl(196, 100%, 50%);
+    --text-color: rgb(0, 0, 0);
+    --background-color: rgb(255, 255, 255);
+    --transparent_background-color: rgba(255, 255, 255, 0.3);
+    --offwhite: rgb(234, 234, 234);
+    --grey: rgb(192, 192, 192);
+    --inversion_factor: invert(0);
+
+}
+
+.dark {
+    --text-color: rgb(255, 255, 255);
+    --accent-color: hsl(204, 100%, 50%);
+    --background-color: rgb(0, 0, 0);
+    --transparent_background-color: rgba(0, 0, 0, 0.3);
+    --offwhite: rgb(36, 36, 36);
+    --grey: rgb(79, 79, 79);
+    --inversion_factor: invert(1);
+    /*Invert black and white images*/
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --text-color: rgb(255, 255, 255);
+        --background-color: rgb(0, 0, 0);
+        --accent-color: hsl(204, 100%, 50%);
+        --transparent_background-color: rgba(0, 0, 0, 0.3);
+        --offwhite: rgb(36, 36, 36);
+        --grey: rgb(79, 79, 79);
+        --inversion_factor: invert(1);
+    }
+}
+
+body {
+    font-family: Lexend_Deca, system-ui, -apple-system, -apple-system-font, 'Segoe UI', 'Roboto', sans-serif;
+    margin: 0px;
+    padding: 0px;
+    padding: env(safe-area-inset-top, 0px) env(safe-area-inset-right, 0px) env(safe-area-inset-bottom, 0px) env(safe-area-inset-right, 0px);
+    height: 100%;
+    width: 100%;
+    color: var(--text-color);
+    background-color: var(--background-color);
+}
+
+.blurser {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden;
+    z-index: 10;
+    background-color: var(--transparent_background-color);
+    filter: blur(2px);
+    display: none;
+}
+
+.blured {
+    filter: blur(2px);
+}
+
+.visible {
+    display: block;
+}
+
+.main_view {
+    /* A main view pannel*/
+    position: absolute;
+    top: 3rem;
+    width: 100%;
+    height: calc(100% - 3rem);
+    left: 0;
+    background-color: var(--background-color);
+    cursor: default;
+    display: hidden;
+}
+
+
+/* Header containing navigation */
+.headbar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 3rem;
+    background-color: var(--offwhite);
+}
+
+.headbar .menu_container {
+    position: absolute;
+    right: 0;
+    top: 0;
+    box-sizing: border-box;
+    width: fit-content;
+    min-width: 7rem;
+    height: 100%;
+    display: flex;
+    justify-content: flex-start;
+    align-content: center;
+    align-items: center;
+}
+
+.menu_container .menu_item {
+    position: relative;
+    height: 3rem;
+    width: fit-content;
+    min-width: 5rem;
+    font-size: 1.3rem;
+    box-sizing: border-box;
+    appearance: none;
+    -webkit-appearance: none;
+    border: none;
+    color: var(--text-color);
+    border-top: 0.3rem solid var(--offwhite);
+    border-bottom: 0.3rem solid var(--offwhite);
+    cursor: pointer;
+    background-color: var(--offwhite);
+    transition: transform 300ms, border 300ms;
+}
+
+
+.menu_container .menu_item:hover {
+    border-bottom: 0.3rem solid var(--accent-color);
+}
+
+.menu_container .menu_item:active {
+    border-bottom: 0.3rem solid var(--accent-color);
+    transition: transform 20ms, border 100ms;
+    transform: translateY(0.4rem);
+    /*border-top: 0.3rem solid var(--accent-color);
+    background-color: var(--accent-color);
+    color: var(--background-color);*/
+}
+
+/* code inputs */
+
+#editor {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    font-size: 1rem;
+    min-height: 5rem;
+    height: 100% !important;
+    /*box-sizing: border-box;*/
+}
+
+.ace_content {
+    min-height: 100% !important;
+}
+
+.code_text_box_container {
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 50%;
+    box-sizing: border-box;
+    display: block;
+}
+
+/* 
+    Console area 
+*/
+.console_container {
+    position: absolute;
+    top: 0;
+    height: calc(100% - 6rem);
+    right: 0;
+    width: 50%;
+    box-sizing: border-box;
+    display: block;
+    color: var(--text-color);
+    background-color: var(--background-color);
+    box-sizing: border-box;
+
+}
+
+.console_emulation_space,
+.console_emulation_space_focus {
+    position: relative;
+    margin-top: calc(0.1rem + 3px);
+    height: calc(100% - 2rem);
+    width: calc(100% - 0.6rem);
+    margin-left: 0.3rem;
+    margin-right: 0.3rem;
+    font-size: 1rem;
+    padding: 0.5rem;
+    box-sizing: border-box;
+    border: 0.2rem solid var(--text-color);
+    color: var(--text-color);
+    transition: border 150ms, padding 100ms;
+    background-color: var(--background-color);
+    display: block;
+    border-radius: 0.5rem;
+}
+
+.console_emulation_space_focus {
+    border: 0.4rem solid var(--accent-color);
+    transition: border 150ms, padding 100ms;
+    padding: 0.3rem;
+}
+
+
+/* Console Menu */
+.console_menu_container {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 1.5rem;
+    display: flex;
+    overflow: auto;
+}
+
+.console_menu_button {
+    appearance: none;
+    height: 100%;
+    min-width: 4rem;
+    width: fit-content;
+    margin-left: 0.3rem;
+    border: 0.1rem double var(--offwhite);
+    font-size: 0.9rem;
+    background-color: var(--offwhite);
+    color: var(--text-color);
+    cursor: pointer;
+    transition: box-shadow 300ms, background-color 300ms, color 300ms, transform 300ms;
+    transform: scale(1);
+}
+
+.console_menu_button:active {
+    box-shadow: 0rem 0rem 0.1rem 0rem inset var(--background-color);
+    background-color: var(--accent-color);
+    color: var(--background-color);
+    transition: box-shadow 0ms, background-color 0ms, color 0ms, transform 0ms;
+    transform: scale(0.85);
+
+}
+
+/*Console contents*/
+.Console_block {
+    position: relative;
+    display: block;
+    font-size: inherit;
+    background-color: inherit;
+    cursor: text;
+}
+
+.centered {
+    text-align: center;
+}
+
+.compile_button {
+    appearance: none;
+    -webkit-appearance: none;
+    position: absolute;
+    right: 1rem;
+    height: 4rem;
+    bottom: 0.5rem;
+    width: calc(50% - 3rem);
+    box-sizing: content-box;
+    border-radius: 1rem;
+    background-color: var(--background-color);
+    border: 0.15rem solid var(--text-color);
+    color: var(--text-color);
+    box-shadow: 0rem 0rem 0.5rem 0rem inset var(--text-color);
+    transition: box-shadow 300ms, transform 300ms, border 300ms;
+    font-size: 1.5rem;
+    transform: scaleZ(1);
+    cursor: pointer;
+}
+
+.compile_button:active {
+    box-shadow: 0rem 0rem 1rem 0rem inset var(--accent-color);
+    border: 0.15rem solid var(--accent-color);
+    transition: box-shadow 100ms, transform 100ms, border 100ms;
+    transform: scale(0.92);
+    /*border-top: 0.3rem solid var(--accent-color);
+    background-color: var(--accent-color);
+    color: var(--background-color);*/
+}
+
+.compile_button .icon {
+    position: absolute;
+    right: 0;
+    top: 0;
+    height: 4rem;
+    width: 4rem;
+    background-image: url('/img/play-1000-svgrepo-com.svg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 80%;
+    filter: var(--inversion_factor);
+}
+
+/*    <--  Landscape layout (with min-width) -->     */
+
+@media screen and (min-aspect-ratio: 1/1) and (min-width:400px) {}
