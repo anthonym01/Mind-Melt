@@ -164,6 +164,7 @@ t_ignore  = ' \t'
 
 # Error handling rule
 def t_error(t):
+    #print("\n---------------------------------")
     print("Illegal character '%s'" % t.value[0])
     # code_output.append(str("Illegal character '%s'" % t.value[0]))
     t.lexer.skip(1)
@@ -173,6 +174,8 @@ lexer = lex.lex()
 def Tokenize(code_string):
     
     tokenx = [] # empty list
+    print("\n-------------------------------------------------------------------")
+    
     print("Tokenize: ")
     print(code_string)
     
@@ -335,8 +338,10 @@ def p_empty(p):
     p[0] = None
 
 def p_error(p):
+    print("\n-------------------------------------------------------------------")
     print("Syntax error in input!: ")
     print(p)
+    print('--------------------------------------------------------------------')
     
 
 
