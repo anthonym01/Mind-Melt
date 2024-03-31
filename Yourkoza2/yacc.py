@@ -4,12 +4,12 @@ from ply.lex import lex
 from lexTokens import *
 #from parsetab import *
 
-#precedence = (
-#    ('nonassoc', 'IS_LESS_THAN', 'IS_GREATER_THAN','IS_EQUAL_TO','IS_NOT_EQUAL_TO'),  # fix maybe
-#    ('left', 'PLUS', 'MINUS'),
-#    ('left', 'TIMES', 'DIVIDE'),
-#    ('right', 'POWER'),
-#)
+precedence = (
+    ('nonassoc', 'IS_LESS_THAN', 'IS_GREATER_THAN','IS_EQUAL_TO','IS_NOT_EQUAL_TO', 'GREATER_THAN_OR_EQUAL_TO','LESS_THAN_OR_EQUAL_TO'),  # fix maybe
+    ('left', 'PLUS', 'MINUS'),
+    ('left', 'TIMES', 'DIVIDE'),
+    ('right', 'POWER'),
+)
 
 # Grammar rules
 
@@ -44,7 +44,7 @@ def p_statement(p):
 
 
 def p_assignment(p):
-    '''assignment : LET IDENTIFIER BE EQUAL TO expression'''
+    '''assignment : LET IDENTIFIER EQUAL expression'''
     p[0] = ('assignment', p[2], p[4])
 
 
@@ -94,14 +94,14 @@ def p_term(p):
 
 def p_factor(p):
     '''factor : NUMBER
-            | LPAREN expression RPAREN'''
+              | LPAREN expression RPAREN'''
     if len(p) == 4:
         p[0] = p[2]
     else:
         p[0] = p[1]
 
 def p_input(p):
-    '''input : LET IDENTIFIER BE EQUAL TO SHOW IDENTIFIER LPAREN STRING_LITERAL RPAREN'''
+    '''input : LET IDENTIFIER EQUAL SHOW IDENTIFIER LPAREN STRING_LITERAL RPAREN'''
     p[0] = ('input', p[2], p[9])
 
 def p_display(p):
@@ -123,7 +123,7 @@ def p_list(p):
 
 def p_expression_list(p):
     '''expression_list : expression
-                        | expression_list COMMA expression'''
+                       | expression_list COMMA expression'''
     if len(p) == 2:
         p[0] = ('expression_list', p[1])
     else:
@@ -135,22 +135,27 @@ def p_function(p):
 
 def p_parameters(p):
     '''parameters : IDENTIFIER
-                | parameters COMMA IDENTIFIER'''
+                  | parameters COMMA IDENTIFIER'''
     if len(p) == 2:
         p[0] = ('parameters', p[1])
     else:
         p[0] = ('parameters', p[1], p[3])
 
 def p_return_statement_opt(p):
-    '''return_statement_opt : RETURN expression
-                            | empty'''
+    """
+    return_statement_opt : RETURN expression
+                         | empty
+    """
     if len(p) == 3:
         p[0] = ('return_statement_opt', p[2])
     
 
 def p_empty(p):
-    '''empty : '''
+    """
+    empty : 
+    """
     pass
+
 
 def p_error(p):
     print("\n-------------------------------------------------------------------")

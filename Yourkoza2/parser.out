@@ -30,7 +30,7 @@ Rule 8     statement -> function
 Rule 9     statement -> display
 Rule 10    statement -> input
 Rule 11    statement -> COMMENT
-Rule 12    assignment -> LET IDENTIFIER BE EQUAL TO expression
+Rule 12    assignment -> LET IDENTIFIER EQUAL expression
 Rule 13    conditional -> IF condition THEN statements else_statements_opt
 Rule 14    else_statements_opt -> ELSE statements
 Rule 15    else_statements_opt -> empty
@@ -48,7 +48,7 @@ Rule 26    term -> term DIVIDE factor
 Rule 27    term -> factor
 Rule 28    factor -> NUMBER
 Rule 29    factor -> LPAREN expression RPAREN
-Rule 30    input -> LET IDENTIFIER BE EQUAL TO SHOW IDENTIFIER LPAREN STRING_LITERAL RPAREN
+Rule 30    input -> LET IDENTIFIER EQUAL SHOW IDENTIFIER LPAREN STRING_LITERAL RPAREN
 Rule 31    display -> SHOW expression
 Rule 32    loop -> FOR IDENTIFIER IN list DO statements
 Rule 33    loop -> WHILE condition DO statements
@@ -66,7 +66,6 @@ Rule 43    empty -> <empty>
 Terminals, with rules where they appear
 
 AND                  : 
-BE                   : 12 30
 CHARACTER            : 
 COMMA                : 37 40
 COMMENT              : 11
@@ -111,7 +110,6 @@ SHOW                 : 30 31
 STRING_LITERAL       : 30
 THEN                 : 13
 TIMES                : 25
-TO                   : 12 30
 WHILE                : 33
 error                : 
 
@@ -159,13 +157,13 @@ state 0
     (25) term -> . term TIMES factor
     (26) term -> . term DIVIDE factor
     (27) term -> . factor
-    (12) assignment -> . LET IDENTIFIER BE EQUAL TO expression
+    (12) assignment -> . LET IDENTIFIER EQUAL expression
     (13) conditional -> . IF condition THEN statements else_statements_opt
     (32) loop -> . FOR IDENTIFIER IN list DO statements
     (33) loop -> . WHILE condition DO statements
     (38) function -> . FUNCTION IDENTIFIER LPAREN parameters RPAREN LBRACE statements RBRACE return_statement_opt RBRACE
     (31) display -> . SHOW expression
-    (30) input -> . LET IDENTIFIER BE EQUAL TO SHOW IDENTIFIER LPAREN STRING_LITERAL RPAREN
+    (30) input -> . LET IDENTIFIER EQUAL SHOW IDENTIFIER LPAREN STRING_LITERAL RPAREN
     (28) factor -> . NUMBER
     (29) factor -> . LPAREN expression RPAREN
 
@@ -209,13 +207,13 @@ state 2
     (9) statement -> . display
     (10) statement -> . input
     (11) statement -> . COMMENT
-    (12) assignment -> . LET IDENTIFIER BE EQUAL TO expression
+    (12) assignment -> . LET IDENTIFIER EQUAL expression
     (13) conditional -> . IF condition THEN statements else_statements_opt
     (32) loop -> . FOR IDENTIFIER IN list DO statements
     (33) loop -> . WHILE condition DO statements
     (38) function -> . FUNCTION IDENTIFIER LPAREN parameters RPAREN LBRACE statements RBRACE return_statement_opt RBRACE
     (31) display -> . SHOW expression
-    (30) input -> . LET IDENTIFIER BE EQUAL TO SHOW IDENTIFIER LPAREN STRING_LITERAL RPAREN
+    (30) input -> . LET IDENTIFIER EQUAL SHOW IDENTIFIER LPAREN STRING_LITERAL RPAREN
 
     $end            reduce using rule 1 (program -> statements .)
     COMMENT         shift and go to state 12
@@ -439,8 +437,8 @@ state 13
 
 state 14
 
-    (12) assignment -> LET . IDENTIFIER BE EQUAL TO expression
-    (30) input -> LET . IDENTIFIER BE EQUAL TO SHOW IDENTIFIER LPAREN STRING_LITERAL RPAREN
+    (12) assignment -> LET . IDENTIFIER EQUAL expression
+    (30) input -> LET . IDENTIFIER EQUAL SHOW IDENTIFIER LPAREN STRING_LITERAL RPAREN
 
     IDENTIFIER      shift and go to state 27
 
@@ -650,10 +648,10 @@ state 26
 
 state 27
 
-    (12) assignment -> LET IDENTIFIER . BE EQUAL TO expression
-    (30) input -> LET IDENTIFIER . BE EQUAL TO SHOW IDENTIFIER LPAREN STRING_LITERAL RPAREN
+    (12) assignment -> LET IDENTIFIER . EQUAL expression
+    (30) input -> LET IDENTIFIER . EQUAL SHOW IDENTIFIER LPAREN STRING_LITERAL RPAREN
 
-    BE              shift and go to state 39
+    EQUAL           shift and go to state 39
 
 
 state 28
@@ -866,11 +864,24 @@ state 38
 
 state 39
 
-    (12) assignment -> LET IDENTIFIER BE . EQUAL TO expression
-    (30) input -> LET IDENTIFIER BE . EQUAL TO SHOW IDENTIFIER LPAREN STRING_LITERAL RPAREN
+    (12) assignment -> LET IDENTIFIER EQUAL . expression
+    (30) input -> LET IDENTIFIER EQUAL . SHOW IDENTIFIER LPAREN STRING_LITERAL RPAREN
+    (22) expression -> . expression PLUS term
+    (23) expression -> . expression MINUS term
+    (24) expression -> . term
+    (25) term -> . term TIMES factor
+    (26) term -> . term DIVIDE factor
+    (27) term -> . factor
+    (28) factor -> . NUMBER
+    (29) factor -> . LPAREN expression RPAREN
 
-    EQUAL           shift and go to state 51
+    SHOW            shift and go to state 52
+    NUMBER          shift and go to state 21
+    LPAREN          shift and go to state 19
 
+    expression                     shift and go to state 51
+    term                           shift and go to state 5
+    factor                         shift and go to state 13
 
 state 40
 
@@ -884,13 +895,13 @@ state 40
     (9) statement -> . display
     (10) statement -> . input
     (11) statement -> . COMMENT
-    (12) assignment -> . LET IDENTIFIER BE EQUAL TO expression
+    (12) assignment -> . LET IDENTIFIER EQUAL expression
     (13) conditional -> . IF condition THEN statements else_statements_opt
     (32) loop -> . FOR IDENTIFIER IN list DO statements
     (33) loop -> . WHILE condition DO statements
     (38) function -> . FUNCTION IDENTIFIER LPAREN parameters RPAREN LBRACE statements RBRACE return_statement_opt RBRACE
     (31) display -> . SHOW expression
-    (30) input -> . LET IDENTIFIER BE EQUAL TO SHOW IDENTIFIER LPAREN STRING_LITERAL RPAREN
+    (30) input -> . LET IDENTIFIER EQUAL SHOW IDENTIFIER LPAREN STRING_LITERAL RPAREN
 
     COMMENT         shift and go to state 12
     LET             shift and go to state 14
@@ -900,7 +911,7 @@ state 40
     FUNCTION        shift and go to state 18
     SHOW            shift and go to state 20
 
-    statements                     shift and go to state 52
+    statements                     shift and go to state 53
     statement                      shift and go to state 4
     assignment                     shift and go to state 6
     conditional                    shift and go to state 7
@@ -924,7 +935,7 @@ state 41
     NUMBER          shift and go to state 21
     LPAREN          shift and go to state 19
 
-    expression                     shift and go to state 53
+    expression                     shift and go to state 54
     term                           shift and go to state 5
     factor                         shift and go to state 13
 
@@ -943,7 +954,7 @@ state 42
     NUMBER          shift and go to state 21
     LPAREN          shift and go to state 19
 
-    expression                     shift and go to state 54
+    expression                     shift and go to state 55
     term                           shift and go to state 5
     factor                         shift and go to state 13
 
@@ -962,7 +973,7 @@ state 43
     NUMBER          shift and go to state 21
     LPAREN          shift and go to state 19
 
-    expression                     shift and go to state 55
+    expression                     shift and go to state 56
     term                           shift and go to state 5
     factor                         shift and go to state 13
 
@@ -981,7 +992,7 @@ state 44
     NUMBER          shift and go to state 21
     LPAREN          shift and go to state 19
 
-    expression                     shift and go to state 56
+    expression                     shift and go to state 57
     term                           shift and go to state 5
     factor                         shift and go to state 13
 
@@ -1000,7 +1011,7 @@ state 45
     NUMBER          shift and go to state 21
     LPAREN          shift and go to state 19
 
-    expression                     shift and go to state 57
+    expression                     shift and go to state 58
     term                           shift and go to state 5
     factor                         shift and go to state 13
 
@@ -1019,7 +1030,7 @@ state 46
     NUMBER          shift and go to state 21
     LPAREN          shift and go to state 19
 
-    expression                     shift and go to state 58
+    expression                     shift and go to state 59
     term                           shift and go to state 5
     factor                         shift and go to state 13
 
@@ -1030,11 +1041,11 @@ state 47
     (35) list -> . empty
     (43) empty -> .
 
-    LBRACKET        shift and go to state 60
+    LBRACKET        shift and go to state 61
     DO              reduce using rule 43 (empty -> .)
 
-    list                           shift and go to state 59
-    empty                          shift and go to state 61
+    list                           shift and go to state 60
+    empty                          shift and go to state 62
 
 state 48
 
@@ -1048,13 +1059,13 @@ state 48
     (9) statement -> . display
     (10) statement -> . input
     (11) statement -> . COMMENT
-    (12) assignment -> . LET IDENTIFIER BE EQUAL TO expression
+    (12) assignment -> . LET IDENTIFIER EQUAL expression
     (13) conditional -> . IF condition THEN statements else_statements_opt
     (32) loop -> . FOR IDENTIFIER IN list DO statements
     (33) loop -> . WHILE condition DO statements
     (38) function -> . FUNCTION IDENTIFIER LPAREN parameters RPAREN LBRACE statements RBRACE return_statement_opt RBRACE
     (31) display -> . SHOW expression
-    (30) input -> . LET IDENTIFIER BE EQUAL TO SHOW IDENTIFIER LPAREN STRING_LITERAL RPAREN
+    (30) input -> . LET IDENTIFIER EQUAL SHOW IDENTIFIER LPAREN STRING_LITERAL RPAREN
 
     COMMENT         shift and go to state 12
     LET             shift and go to state 14
@@ -1064,7 +1075,7 @@ state 48
     FUNCTION        shift and go to state 18
     SHOW            shift and go to state 20
 
-    statements                     shift and go to state 62
+    statements                     shift and go to state 63
     statement                      shift and go to state 4
     assignment                     shift and go to state 6
     conditional                    shift and go to state 7
@@ -1079,9 +1090,9 @@ state 49
     (39) parameters -> . IDENTIFIER
     (40) parameters -> . parameters COMMA IDENTIFIER
 
-    IDENTIFIER      shift and go to state 63
+    IDENTIFIER      shift and go to state 64
 
-    parameters                     shift and go to state 64
+    parameters                     shift and go to state 65
 
 state 50
 
@@ -1116,13 +1127,32 @@ state 50
 
 state 51
 
-    (12) assignment -> LET IDENTIFIER BE EQUAL . TO expression
-    (30) input -> LET IDENTIFIER BE EQUAL . TO SHOW IDENTIFIER LPAREN STRING_LITERAL RPAREN
+    (12) assignment -> LET IDENTIFIER EQUAL expression .
+    (22) expression -> expression . PLUS term
+    (23) expression -> expression . MINUS term
 
-    TO              shift and go to state 65
+    COMMENT         reduce using rule 12 (assignment -> LET IDENTIFIER EQUAL expression .)
+    LET             reduce using rule 12 (assignment -> LET IDENTIFIER EQUAL expression .)
+    IF              reduce using rule 12 (assignment -> LET IDENTIFIER EQUAL expression .)
+    FOR             reduce using rule 12 (assignment -> LET IDENTIFIER EQUAL expression .)
+    WHILE           reduce using rule 12 (assignment -> LET IDENTIFIER EQUAL expression .)
+    FUNCTION        reduce using rule 12 (assignment -> LET IDENTIFIER EQUAL expression .)
+    SHOW            reduce using rule 12 (assignment -> LET IDENTIFIER EQUAL expression .)
+    $end            reduce using rule 12 (assignment -> LET IDENTIFIER EQUAL expression .)
+    ELSE            reduce using rule 12 (assignment -> LET IDENTIFIER EQUAL expression .)
+    RBRACE          reduce using rule 12 (assignment -> LET IDENTIFIER EQUAL expression .)
+    PLUS            shift and go to state 23
+    MINUS           shift and go to state 24
 
 
 state 52
+
+    (30) input -> LET IDENTIFIER EQUAL SHOW . IDENTIFIER LPAREN STRING_LITERAL RPAREN
+
+    IDENTIFIER      shift and go to state 66
+
+
+state 53
 
     (13) conditional -> IF condition THEN statements . else_statements_opt
     (3) statements -> statements . statement
@@ -1136,13 +1166,13 @@ state 52
     (10) statement -> . input
     (11) statement -> . COMMENT
     (43) empty -> .
-    (12) assignment -> . LET IDENTIFIER BE EQUAL TO expression
+    (12) assignment -> . LET IDENTIFIER EQUAL expression
     (13) conditional -> . IF condition THEN statements else_statements_opt
     (32) loop -> . FOR IDENTIFIER IN list DO statements
     (33) loop -> . WHILE condition DO statements
     (38) function -> . FUNCTION IDENTIFIER LPAREN parameters RPAREN LBRACE statements RBRACE return_statement_opt RBRACE
     (31) display -> . SHOW expression
-    (30) input -> . LET IDENTIFIER BE EQUAL TO SHOW IDENTIFIER LPAREN STRING_LITERAL RPAREN
+    (30) input -> . LET IDENTIFIER EQUAL SHOW IDENTIFIER LPAREN STRING_LITERAL RPAREN
 
   ! shift/reduce conflict for ELSE resolved as shift
   ! shift/reduce conflict for COMMENT resolved as shift
@@ -1152,7 +1182,7 @@ state 52
   ! shift/reduce conflict for WHILE resolved as shift
   ! shift/reduce conflict for FUNCTION resolved as shift
   ! shift/reduce conflict for SHOW resolved as shift
-    ELSE            shift and go to state 67
+    ELSE            shift and go to state 68
     COMMENT         shift and go to state 12
     $end            reduce using rule 43 (empty -> .)
     RBRACE          reduce using rule 43 (empty -> .)
@@ -1172,9 +1202,9 @@ state 52
   ! FUNCTION        [ reduce using rule 43 (empty -> .) ]
   ! SHOW            [ reduce using rule 43 (empty -> .) ]
 
-    else_statements_opt            shift and go to state 66
+    else_statements_opt            shift and go to state 67
     statement                      shift and go to state 22
-    empty                          shift and go to state 68
+    empty                          shift and go to state 69
     assignment                     shift and go to state 6
     conditional                    shift and go to state 7
     loop                           shift and go to state 8
@@ -1182,7 +1212,7 @@ state 52
     display                        shift and go to state 10
     input                          shift and go to state 11
 
-state 53
+state 54
 
     (16) condition -> expression IS_LESS_THAN expression .
     (22) expression -> expression . PLUS term
@@ -1194,7 +1224,7 @@ state 53
     MINUS           shift and go to state 24
 
 
-state 54
+state 55
 
     (17) condition -> expression IS_EQUAL_TO expression .
     (22) expression -> expression . PLUS term
@@ -1206,7 +1236,7 @@ state 54
     MINUS           shift and go to state 24
 
 
-state 55
+state 56
 
     (18) condition -> expression IS_GREATER_THAN expression .
     (22) expression -> expression . PLUS term
@@ -1218,7 +1248,7 @@ state 55
     MINUS           shift and go to state 24
 
 
-state 56
+state 57
 
     (19) condition -> expression IS_NOT_EQUAL_TO expression .
     (22) expression -> expression . PLUS term
@@ -1230,7 +1260,7 @@ state 56
     MINUS           shift and go to state 24
 
 
-state 57
+state 58
 
     (20) condition -> expression GREATER_THAN_OR_EQUAL_TO expression .
     (22) expression -> expression . PLUS term
@@ -1242,7 +1272,7 @@ state 57
     MINUS           shift and go to state 24
 
 
-state 58
+state 59
 
     (21) condition -> expression LESS_THAN_OR_EQUAL_TO expression .
     (22) expression -> expression . PLUS term
@@ -1254,14 +1284,14 @@ state 58
     MINUS           shift and go to state 24
 
 
-state 59
+state 60
 
     (32) loop -> FOR IDENTIFIER IN list . DO statements
 
-    DO              shift and go to state 69
+    DO              shift and go to state 70
 
 
-state 60
+state 61
 
     (34) list -> LBRACKET . expression_list RBRACKET
     (36) expression_list -> . expression
@@ -1278,19 +1308,19 @@ state 60
     NUMBER          shift and go to state 21
     LPAREN          shift and go to state 19
 
-    expression_list                shift and go to state 70
-    expression                     shift and go to state 71
+    expression_list                shift and go to state 71
+    expression                     shift and go to state 72
     term                           shift and go to state 5
     factor                         shift and go to state 13
 
-state 61
+state 62
 
     (35) list -> empty .
 
     DO              reduce using rule 35 (list -> empty .)
 
 
-state 62
+state 63
 
     (33) loop -> WHILE condition DO statements .
     (3) statements -> statements . statement
@@ -1301,13 +1331,13 @@ state 62
     (9) statement -> . display
     (10) statement -> . input
     (11) statement -> . COMMENT
-    (12) assignment -> . LET IDENTIFIER BE EQUAL TO expression
+    (12) assignment -> . LET IDENTIFIER EQUAL expression
     (13) conditional -> . IF condition THEN statements else_statements_opt
     (32) loop -> . FOR IDENTIFIER IN list DO statements
     (33) loop -> . WHILE condition DO statements
     (38) function -> . FUNCTION IDENTIFIER LPAREN parameters RPAREN LBRACE statements RBRACE return_statement_opt RBRACE
     (31) display -> . SHOW expression
-    (30) input -> . LET IDENTIFIER BE EQUAL TO SHOW IDENTIFIER LPAREN STRING_LITERAL RPAREN
+    (30) input -> . LET IDENTIFIER EQUAL SHOW IDENTIFIER LPAREN STRING_LITERAL RPAREN
 
   ! shift/reduce conflict for COMMENT resolved as shift
   ! shift/reduce conflict for LET resolved as shift
@@ -1343,7 +1373,7 @@ state 62
     display                        shift and go to state 10
     input                          shift and go to state 11
 
-state 63
+state 64
 
     (39) parameters -> IDENTIFIER .
 
@@ -1351,37 +1381,23 @@ state 63
     COMMA           reduce using rule 39 (parameters -> IDENTIFIER .)
 
 
-state 64
+state 65
 
     (38) function -> FUNCTION IDENTIFIER LPAREN parameters . RPAREN LBRACE statements RBRACE return_statement_opt RBRACE
     (40) parameters -> parameters . COMMA IDENTIFIER
 
-    RPAREN          shift and go to state 72
-    COMMA           shift and go to state 73
+    RPAREN          shift and go to state 73
+    COMMA           shift and go to state 74
 
-
-state 65
-
-    (12) assignment -> LET IDENTIFIER BE EQUAL TO . expression
-    (30) input -> LET IDENTIFIER BE EQUAL TO . SHOW IDENTIFIER LPAREN STRING_LITERAL RPAREN
-    (22) expression -> . expression PLUS term
-    (23) expression -> . expression MINUS term
-    (24) expression -> . term
-    (25) term -> . term TIMES factor
-    (26) term -> . term DIVIDE factor
-    (27) term -> . factor
-    (28) factor -> . NUMBER
-    (29) factor -> . LPAREN expression RPAREN
-
-    SHOW            shift and go to state 75
-    NUMBER          shift and go to state 21
-    LPAREN          shift and go to state 19
-
-    expression                     shift and go to state 74
-    term                           shift and go to state 5
-    factor                         shift and go to state 13
 
 state 66
+
+    (30) input -> LET IDENTIFIER EQUAL SHOW IDENTIFIER . LPAREN STRING_LITERAL RPAREN
+
+    LPAREN          shift and go to state 75
+
+
+state 67
 
     (13) conditional -> IF condition THEN statements else_statements_opt .
 
@@ -1397,7 +1413,7 @@ state 66
     RBRACE          reduce using rule 13 (conditional -> IF condition THEN statements else_statements_opt .)
 
 
-state 67
+state 68
 
     (14) else_statements_opt -> ELSE . statements
     (3) statements -> . statements statement
@@ -1409,13 +1425,13 @@ state 67
     (9) statement -> . display
     (10) statement -> . input
     (11) statement -> . COMMENT
-    (12) assignment -> . LET IDENTIFIER BE EQUAL TO expression
+    (12) assignment -> . LET IDENTIFIER EQUAL expression
     (13) conditional -> . IF condition THEN statements else_statements_opt
     (32) loop -> . FOR IDENTIFIER IN list DO statements
     (33) loop -> . WHILE condition DO statements
     (38) function -> . FUNCTION IDENTIFIER LPAREN parameters RPAREN LBRACE statements RBRACE return_statement_opt RBRACE
     (31) display -> . SHOW expression
-    (30) input -> . LET IDENTIFIER BE EQUAL TO SHOW IDENTIFIER LPAREN STRING_LITERAL RPAREN
+    (30) input -> . LET IDENTIFIER EQUAL SHOW IDENTIFIER LPAREN STRING_LITERAL RPAREN
 
     COMMENT         shift and go to state 12
     LET             shift and go to state 14
@@ -1434,7 +1450,7 @@ state 67
     display                        shift and go to state 10
     input                          shift and go to state 11
 
-state 68
+state 69
 
     (15) else_statements_opt -> empty .
 
@@ -1450,7 +1466,7 @@ state 68
     RBRACE          reduce using rule 15 (else_statements_opt -> empty .)
 
 
-state 69
+state 70
 
     (32) loop -> FOR IDENTIFIER IN list DO . statements
     (3) statements -> . statements statement
@@ -1462,13 +1478,13 @@ state 69
     (9) statement -> . display
     (10) statement -> . input
     (11) statement -> . COMMENT
-    (12) assignment -> . LET IDENTIFIER BE EQUAL TO expression
+    (12) assignment -> . LET IDENTIFIER EQUAL expression
     (13) conditional -> . IF condition THEN statements else_statements_opt
     (32) loop -> . FOR IDENTIFIER IN list DO statements
     (33) loop -> . WHILE condition DO statements
     (38) function -> . FUNCTION IDENTIFIER LPAREN parameters RPAREN LBRACE statements RBRACE return_statement_opt RBRACE
     (31) display -> . SHOW expression
-    (30) input -> . LET IDENTIFIER BE EQUAL TO SHOW IDENTIFIER LPAREN STRING_LITERAL RPAREN
+    (30) input -> . LET IDENTIFIER EQUAL SHOW IDENTIFIER LPAREN STRING_LITERAL RPAREN
 
     COMMENT         shift and go to state 12
     LET             shift and go to state 14
@@ -1487,7 +1503,7 @@ state 69
     display                        shift and go to state 10
     input                          shift and go to state 11
 
-state 70
+state 71
 
     (34) list -> LBRACKET expression_list . RBRACKET
     (37) expression_list -> expression_list . COMMA expression
@@ -1496,7 +1512,7 @@ state 70
     COMMA           shift and go to state 79
 
 
-state 71
+state 72
 
     (36) expression_list -> expression .
     (22) expression -> expression . PLUS term
@@ -1508,45 +1524,25 @@ state 71
     MINUS           shift and go to state 24
 
 
-state 72
+state 73
 
     (38) function -> FUNCTION IDENTIFIER LPAREN parameters RPAREN . LBRACE statements RBRACE return_statement_opt RBRACE
 
     LBRACE          shift and go to state 80
 
 
-state 73
+state 74
 
     (40) parameters -> parameters COMMA . IDENTIFIER
 
     IDENTIFIER      shift and go to state 81
 
 
-state 74
-
-    (12) assignment -> LET IDENTIFIER BE EQUAL TO expression .
-    (22) expression -> expression . PLUS term
-    (23) expression -> expression . MINUS term
-
-    COMMENT         reduce using rule 12 (assignment -> LET IDENTIFIER BE EQUAL TO expression .)
-    LET             reduce using rule 12 (assignment -> LET IDENTIFIER BE EQUAL TO expression .)
-    IF              reduce using rule 12 (assignment -> LET IDENTIFIER BE EQUAL TO expression .)
-    FOR             reduce using rule 12 (assignment -> LET IDENTIFIER BE EQUAL TO expression .)
-    WHILE           reduce using rule 12 (assignment -> LET IDENTIFIER BE EQUAL TO expression .)
-    FUNCTION        reduce using rule 12 (assignment -> LET IDENTIFIER BE EQUAL TO expression .)
-    SHOW            reduce using rule 12 (assignment -> LET IDENTIFIER BE EQUAL TO expression .)
-    $end            reduce using rule 12 (assignment -> LET IDENTIFIER BE EQUAL TO expression .)
-    ELSE            reduce using rule 12 (assignment -> LET IDENTIFIER BE EQUAL TO expression .)
-    RBRACE          reduce using rule 12 (assignment -> LET IDENTIFIER BE EQUAL TO expression .)
-    PLUS            shift and go to state 23
-    MINUS           shift and go to state 24
-
-
 state 75
 
-    (30) input -> LET IDENTIFIER BE EQUAL TO SHOW . IDENTIFIER LPAREN STRING_LITERAL RPAREN
+    (30) input -> LET IDENTIFIER EQUAL SHOW IDENTIFIER LPAREN . STRING_LITERAL RPAREN
 
-    IDENTIFIER      shift and go to state 82
+    STRING_LITERAL  shift and go to state 82
 
 
 state 76
@@ -1560,13 +1556,13 @@ state 76
     (9) statement -> . display
     (10) statement -> . input
     (11) statement -> . COMMENT
-    (12) assignment -> . LET IDENTIFIER BE EQUAL TO expression
+    (12) assignment -> . LET IDENTIFIER EQUAL expression
     (13) conditional -> . IF condition THEN statements else_statements_opt
     (32) loop -> . FOR IDENTIFIER IN list DO statements
     (33) loop -> . WHILE condition DO statements
     (38) function -> . FUNCTION IDENTIFIER LPAREN parameters RPAREN LBRACE statements RBRACE return_statement_opt RBRACE
     (31) display -> . SHOW expression
-    (30) input -> . LET IDENTIFIER BE EQUAL TO SHOW IDENTIFIER LPAREN STRING_LITERAL RPAREN
+    (30) input -> . LET IDENTIFIER EQUAL SHOW IDENTIFIER LPAREN STRING_LITERAL RPAREN
 
   ! shift/reduce conflict for COMMENT resolved as shift
   ! shift/reduce conflict for LET resolved as shift
@@ -1613,13 +1609,13 @@ state 77
     (9) statement -> . display
     (10) statement -> . input
     (11) statement -> . COMMENT
-    (12) assignment -> . LET IDENTIFIER BE EQUAL TO expression
+    (12) assignment -> . LET IDENTIFIER EQUAL expression
     (13) conditional -> . IF condition THEN statements else_statements_opt
     (32) loop -> . FOR IDENTIFIER IN list DO statements
     (33) loop -> . WHILE condition DO statements
     (38) function -> . FUNCTION IDENTIFIER LPAREN parameters RPAREN LBRACE statements RBRACE return_statement_opt RBRACE
     (31) display -> . SHOW expression
-    (30) input -> . LET IDENTIFIER BE EQUAL TO SHOW IDENTIFIER LPAREN STRING_LITERAL RPAREN
+    (30) input -> . LET IDENTIFIER EQUAL SHOW IDENTIFIER LPAREN STRING_LITERAL RPAREN
 
   ! shift/reduce conflict for COMMENT resolved as shift
   ! shift/reduce conflict for LET resolved as shift
@@ -1693,13 +1689,13 @@ state 80
     (9) statement -> . display
     (10) statement -> . input
     (11) statement -> . COMMENT
-    (12) assignment -> . LET IDENTIFIER BE EQUAL TO expression
+    (12) assignment -> . LET IDENTIFIER EQUAL expression
     (13) conditional -> . IF condition THEN statements else_statements_opt
     (32) loop -> . FOR IDENTIFIER IN list DO statements
     (33) loop -> . WHILE condition DO statements
     (38) function -> . FUNCTION IDENTIFIER LPAREN parameters RPAREN LBRACE statements RBRACE return_statement_opt RBRACE
     (31) display -> . SHOW expression
-    (30) input -> . LET IDENTIFIER BE EQUAL TO SHOW IDENTIFIER LPAREN STRING_LITERAL RPAREN
+    (30) input -> . LET IDENTIFIER EQUAL SHOW IDENTIFIER LPAREN STRING_LITERAL RPAREN
 
     COMMENT         shift and go to state 12
     LET             shift and go to state 14
@@ -1728,9 +1724,9 @@ state 81
 
 state 82
 
-    (30) input -> LET IDENTIFIER BE EQUAL TO SHOW IDENTIFIER . LPAREN STRING_LITERAL RPAREN
+    (30) input -> LET IDENTIFIER EQUAL SHOW IDENTIFIER LPAREN STRING_LITERAL . RPAREN
 
-    LPAREN          shift and go to state 85
+    RPAREN          shift and go to state 85
 
 
 state 83
@@ -1756,13 +1752,13 @@ state 84
     (9) statement -> . display
     (10) statement -> . input
     (11) statement -> . COMMENT
-    (12) assignment -> . LET IDENTIFIER BE EQUAL TO expression
+    (12) assignment -> . LET IDENTIFIER EQUAL expression
     (13) conditional -> . IF condition THEN statements else_statements_opt
     (32) loop -> . FOR IDENTIFIER IN list DO statements
     (33) loop -> . WHILE condition DO statements
     (38) function -> . FUNCTION IDENTIFIER LPAREN parameters RPAREN LBRACE statements RBRACE return_statement_opt RBRACE
     (31) display -> . SHOW expression
-    (30) input -> . LET IDENTIFIER BE EQUAL TO SHOW IDENTIFIER LPAREN STRING_LITERAL RPAREN
+    (30) input -> . LET IDENTIFIER EQUAL SHOW IDENTIFIER LPAREN STRING_LITERAL RPAREN
 
     RBRACE          shift and go to state 86
     COMMENT         shift and go to state 12
@@ -1783,9 +1779,18 @@ state 84
 
 state 85
 
-    (30) input -> LET IDENTIFIER BE EQUAL TO SHOW IDENTIFIER LPAREN . STRING_LITERAL RPAREN
+    (30) input -> LET IDENTIFIER EQUAL SHOW IDENTIFIER LPAREN STRING_LITERAL RPAREN .
 
-    STRING_LITERAL  shift and go to state 87
+    COMMENT         reduce using rule 30 (input -> LET IDENTIFIER EQUAL SHOW IDENTIFIER LPAREN STRING_LITERAL RPAREN .)
+    LET             reduce using rule 30 (input -> LET IDENTIFIER EQUAL SHOW IDENTIFIER LPAREN STRING_LITERAL RPAREN .)
+    IF              reduce using rule 30 (input -> LET IDENTIFIER EQUAL SHOW IDENTIFIER LPAREN STRING_LITERAL RPAREN .)
+    FOR             reduce using rule 30 (input -> LET IDENTIFIER EQUAL SHOW IDENTIFIER LPAREN STRING_LITERAL RPAREN .)
+    WHILE           reduce using rule 30 (input -> LET IDENTIFIER EQUAL SHOW IDENTIFIER LPAREN STRING_LITERAL RPAREN .)
+    FUNCTION        reduce using rule 30 (input -> LET IDENTIFIER EQUAL SHOW IDENTIFIER LPAREN STRING_LITERAL RPAREN .)
+    SHOW            reduce using rule 30 (input -> LET IDENTIFIER EQUAL SHOW IDENTIFIER LPAREN STRING_LITERAL RPAREN .)
+    $end            reduce using rule 30 (input -> LET IDENTIFIER EQUAL SHOW IDENTIFIER LPAREN STRING_LITERAL RPAREN .)
+    ELSE            reduce using rule 30 (input -> LET IDENTIFIER EQUAL SHOW IDENTIFIER LPAREN STRING_LITERAL RPAREN .)
+    RBRACE          reduce using rule 30 (input -> LET IDENTIFIER EQUAL SHOW IDENTIFIER LPAREN STRING_LITERAL RPAREN .)
 
 
 state 86
@@ -1795,27 +1800,20 @@ state 86
     (42) return_statement_opt -> . empty
     (43) empty -> .
 
-    RETURN          shift and go to state 89
+    RETURN          shift and go to state 88
     RBRACE          reduce using rule 43 (empty -> .)
 
-    return_statement_opt           shift and go to state 88
-    empty                          shift and go to state 90
+    return_statement_opt           shift and go to state 87
+    empty                          shift and go to state 89
 
 state 87
 
-    (30) input -> LET IDENTIFIER BE EQUAL TO SHOW IDENTIFIER LPAREN STRING_LITERAL . RPAREN
+    (38) function -> FUNCTION IDENTIFIER LPAREN parameters RPAREN LBRACE statements RBRACE return_statement_opt . RBRACE
 
-    RPAREN          shift and go to state 91
+    RBRACE          shift and go to state 90
 
 
 state 88
-
-    (38) function -> FUNCTION IDENTIFIER LPAREN parameters RPAREN LBRACE statements RBRACE return_statement_opt . RBRACE
-
-    RBRACE          shift and go to state 92
-
-
-state 89
 
     (41) return_statement_opt -> RETURN . expression
     (22) expression -> . expression PLUS term
@@ -1830,34 +1828,18 @@ state 89
     NUMBER          shift and go to state 21
     LPAREN          shift and go to state 19
 
-    expression                     shift and go to state 93
+    expression                     shift and go to state 91
     term                           shift and go to state 5
     factor                         shift and go to state 13
 
-state 90
+state 89
 
     (42) return_statement_opt -> empty .
 
     RBRACE          reduce using rule 42 (return_statement_opt -> empty .)
 
 
-state 91
-
-    (30) input -> LET IDENTIFIER BE EQUAL TO SHOW IDENTIFIER LPAREN STRING_LITERAL RPAREN .
-
-    COMMENT         reduce using rule 30 (input -> LET IDENTIFIER BE EQUAL TO SHOW IDENTIFIER LPAREN STRING_LITERAL RPAREN .)
-    LET             reduce using rule 30 (input -> LET IDENTIFIER BE EQUAL TO SHOW IDENTIFIER LPAREN STRING_LITERAL RPAREN .)
-    IF              reduce using rule 30 (input -> LET IDENTIFIER BE EQUAL TO SHOW IDENTIFIER LPAREN STRING_LITERAL RPAREN .)
-    FOR             reduce using rule 30 (input -> LET IDENTIFIER BE EQUAL TO SHOW IDENTIFIER LPAREN STRING_LITERAL RPAREN .)
-    WHILE           reduce using rule 30 (input -> LET IDENTIFIER BE EQUAL TO SHOW IDENTIFIER LPAREN STRING_LITERAL RPAREN .)
-    FUNCTION        reduce using rule 30 (input -> LET IDENTIFIER BE EQUAL TO SHOW IDENTIFIER LPAREN STRING_LITERAL RPAREN .)
-    SHOW            reduce using rule 30 (input -> LET IDENTIFIER BE EQUAL TO SHOW IDENTIFIER LPAREN STRING_LITERAL RPAREN .)
-    $end            reduce using rule 30 (input -> LET IDENTIFIER BE EQUAL TO SHOW IDENTIFIER LPAREN STRING_LITERAL RPAREN .)
-    ELSE            reduce using rule 30 (input -> LET IDENTIFIER BE EQUAL TO SHOW IDENTIFIER LPAREN STRING_LITERAL RPAREN .)
-    RBRACE          reduce using rule 30 (input -> LET IDENTIFIER BE EQUAL TO SHOW IDENTIFIER LPAREN STRING_LITERAL RPAREN .)
-
-
-state 92
+state 90
 
     (38) function -> FUNCTION IDENTIFIER LPAREN parameters RPAREN LBRACE statements RBRACE return_statement_opt RBRACE .
 
@@ -1873,7 +1855,7 @@ state 92
     RBRACE          reduce using rule 38 (function -> FUNCTION IDENTIFIER LPAREN parameters RPAREN LBRACE statements RBRACE return_statement_opt RBRACE .)
 
 
-state 93
+state 91
 
     (41) return_statement_opt -> RETURN expression .
     (22) expression -> expression . PLUS term
@@ -1886,21 +1868,21 @@ state 93
 WARNING: 
 WARNING: Conflicts:
 WARNING: 
-WARNING: shift/reduce conflict for ELSE in state 52 resolved as shift
-WARNING: shift/reduce conflict for COMMENT in state 52 resolved as shift
-WARNING: shift/reduce conflict for LET in state 52 resolved as shift
-WARNING: shift/reduce conflict for IF in state 52 resolved as shift
-WARNING: shift/reduce conflict for FOR in state 52 resolved as shift
-WARNING: shift/reduce conflict for WHILE in state 52 resolved as shift
-WARNING: shift/reduce conflict for FUNCTION in state 52 resolved as shift
-WARNING: shift/reduce conflict for SHOW in state 52 resolved as shift
-WARNING: shift/reduce conflict for COMMENT in state 62 resolved as shift
-WARNING: shift/reduce conflict for LET in state 62 resolved as shift
-WARNING: shift/reduce conflict for IF in state 62 resolved as shift
-WARNING: shift/reduce conflict for FOR in state 62 resolved as shift
-WARNING: shift/reduce conflict for WHILE in state 62 resolved as shift
-WARNING: shift/reduce conflict for FUNCTION in state 62 resolved as shift
-WARNING: shift/reduce conflict for SHOW in state 62 resolved as shift
+WARNING: shift/reduce conflict for ELSE in state 53 resolved as shift
+WARNING: shift/reduce conflict for COMMENT in state 53 resolved as shift
+WARNING: shift/reduce conflict for LET in state 53 resolved as shift
+WARNING: shift/reduce conflict for IF in state 53 resolved as shift
+WARNING: shift/reduce conflict for FOR in state 53 resolved as shift
+WARNING: shift/reduce conflict for WHILE in state 53 resolved as shift
+WARNING: shift/reduce conflict for FUNCTION in state 53 resolved as shift
+WARNING: shift/reduce conflict for SHOW in state 53 resolved as shift
+WARNING: shift/reduce conflict for COMMENT in state 63 resolved as shift
+WARNING: shift/reduce conflict for LET in state 63 resolved as shift
+WARNING: shift/reduce conflict for IF in state 63 resolved as shift
+WARNING: shift/reduce conflict for FOR in state 63 resolved as shift
+WARNING: shift/reduce conflict for WHILE in state 63 resolved as shift
+WARNING: shift/reduce conflict for FUNCTION in state 63 resolved as shift
+WARNING: shift/reduce conflict for SHOW in state 63 resolved as shift
 WARNING: shift/reduce conflict for COMMENT in state 76 resolved as shift
 WARNING: shift/reduce conflict for LET in state 76 resolved as shift
 WARNING: shift/reduce conflict for IF in state 76 resolved as shift

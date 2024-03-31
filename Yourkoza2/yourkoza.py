@@ -3,15 +3,12 @@
 
 port = 8080;
 
-from html import escape
+# from html import escape
 import json
 from flask import Flask, render_template, request
-import ply.yacc as yacc
-import ply.lex as lex
-from mainworker import Tokenize
+
 from mainworker import parsex
 
-from parsetab import *
 
 app = Flask(__name__)
 
@@ -29,7 +26,7 @@ def process_code():
 
     code_output = []
     #code_output = Tokenize(code_input)
-    code_output.append(parsex(code_input))
+    code_output.append(str(parsex(code_input)))
     
     print("Input: ")
     print(code_input)

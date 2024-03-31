@@ -22,9 +22,7 @@ reserved = {
     'show' : 'SHOW',
     'risk' : 'RISK',
     'save' : 'SAVE',
-    'be':'BE',
     'equal':'EQUAL',
-    'to': 'TO',
 }
 
 # List of token names
@@ -61,7 +59,8 @@ tokens = list(reserved.values()) + [
     'RBRACE',
     'COMMA',
 ]
-#literals = ['{', '}','[',']','(',')',',']
+
+literals = ['{', '}','[',']','(',')',',']
 
 # Regular expression rules for simple tokens
 t_PLUS    = r'\+'
