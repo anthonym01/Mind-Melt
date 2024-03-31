@@ -8,8 +8,8 @@ import json
 from flask import Flask, render_template, request
 import ply.yacc as yacc
 import ply.lex as lex
-from Lexyacc_er import Tokenize
-from Lexyacc_er import parsex
+from mainworker import Tokenize
+from mainworker import parsex
 
 from parsetab import *
 

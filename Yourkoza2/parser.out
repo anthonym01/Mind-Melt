@@ -5,10 +5,11 @@ Unused terminals:
     AND
     CHARACTER
     DECREASE
+    GREATER_THAN_OR_EQUAL_TO
     INCREASE
-    INPUT
     INTEGER
     JOIN
+    LESS_THAN_OR_EQUAL_TO
     LETTER
     NOT
     OR
@@ -76,11 +77,11 @@ ELSE                 : 14
 EQUAL                : 12 28
 FOR                  : 30
 FUNCTION             : 36
+GREATER_THAN_OR_EQUAL_TO : 
 IDENTIFIER           : 12 28 28 30 36 37 38
 IF                   : 13
 IN                   : 30
 INCREASE             : 
-INPUT                : 
 INTEGER              : 
 IS_EQUAL_TO          : 17
 IS_GREATER_THAN      : 18
@@ -89,6 +90,7 @@ IS_NOT_EQUAL_TO      : 19
 JOIN                 : 
 LBRACE               : 36
 LBRACKET             : 32
+LESS_THAN_OR_EQUAL_TO : 
 LET                  : 12 28
 LETTER               : 
 LPAREN               : 27 28 36
