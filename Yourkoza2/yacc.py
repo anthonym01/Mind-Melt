@@ -44,7 +44,9 @@ def p_statement(p):
 
 
 def p_assignment(p):
-    '''assignment : LET IDENTIFIER EQUAL expression'''
+    """
+    assignment : LET IDENTIFIER EQUAL expression
+    """
     p[0] = ('assignment', p[2], p[4])
 
 
