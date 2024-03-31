@@ -61,12 +61,19 @@ let code_handler = {
             //theme: "ace/theme/GitHub",
             //theme: "ace/theme/dracula",
             //theme: "ace/theme/twilight",
-            theme: "ace/theme/vibrant_ink",
             mode: "ace/mode/javascript",
             //maxLines: 30,
             wrap: true,
             autoScrollEditorIntoView: true
         });
+
+        if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+            // This is a dark color scheme
+            this.editor.setTheme("ace/theme/vibrant_ink")
+        } else {
+            //Light theme
+            this.editor.setTheme("ace/theme/GitHub")
+        }
         //editor.setTheme("ace/theme/monokai");
         //editor.session.setMode("ace/mode/javascript");
     },
