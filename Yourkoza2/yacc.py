@@ -17,13 +17,17 @@ precedence = (
 start = 'program'
 
 def p_program(p):
-    '''program : statements
-               | expression'''
+    """
+    program : statements
+            | expression
+    """
     p[0] = ('program',p[1])
 
 def p_statements(p):
-    '''statements : statements statement
-                  | statement'''
+    """
+    statements : statements statement
+               | statement
+    """
     if len(p) == 3:
         p[0] = ('statements', p[1],p[2])
     elif len(p) == 2:
@@ -33,13 +37,14 @@ def p_statements(p):
 
 
 def p_statement(p):
-    '''statement : assignment
-                 | conditional
-                 | loop
-                 | function
-                 | display
-                 | input
-                 | COMMENT'''
+    """
+    statement : assignment
+              | conditional
+              | loop
+              | function
+              | display
+              | input
+    """
     p[0] = ('statement', p[1])
 
 
@@ -71,9 +76,11 @@ def p_condition(p):
     p[0] = ('condition', p[1], p[2], p[3])
 
 def p_expression(p):
-    '''expression : expression PLUS term
-                  | expression MINUS term
-                  | term'''
+    """
+    expression : expression PLUS term
+               | expression MINUS term
+               | term
+    """
     if len(p) == 4:
         if p[2] == '+':
             p[0] = p[1] + p[3]
