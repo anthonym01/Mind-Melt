@@ -78,4 +78,4 @@ def parsex(program_code):
     print(symbol_table)
     return ast
 
-parsex('let x be 2')# Test parse code
+parsex('let x be equal to 0')# Test parse code

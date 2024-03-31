@@ -4,12 +4,12 @@ from ply.lex import lex
 from lexTokens import *
 #from parsetab import *
 
-precedence = (
-    ('nonassoc', 'IS_LESS_THAN', 'IS_GREATER_THAN','IS_EQUAL_TO','IS_NOT_EQUAL_TO'),  # fix maybe
-    ('left', 'PLUS', 'MINUS'),
-    ('left', 'TIMES', 'DIVIDE'),
-    ('right', 'POWER'),
-)
+#precedence = (
+#    ('nonassoc', 'IS_LESS_THAN', 'IS_GREATER_THAN','IS_EQUAL_TO','IS_NOT_EQUAL_TO'),  # fix maybe
+#    ('left', 'PLUS', 'MINUS'),
+#    ('left', 'TIMES', 'DIVIDE'),
+#    ('right', 'POWER'),
+#)
 
 # Grammar rules
 
@@ -24,10 +24,12 @@ def p_program(p):
 def p_statements(p):
     '''statements : statements statement
                   | statement'''
-    if len(p) == 2:
+    if len(p) == 3:
         p[0] = ('statements', p[1],p[2])
-    else:
+    elif len(p) == 2:
         p[0] = ('statements', p[1])
+    else:
+        p[0] = ('statements',)
 
 
 def p_statement(p):
@@ -43,12 +45,12 @@ def p_statement(p):
 
 def p_assignment(p):
     '''assignment : LET IDENTIFIER BE EQUAL TO expression'''
-    p[0] = ('assignment', p[2], p[5])
+    p[0] = ('assignment', p[2], p[4])
 
 
 def p_conditional(p):
     '''conditional : IF condition THEN statements else_statements_opt'''
-    p[0] = ('conditional', p[1], p[2], p[4], p[5])
+    p[0] = ('conditional', p[2], p[4], p[5])
 
 def p_else_statements_opt(p):
     '''else_statements_opt : ELSE statements
@@ -61,7 +63,9 @@ def p_condition(p):
     '''condition : expression IS_LESS_THAN expression
                  | expression IS_EQUAL_TO expression
                  | expression IS_GREATER_THAN expression
-                 | expression IS_NOT_EQUAL_TO expression'''
+                 | expression IS_NOT_EQUAL_TO expression
+                 | expression GREATER_THAN_OR_EQUAL_TO expression
+                 | expression LESS_THAN_OR_EQUAL_TO expression'''
     p[0] = ('condition', p[1], p[2], p[3])
 
 def p_expression(p):
@@ -127,7 +131,7 @@ def p_expression_list(p):
 
 def p_function(p):
     '''function : FUNCTION IDENTIFIER LPAREN parameters RPAREN LBRACE statements RBRACE return_statement_opt RBRACE'''
-    p[0] = ('function', p[2], p[4], p[7], p[9])
+    p[0] = ('function', p[2], p[4], p[7], p[8])
 
 def p_parameters(p):
     '''parameters : IDENTIFIER
@@ -146,7 +150,7 @@ def p_return_statement_opt(p):
 
 def p_empty(p):
     '''empty : '''
-    p[0] = None
+    pass
 
 def p_error(p):
     print("\n-------------------------------------------------------------------")
