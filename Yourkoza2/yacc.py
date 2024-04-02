@@ -1,8 +1,7 @@
 
 import ply.yacc as yacc
-from ply.lex import lex
+#from ply.lex import lex
 from lexTokens import *
-#from parsetab import *
 
 precedence = (
     ('nonassoc', 'IS_LESS_THAN', 'IS_GREATER_THAN','IS_EQUAL_TO','IS_NOT_EQUAL_TO', 'GREATER_THAN_OR_EQUAL_TO','LESS_THAN_OR_EQUAL_TO'),  # fix maybe

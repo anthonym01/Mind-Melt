@@ -66,28 +66,3 @@ def semantic_analysis(ast):
                     print('Error on node: ',node,' | ',e)
         except Exception as e:
             print('Critical error on node: ',node,' | ',e)
-
-
-def parsex(program_code):
-    
-    print("\n-------------------------------------------------------------------")
-    print("Tokens: ")
-    
-    lexer.input(program_code)
-    for tokenx in lexer: print(tokenx)
-    
-    lexer.input(program_code)
-    #ast = parser.parse(program_code,lexer)
-    ast = parser.parse(lexer=lexer)
-    
-    print("\n-------------------------------------------------------------------")
-    print("Ast: ")
-    print(ast)
-    
-    print("\n-------------------------------------------------------------------")
-    print("Symbol table: ")
-    semantic_analysis(ast)
-    print(symbol_table)
-    return ast
-
-parsex('let x equal 0')# Test parse code
