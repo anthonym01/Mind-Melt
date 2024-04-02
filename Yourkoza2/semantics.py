@@ -5,6 +5,8 @@ from yacc import *
 lexer = lex.lex()
 
 symbol_table = {}  # Initialize symbol table
+
+
 # Semantic analysis function
 def semantic_analysis(tree):
     symbol_table = {}  # Reset symbol table
@@ -57,7 +59,9 @@ def semantic_analysis(tree):
 # Example usage:
 input_code = """
 let x equal 10
-!y = x + 5
+let y equal 12 + 5
+!let x equal 0
+!show y
 """
 
 # Testing area
