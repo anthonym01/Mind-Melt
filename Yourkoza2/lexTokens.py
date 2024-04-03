@@ -84,7 +84,7 @@ t_RBRACKET = r'\]'
 t_LBRACE = r'\{'
 t_RBRACE = r'\}'
 t_COMMA = r','
-t_COMMENT = r'!'
+#t_COMMENT = r'!'
 
 #Regular expression rules
 def t_COMMENT(t):
