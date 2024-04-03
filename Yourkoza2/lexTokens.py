@@ -58,6 +58,7 @@ tokens = list(reserved.values()) + [
     'LBRACE',
     'RBRACE',
     'COMMA',
+    'COMMENT',
 ]
 
 literals = ['{', '}', '[', ']', '(', ')', ',']
@@ -83,18 +84,17 @@ t_RBRACKET = r'\]'
 t_LBRACE = r'\{'
 t_RBRACE = r'\}'
 t_COMMA = r','
-
+t_COMMENT = r'!'
 
 #Regular expression rules
 def t_COMMENT(t):
     r'\!.*'
-    pass  
-
+    pass
 
 # A regular expression rule with some action code
 def t_NUMBER(t):
     r'\d+'
-    t.value = int(t.value)    
+    t.value = int(t.value) 
     return t
 
 

@@ -54,6 +54,12 @@ def p_assignment(p):
     p[0] = ('assignment', p[2], p[4])
 
 
+def p_comment(p):
+    """
+    comment : COMMENT
+    """
+    p[0] = ('comment', p[1])
+
 def p_conditional(p):
     '''conditional : IF condition THEN statements else_statements_opt'''
     p[0] = ('conditional', p[2], p[4], p[5])
@@ -113,7 +119,25 @@ def p_input(p):
     p[0] = ('input', p[2], p[9])
 
 def p_display(p):
-    '''display : SHOW expression'''
+    """
+    display : SHOW expression
+            | SHOW STRING_LITERAL
+            | SHOW IDENTIFIER
+            | SHOW NUMBER
+            | SHOW REAL
+            | SHOW CHARACTER
+            | SHOW list
+            | SHOW function
+            | SHOW conditional
+            | SHOW loop
+            | SHOW input
+            | SHOW comment
+            | SHOW program
+            | SHOW statements
+            | SHOW expression_list
+            | SHOW assignment
+            | SHOW display
+    """
     p[0] = ('display', p[2])
 
 def p_loop(p):

@@ -41,6 +41,7 @@ def semantic_analysis(tree):
             parameters = node[2]
             function_body = node[3]
             # Add function signature to symbol table
+            
 
         elif node[0] == 'conditional':
             # Example: Check if condition expression has boolean type
@@ -61,7 +62,7 @@ input_code = """
 let x equal 10
 let y equal 12 + 5
 !let x equal 0
-!show y
+show y
 """
 
 # Testing area
@@ -82,6 +83,6 @@ def parsex(program_code):
     print("\n-------------------------------------------------------------------")
     semantic_analysis(syntax_tree)# send ast tree to be analysizded
     
-    return symbol_table , syntax_tree
+    return syntax_tree
 
 parsex(input_code)

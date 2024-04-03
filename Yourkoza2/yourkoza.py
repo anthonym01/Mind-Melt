@@ -7,7 +7,7 @@ port = 8080;
 import json
 from flask import Flask, render_template, request
 
-from mainworker import parsex
+from semantics import parsex
 
 
 app = Flask(__name__)
