@@ -60,9 +60,10 @@ def semantic_analysis(tree):
 # Example usage:
 input_code = """
 let x equal 10
-let y equal 12 + 5
+let y equal 12+5
 !let x equal 0
 show y
+let k equal 18
 """
 
 # Testing area

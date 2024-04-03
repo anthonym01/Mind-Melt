@@ -50,7 +50,6 @@ tokens = list(reserved.values()) + [
     'LESS_THAN_OR_EQUAL_TO',
     'INCREASE',
     'DECREASE',
-    'COMMENT',
     'LPAREN',
     'RPAREN',
     'LBRACKET',
@@ -99,7 +98,7 @@ def t_NUMBER(t):
 
 
 def t_REAL(t):
-    r'\d+\.\d+'
+    r'^-?(\d+(\.\d*)?|\.\d+)([eE][-+]?\d+)?$'
     t.value = float(t.value)
     return t
 
