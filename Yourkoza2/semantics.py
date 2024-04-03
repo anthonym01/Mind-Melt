@@ -60,15 +60,20 @@ def semantic_analysis(tree):
 # Example usage:
 input_code = """
 let x equal 10
-let y equal 12+5
+let y equal (12+5)
 !let x equal 0
 show y
 let k equal 18
+!k equal 4
 """
 
 # Testing area
 # Parse code and prime execution
 def parsex(program_code):
+    
+    print("\n----------------------------------------------------------")
+    print("Input code: ")
+    print(program_code)
     
     print("\n----------------------------------------------------------")
     print("Tokens: ")

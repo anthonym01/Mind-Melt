@@ -85,6 +85,13 @@ def p_expression(p):
     expression : expression PLUS term
                | expression MINUS term
                | term
+               | expression POWER term
+               | NOT expression
+               | LPAREN expression RPAREN
+               | NUMBER MINUS term
+               | REAL MINUS term
+               | CHARACTER PLUS term
+               | list
     """
     if len(p) == 4:
         if p[2] == '+':

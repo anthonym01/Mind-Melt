@@ -96,6 +96,10 @@ def t_NUMBER(t):
     t.value = int(t.value) 
     return t
 
+def t_INTEGER(t):
+    r'^-?(0|[1-9]\d*)$'
+    t.value = int(t.value)
+    return t
 
 def t_REAL(t):
     r'^-?(\d+(\.\d*)?|\.\d+)([eE][-+]?\d+)?$'
