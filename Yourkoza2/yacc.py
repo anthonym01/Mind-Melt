@@ -65,8 +65,10 @@ def p_conditional(p):
     p[0] = ('conditional', p[2], p[4], p[5])
 
 def p_else_statements_opt(p):
-    '''else_statements_opt : ELSE statements
-                           | empty'''
+    """
+    else_statements_opt : ELSE statements
+                        | empty
+    """
     if len(p) == 3:
         p[0] = ('else_statements_opt', p[2])
 
@@ -98,6 +100,15 @@ def p_expression(p):
             p[0] = p[1] + p[3]
         elif p[2] == '-':
             p[0] = p[1] - p[3]
+        elif p[2] == '**':  # Handle power operator
+            p[0] = p[1] ** p[3]
+    elif len(p) == 3:
+        if p[1] == 'not':  # Handle NOT operator
+            p[0] = not p[2]
+        elif p[1] == '-':  # Handle unary minus
+            p[0] = -p[2]
+        elif p[1] == '+':  # Handle unary plus
+            p[0] = p[2]
     else:
         p[0] = p[1]
 
