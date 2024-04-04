@@ -11,6 +11,7 @@ reserved = {
     'if': 'IF',
     'then': 'THEN',
     'else': 'ELSE',
+    'end': 'END',
     'while': 'WHILE',
     'join': 'JOIN',
     'in': 'IN',
@@ -58,6 +59,8 @@ tokens = list(reserved.values()) + [
     'RBRACE',
     'COMMA',
     'COMMENT',
+    'TRUE',
+    'FALSE'
 ]
 
 literals = ['{', '}', '[', ']', '(', ')', ',']
@@ -83,6 +86,8 @@ t_RBRACKET = r'\]'
 t_LBRACE = r'\{'
 t_RBRACE = r'\}'
 t_COMMA = r','
+t_TRUE = r'true'
+t_FALSE = r'false'
 #t_COMMENT = r'!'
 
 #Regular expression rules

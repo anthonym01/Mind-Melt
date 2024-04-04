@@ -20,7 +20,7 @@ def p_program(p):
     program : statements
             | expression
     """
-    p[0] = ('program',p[1])
+    p[0] = p[1]
 
 def p_statements(p):
     """
@@ -61,7 +61,7 @@ def p_comment(p):
     p[0] = ('comment', p[1])
 
 def p_conditional(p):
-    '''conditional : IF condition THEN statements else_statements_opt'''
+    '''conditional : IF condition THEN statements else_statements_opt END'''
     p[0] = ('conditional', p[2], p[4], p[5])
 
 def p_else_statements_opt(p):
@@ -115,7 +115,9 @@ def p_expression(p):
 def p_term(p):
     '''term : term TIMES factor
             | term DIVIDE factor
-            | factor'''
+            | IDENTIFIER
+            | factor
+    '''
     if len(p) == 4:
         if p[2] == '*':
             p[0] = p[1] * p[3]
@@ -126,7 +128,8 @@ def p_term(p):
 
 def p_factor(p):
     '''factor : NUMBER
-              | LPAREN expression RPAREN'''
+              | LPAREN expression RPAREN
+    '''
     if len(p) == 4:
         p[0] = p[2]
     else:
