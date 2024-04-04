@@ -95,7 +95,7 @@ def p_else_statements_opt(p):
 
 
 def p_condition(p):
-    """"
+    """
     condition : expression IS_LESS_THAN expression
               | expression IS_EQUAL_TO expression
               | expression IS_GREATER_THAN expression
