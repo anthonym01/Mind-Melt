@@ -69,7 +69,14 @@ def p_statement(p):
 def p_assignment(p):
     """
     assignment : LET IDENTIFIER EQUAL expression
+               | LET IDENTIFIER EQUAL expression_list
+               | LET IDENTIFIER EQUAL STRING_LITERAL
+               | LET IDENTIFIER EQUAL REAL
+               | LET IDENTIFIER EQUAL NUMBER
+               | LET IDENTIFIER EQUAL CHARACTER
+               | LET IDENTIFIER EQUAL list
     """
+    #if len(p) == 4:
     p[0] = ('assignment', p[2], p[4])
 
 

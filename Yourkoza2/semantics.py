@@ -45,10 +45,63 @@ def semantic_analysis(tree):
             add_variable(var_name, type(var_value).__name__, var_value)  # Add variable to symbol table
 
         elif node[0] == 'expression':
-            # Example: Check if variables used in expression are declared
-            # Assuming expression is a binary operation (e.g., '+', '-', '*', '/')
-            check_variable(node[1])
-            check_variable(node[3])
+            if len(node) == 4:  # Binary operation
+                operator = node[2]
+                left_operand = node[1]
+                right_operand = node[3]
+                
+                # Ensure left and right operands are properly traversed
+                left_value = traverse(left_operand)
+                right_value = traverse(right_operand)
+                
+                # Perform operation based on the operator
+                if operator == '+':
+                    return left_value + right_value
+                elif operator == '-':
+                    return left_value - right_value
+                elif operator == '*':
+                    return left_value * right_value
+                elif operator == '/':
+                    if right_value == 0:
+                        raise Exception("Division by zero error")
+                    return left_value / right_value
+            elif len(node) == 2:  # Unary operation
+                operator = node[1]
+                operand = node[2]
+                
+                # Ensure the operand is properly traversed
+                operand_value = traverse(operand)
+                
+                # Perform unary operation based on the operator
+                if operator == 'NOT':
+                    return not operand_value
+                elif operator == '-':
+                    return -operand_value
+                elif operator == '+':
+                    return operand_value
+
+        elif node[0] == 'term':
+            # Example: Handle term semantics
+            if len(node) == 4:  # Binary operation
+                operator = node[2]
+                left_operand = node[1]
+                right_operand = node[3]
+                
+                # Ensure left and right operands are properly traversed
+                traverse(left_operand)
+                traverse(right_operand)
+                
+                # Perform operation based on the operator
+                if operator in ('*', '/'):
+                    # Your implementation here
+                    pass
+            elif len(node) == 2:  # Unary operation or single term
+                operand = node[1]
+                
+                # Ensure the operand is properly traversed
+                traverse(operand)
+
+
 
         elif node[0] == 'function':
             # Example: Check function signature
@@ -96,11 +149,17 @@ let drinking_age equal 21
 
 ! Check if you are underage
 if age < drinking_age then
+    let y equal 10 + 80
     show "You are too young to drink"
+    show y
 else
     show "Have a good one my guy"
 end
 
+!while age < 21 do
+    !show "You are underage"
+    !let age equal age + 1
+!end
 show age
 """
 
