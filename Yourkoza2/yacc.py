@@ -70,11 +70,8 @@ def p_assignment(p):
     """
     assignment : LET IDENTIFIER EQUAL expression
                | LET IDENTIFIER EQUAL expression_list
-               | LET IDENTIFIER EQUAL STRING_LITERAL
                | LET IDENTIFIER EQUAL REAL
                | LET IDENTIFIER EQUAL NUMBER
-               | LET IDENTIFIER EQUAL CHARACTER
-               | LET IDENTIFIER EQUAL list
     """
     #if len(p) == 4:
     p[0] = ('assignment', p[2], p[4])
@@ -163,9 +160,9 @@ def p_term(p):
     #else:
     #    p[0] = p[1]
     if len(p) == 4:
-        p[0] = ('term', p[1], p[3])
+        p[0] = ('term', p[1], p[2], p[3])
     else:
-        p[0] =p[1]
+        p[0] = p[1]
 
 def p_factor(p):
     """

@@ -50,10 +50,10 @@ def semantic_analysis(tree):
                 left_operand = node[1]
                 right_operand = node[3]
                 
-               # Ensure left and right operands are properly traversed
+                # Ensure left and right operands are properly traversed
                 left_value = traverse(left_operand)
                 right_value = traverse(right_operand)
-
+                
                 # Perform operation based on the operator
                 if operator == '+':
                     return left_value + right_value
@@ -87,10 +87,10 @@ def semantic_analysis(tree):
                 left_operand = node[1]
                 right_operand = node[3]
                 
-             # Ensure left and right operands are properly traversed
+                # Ensure left and right operands are properly traversed
                 left_value = traverse(left_operand)
                 right_value = traverse(right_operand)
-
+                
                 # Perform operation based on the operator
                 if operator in ('*', '/'):
                     if operator == '*':
@@ -153,7 +153,7 @@ let drinking_age equal 21
 
 ! Check if you are underage
 if age < drinking_age then
-    let y equal 10 + 80
+    let y equal 80 - 1
     show "You are too young to drink"
     show y
 else
@@ -180,6 +180,7 @@ def parsex(program_code):
     lexer.input(program_code)
     for tokenx in lexer: print(tokenx)
     lexer.input(program_code)
+    
     
     syntax_tree = parser.parse(lexer=lexer)
     
