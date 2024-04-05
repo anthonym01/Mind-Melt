@@ -118,20 +118,26 @@ def p_expression(p):
                | CHARACTER PLUS term
                | list
     """
+    #if len(p) == 4:
+    #    if p[2] == '+':
+    #        p[0] = p[1] + p[3]
+    #    elif p[2] == '-':
+    #        p[0] = p[1] - p[3]
+    #    elif p[2] == '**':  # Handle power operator
+    #        p[0] = p[1] ** p[3]
+    #elif len(p) == 3:
+    #    if p[1] == 'not':  # Handle NOT operator
+    #        p[0] = not p[2]
+    #    elif p[1] == '-':  # Handle unary minus
+    #        p[0] = -p[2]
+    #    elif p[1] == '+':  # Handle unary plus
+    #        p[0] = p[2]
+    #else:
+    #    p[0] = p[1]
     if len(p) == 4:
-        if p[2] == '+':
-            p[0] = p[1] + p[3]
-        elif p[2] == '-':
-            p[0] = p[1] - p[3]
-        elif p[2] == '**':  # Handle power operator
-            p[0] = p[1] ** p[3]
-    elif len(p) == 3:
-        if p[1] == 'not':  # Handle NOT operator
-            p[0] = not p[2]
-        elif p[1] == '-':  # Handle unary minus
-            p[0] = -p[2]
-        elif p[1] == '+':  # Handle unary plus
-            p[0] = p[2]
+        p[0] = ('expression', p[1], p[2], p[3])
+    if len(p) == 3:
+        p[0] = ('expression', p[1], p[2])
     else:
         p[0] = p[1]
 
@@ -142,13 +148,17 @@ def p_term(p):
          | IDENTIFIER
          | factor
     """
+    #if len(p) == 4:
+    #    if p[2] == '*':
+    #        p[0] = p[1] * p[3]
+    #    elif p[2] == '/':
+    #        p[0] = p[1] / p[3]
+    #else:
+    #    p[0] = p[1]
     if len(p) == 4:
-        if p[2] == '*':
-            p[0] = p[1] * p[3]
-        elif p[2] == '/':
-            p[0] = p[1] / p[3]
+        p[0] = ('term', p[1], p[3])
     else:
-        p[0] = p[1]
+        p[0] =p[1]
 
 def p_factor(p):
     """
@@ -194,7 +204,6 @@ def p_loop(p):
     loop : FOR IDENTIFIER IN list DO statements
          | WHILE condition DO statements
          | DO statements WHILE condition
-         | DO statements UNTIL condition
     """
     p[0] = ('loop', p[1], p[2], p[4], p[6])
 

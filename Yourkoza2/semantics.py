@@ -108,28 +108,32 @@ show age
 # Parse code and prime execution
 def parsex(program_code):
     
-    # print("\n----------------------------------------------------------")
-    # print("Input code: ")
-    # print(program_code)
+    print("\n----------------------------------------------------------")
+    print("Input code: ")
+    print(program_code)
     
-    # print("\n----------------------------------------------------------")
-    # print("Tokens: ")
+    print("\n----------------------------------------------------------")
+    print("Tokens: ")
     lexer.input(program_code)
-    # for tokenx in lexer: print(tokenx)
+    for tokenx in lexer: print(tokenx)
     lexer.input(program_code)
     
     syntax_tree = parser.parse(lexer=lexer)
     
-    # print("\n-----------------------------------------------------")
-    # print("Ast Syntax tree: ")
-    # print(syntax_tree)
-    # print("\n-------------------------------------------------------------------")
+    print("\n-----------------------------------------------------")
+    print("Ast Syntax tree: ")
+    print(syntax_tree)
+    print("\n-------------------------------------------------------------------")
     semantic_analysis(syntax_tree)# send ast tree to be analysizded
     
     return syntax_tree
 
-filename = sys.argv[1]
-if not filename:
-    raise Exception("No filename provided")
+parsex(input_code)
 
-parsex(open(filename).read())
+
+
+#filename = sys.argv[1]
+#if not filename:
+#    raise Exception("No filename provided")
+
+#parsex(open(filename).read())
