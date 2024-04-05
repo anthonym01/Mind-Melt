@@ -230,7 +230,6 @@ def p_parameters(p):
     parameters : IDENTIFIER
                | parameters COMMA IDENTIFIER
                | empty
-               | IDENTIFIER COLON type
     """
     if len(p) == 2:
         p[0] = ('parameters', p[1])

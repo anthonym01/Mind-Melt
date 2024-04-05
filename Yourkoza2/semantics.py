@@ -22,6 +22,7 @@ def semantic_analysis(tree):
     def check_variable(name):
         if name not in symbol_table:
             raise Exception(f"Variable '{name}' not declared")
+    
     def compare(a, op, b):
         if op == ">":
             return a > b
