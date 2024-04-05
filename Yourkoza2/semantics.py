@@ -50,10 +50,10 @@ def semantic_analysis(tree):
                 left_operand = node[1]
                 right_operand = node[3]
                 
-                # Ensure left and right operands are properly traversed
+               # Ensure left and right operands are properly traversed
                 left_value = traverse(left_operand)
                 right_value = traverse(right_operand)
-                
+
                 # Perform operation based on the operator
                 if operator == '+':
                     return left_value + right_value
@@ -87,14 +87,18 @@ def semantic_analysis(tree):
                 left_operand = node[1]
                 right_operand = node[3]
                 
-                # Ensure left and right operands are properly traversed
-                traverse(left_operand)
-                traverse(right_operand)
-                
+             # Ensure left and right operands are properly traversed
+                left_value = traverse(left_operand)
+                right_value = traverse(right_operand)
+
                 # Perform operation based on the operator
                 if operator in ('*', '/'):
-                    # Your implementation here
-                    pass
+                    if operator == '*':
+                        return left_value * right_value
+                    elif operator == '/':
+                        if right_value == 0:
+                            raise Exception("Division by zero error")
+                        return left_value / right_value
             elif len(node) == 2:  # Unary operation or single term
                 operand = node[1]
                 
