@@ -165,6 +165,11 @@ end
     !let age equal age + 1
 !end
 show age
+
+!function greetings(name) {
+!    show "Hey there ", name
+!}
+!greetings("John")
 """
 
 # Testing area
