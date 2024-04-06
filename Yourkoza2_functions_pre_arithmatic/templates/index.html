@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+    <meta charset="UTF-8" />
+
+    <title>Yourkoza</title>
+
+    <meta name="viewport"
+        content="viewport-fit=cover, width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="msapplication-tap-highlight" content="no" />
+
+    <link rel="icon" type="image/png" href="/static/img/icon.png" />
+
+    <!--<link rel="manifest" href="manifest.json" />-->
+    <meta name="theme-color" content="#31d53d" />
+
+    <!-- Ace editor -->
+    <!--<script src="https://cdn.jsdelivr.net/npm/ace-builds@1.32.9/src-min-noconflict/theme-chrome.min.js"></script>-->
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/ace-builds@1.32.9/css/ace.min.css">
+    <script src="/static/ace-src-noconflict/ace.js"></script>
+    <!--Style sheets-->
+    <link rel="stylesheet" type="text/css" href="/static/css/index.css">
+    <link rel="stylesheet" href="" id="anim" type="text/css">
+
+</head>
+
+<body class="device">
+    <div class="blurser" id="blurser">
+        <!-- Blur the page for overlays and dialogues -->
+    </div>
+
+    <div class="headbar" id="headbar">
+        <div class="menu_container">
+            <button class="menu_item" id="documentaion_btn">Docs</button>
+            <button class="menu_item" id="team_btn">About Us</button>
+            <button class="menu_item" id="help_btn">Help</button>
+
+        </div>
+    </div>
+    <div class="main_view visible" id="Coding_view">
+
+        <div class="code_text_box_container" id="code_text_box_container">
+            <!-- Ace editor -->
+            <div id="editor">let x equal 5\n
+let x equal 7
+let k equal 7 + 8
+!let j equal 7 + k</div>
+        </div>
+
+        <!-- Console emulator -->
+        <div class="console_container">
+            <div id="console_emulation_space" class="console_emulation_space">
+                <div class="Console_block centered">Console emulator</div>
+            </div>
+            <div class="console_menu_container">
+                <button class="console_menu_button">Clear</button>
+                <button class="console_menu_button">Reset</button>
+                <button class="console_menu_button">Abort</button>
+            </div>
+        </div>
+
+        <button class="compile_button" id="compile_button"><span>Compile and run</span>
+            <div class="icon"></div>
+        </button>
+    </div>
+
+    <script src="/static/js/index.js"></script>
+    <script src="/static/js/codemirror_bundle.js"></script>
+</body>
+
+</html>
