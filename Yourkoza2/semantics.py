@@ -79,8 +79,8 @@ def semantic_analysis(tree):
 
 
         elif node[0] == 'expression':
-            check_variable(node[1], symb_t_reference)
-            check_variable(node[3], symb_t_reference)
+            #check_variable(node[1], symb_t_reference)
+            #check_variable(node[3], symb_t_reference)
             
             if len(node) == 4:  # Binary operation
                 operator = node[1]
@@ -111,9 +111,30 @@ def semantic_analysis(tree):
             function_stack[node[1]] = (node[2], node[3])
             return
 
+        elif node[0] == 'function_call':
+            from operator import itemgetter
+            symbols = {}
+            def parse_args(args, params, symbols, remove):
+                if isinstance(args, tuple) and isinstance(params, tuple):
+                    for a, p in zip(args, params):
+                        parse_args(a, p, symbols, remove)
+                else:
+                    if args != remove:
+                        symbols[args] = (type(params).__name__, params)
+            
+            name, args = itemgetter("name", "arguments")(node[1])
+            parse_args(function_stack[name][0], args, symbols, "parameters")
+
+            functioncall_stack.append({"name": name, "params": function_stack[name][0], "body": function_stack[name][1], "symbol_table": symbols})
+
+            traverse(function_stack[name][1])
+
+            functioncall_stack.pop()
+
+        
         elif node[0] == "display":
-            if symbol_table.get(node[1]) is not None:
-                print(symbol_table[node[1]][1])
+            if symb_t_reference.get(node[1]) is not None:
+                print(symb_t_reference[node[1]][1])
             else:
                 print(node[1])
 
@@ -121,17 +142,18 @@ def semantic_analysis(tree):
             # Example: Check if condition expression has boolean type
             _, a, op, b = node[1]
 
-            if symbol_table.get(a) is not None:
-                a = symbol_table[a][1]
+            if symb_t_reference.get(a) is not None:
+                a = symb_t_reference[a][1]
 
-            if symbol_table.get(b) is not None:
-                b = symbol_table[b][1]
+            if symb_t_reference.get(b) is not None:
+                b = symb_t_reference[b][1]
 
             if compare(a, op, b):
                 traverse(node[2])
                 return
             else:
-                traverse(node[3])
+                if node[3] is not None:
+                    traverse(node[3])
                 return
 
         # Recursively traverse child nodes
@@ -159,6 +181,7 @@ else
     show "Have a good one my guy"
 end
 
+!let name equal "John"
 
 function greetings(name) {
     show "Hey there " show name
