@@ -7,6 +7,8 @@ import sys
 lexer = lex.lex()
 
 symbol_table = {}  # Initialize symbol table
+function_stack = {}
+functioncall_stack = []
 
 # Semantic analysis function
 def semantic_analysis(tree):
@@ -162,10 +164,11 @@ function greetings(name) {
     !let age equal age + 1
 !end
 
-!function greetings(name) {
-!    show "Hey there ", name
-!}
-!greetings("John")
+function greetings(name) {
+    show "Hey there ", name
+    !show "Hey there "
+}
+greetings("John")
 """
 
 # Testing area

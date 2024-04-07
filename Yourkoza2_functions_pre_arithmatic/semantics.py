@@ -144,12 +144,13 @@ def semantic_analysis(tree):
 input_code = """
 let x equal 1
 let y equal 18
+show y
 
 function greetings(name) {
-    show "Hey there ", name
+    !show "Hey there ", name
+    show "Hey there "
 }
 greetings("John")
-show y + 10
 """
 
 # Testing area
@@ -162,7 +163,7 @@ def parsex(program_code):
     
     # print("\n----------------------------------------------------------")
     # print("Tokens: ")
-    lexer.input(program_code)
+    #lexer.input(program_code)
     # for tokenx in lexer: print(tokenx)
     lexer.input(program_code)
     
@@ -176,9 +177,9 @@ def parsex(program_code):
     
     return syntax_tree
 
-filename = sys.argv[1]
-if not filename:
-    raise Exception("No filename provided")
+#filename = sys.argv[1]
+#if not filename:
+#    raise Exception("No filename provided")
 
 #parsex(open(filename).read())
 parsex(input_code)
