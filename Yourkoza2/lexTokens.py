@@ -28,9 +28,9 @@ reserved = {
 
 # List of token names
 tokens = list(reserved.values()) + [
-    'INTEGER',
+    #'INTEGER',
     'IDENTIFIER',
-    'REAL',
+    #'REAL',
     'NUMBER',
     'CHARACTER',
     'LETTER',
@@ -40,6 +40,7 @@ tokens = list(reserved.values()) + [
     'TIMES',
     'DIVIDE',
     'POWER',
+    'BOOLEAN',
     'AND',
     'OR',
     'NOT',
@@ -60,34 +61,34 @@ tokens = list(reserved.values()) + [
     'COMMA',
     'COMMENT',
     'TRUE',
-    'FALSE'
+    'FALSE',
 ]
 
-literals = ['{', '}', '[', ']', '(', ')', ',']
+#literals = ['{', '}', '[', ']', '(', ')', ',']
 
 # Regular expression rules for simple tokens
 t_PLUS = r'\+'
-t_MINUS = r'-'
+t_MINUS = r'\-'
 t_TIMES = r'\*'
-t_DIVIDE = r'/'
+t_DIVIDE = r'\/'
 t_POWER = r'\^'
-t_IS_EQUAL_TO = r'=='
-t_IS_NOT_EQUAL_TO = r'!='
-t_IS_GREATER_THAN = r'>'
-t_IS_LESS_THAN = r'<'
-t_GREATER_THAN_OR_EQUAL_TO = r'>='
-t_LESS_THAN_OR_EQUAL_TO = r'<='
+t_IS_EQUAL_TO = r'\=='
+t_IS_NOT_EQUAL_TO = r'\!='
+t_IS_GREATER_THAN = r'\>'
+t_IS_LESS_THAN = r'\<'
+t_GREATER_THAN_OR_EQUAL_TO = r'\>='
+t_LESS_THAN_OR_EQUAL_TO = r'\<='
 t_INCREASE = r'\+\+'
-t_DECREASE = r'--'
+t_DECREASE = r'\--'
 t_LPAREN = r'\('
 t_RPAREN = r'\)'
 t_LBRACKET = r'\['
 t_RBRACKET = r'\]'
 t_LBRACE = r'\{'
 t_RBRACE = r'\}'
-t_COMMA = r','
-t_TRUE = r'true'
-t_FALSE = r'false'
+t_COMMA = r'\,'
+#t_TRUE = r'true'
+#t_FALSE = r'false'
 #t_COMMENT = r'!'
 
 #Regular expression rules
@@ -101,15 +102,15 @@ def t_NUMBER(t):
     t.value = int(t.value) 
     return t
 
-def t_INTEGER(t):
-    r'^-?(0|[1-9]\d*)$'
-    t.value = int(t.value)
-    return t
+#def t_INTEGER(t):
+#    r'^-?(0|[1-9]\d*)$'
+#    t.value = int(t.value)
+#    return t
 
-def t_REAL(t):
-    r'^-?(\d+(\.\d*)?|\.\d+)([eE][-+]?\d+)?$'
-    t.value = float(t.value)
-    return t
+#def t_REAL(t):
+#    r'^-?(\d+(\.\d*)?|\.\d+)([eE][-+]?\d+)?$'
+#    t.value = float(t.value)
+#    return t
 
 
 def t_CHARACTER(t):

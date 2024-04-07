@@ -39,73 +39,58 @@ def semantic_analysis(tree):
 
     # Traverse the syntax tree and perform semantic analysis
     def traverse(node):
+        #print("Processing node:", node)
+        #print("Node length:", len(node))
+        if len(node) == 0:
+            return  # Empty node, nothing to traverse
+        #print(node[0])
         if node[0] == 'assignment':
             var_name = node[1]
-            var_value = node[2]
-            add_variable(var_name, type(var_value).__name__, var_value)  # Add variable to symbol table
+            #print(node[2])
+            if len(node) >= 3:
+                if isinstance(node[2],str): 
+                    var_value = node[2]
+                elif isinstance(node[2],int): 
+                    var_value = node[2]
+                else:
+                    var_value = traverse(node[2])
+                    #print(traverse(node[2]))
+                #print(f"Assigning {var_value} to {var_name}")
+                if var_name not in symbol_table:
+                    add_variable(var_name, type(var_value).__name__, var_value)  # Add variable to symbol table                
+                else:
+                    raise SyntaxError(f"Variable {var_name} already exists")
+                return
+            else:
+                print("Invalid assignment node:", node)
+                return
+
 
         elif node[0] == 'expression':
             if len(node) == 4:  # Binary operation
-                operator = node[2]
-                left_operand = node[1]
-                right_operand = node[3]
-                
-                # Ensure left and right operands are properly traversed
-                left_value = traverse(left_operand)
-                right_value = traverse(right_operand)
-                
-                # Perform operation based on the operator
-                if operator == '+':
-                    return left_value + right_value
-                elif operator == '-':
-                    return left_value - right_value
-                elif operator == '*':
-                    return left_value * right_value
-                elif operator == '/':
-                    if right_value == 0:
-                        raise Exception("Division by zero error")
-                    return left_value / right_value
-            elif len(node) == 2:  # Unary operation
                 operator = node[1]
-                operand = node[2]
-                
-                # Ensure the operand is properly traversed
-                operand_value = traverse(operand)
-                
-                # Perform unary operation based on the operator
-                if operator == 'NOT':
-                    return not operand_value
-                elif operator == '-':
-                    return -operand_value
-                elif operator == '+':
-                    return operand_value
-
-        elif node[0] == 'term':
-            # Example: Handle term semantics
-            if len(node) == 4:  # Binary operation
-                operator = node[2]
-                left_operand = node[1]
+                left_operand = node[2]
                 right_operand = node[3]
-                
-                # Ensure left and right operands are properly traversed
-                left_value = traverse(left_operand)
-                right_value = traverse(right_operand)
+                #print(f"Evaluating expression: {left_operand} {operator} {right_operand}")
                 
                 # Perform operation based on the operator
-                if operator in ('*', '/'):
-                    if operator == '*':
-                        return left_value * right_value
+                if operator in ('+', '-', '*', '^' , '/'):
+                    if operator == '+':
+                        return left_operand + right_operand
+                    elif operator == '-':
+                        print(left_operand - right_operand)
+                        return left_operand - right_operand
+                    elif operator == '*':
+                        return left_operand * right_operand
+                    elif operator == '^':
+                        return left_operand ** right_operand
                     elif operator == '/':
-                        if right_value == 0:
+                        if right_operand == 0:
                             raise Exception("Division by zero error")
-                        return left_value / right_value
-            elif len(node) == 2:  # Unary operation or single term
-                operand = node[1]
-                
-                # Ensure the operand is properly traversed
-                traverse(operand)
-
-
+                        return left_operand / right_operand
+                else:
+                    print(f"Unsupported operator in assignment: {operator}")
+                    return
 
         elif node[0] == 'function':
             # Example: Check function signature
@@ -148,23 +133,33 @@ def semantic_analysis(tree):
 
 # Example usage:
 input_code = """
+show "boy" 
+let y equal 3 ^ 4 
+show y
+
 let age equal 18
 let drinking_age equal 21
 
 ! Check if you are underage
 if age < drinking_age then
-    let y equal 80 - 1
     show "You are too young to drink"
-    show y
 else
     show "Have a good one my guy"
 end
+let name equal jada
+function greetings(name) {
+    show "Hey there "
+    show name
+    let name equal 9
+    show name
+}
+return name
+}
 
 !while age < 21 do
     !show "You are underage"
     !let age equal age + 1
 !end
-show age
 """
 
 # Testing area
@@ -201,3 +196,20 @@ parsex(input_code)
 #    raise Exception("No filename provided")
 
 #parsex(open(filename).read())
+
+
+"""DOESN'T WORK WITH THIS INPUT
+let age equal 18
+let drinking_age equal 21
+
+! Check if you are underage
+if age < drinking_age then
+    show "You are too young to drink"
+else
+    show "Have a good one my guy"
+end
+
+!while age < 21 do
+    !show "You are underage"
+    !let age equal age + 1
+!end"""

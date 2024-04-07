@@ -37,13 +37,12 @@ start = 'program'
 def p_program(p):
     """
     program : statements
-            | expression
     """
     p[0] = p[1]
 
 def p_statements(p):
     """
-    statements : statements statement
+    statements : statement statements
                | statement
     """
     if len(p) == 3:
@@ -61,27 +60,19 @@ def p_statement(p):
               | loop
               | function
               | display
-              | input
+              | expression
     """
-    p[0] = ('statement', p[1])
+    p[0] = p[1]
 
 
 def p_assignment(p):
     """
     assignment : LET IDENTIFIER EQUAL expression
                | LET IDENTIFIER EQUAL expression_list
-               | LET IDENTIFIER EQUAL REAL
-               | LET IDENTIFIER EQUAL NUMBER
     """
     #if len(p) == 4:
     p[0] = ('assignment', p[2], p[4])
 
-
-def p_comment(p):
-    """
-    comment : COMMENT
-    """
-    p[0] = ('comment', p[1])
 
 def p_conditional(p):
     """
@@ -111,16 +102,13 @@ def p_condition(p):
 
 def p_expression(p):
     """
-    expression : expression PLUS term
-               | expression MINUS term
-               | term
-               | expression POWER term
-               | NOT expression
+    expression : expression PLUS expression
+               | expression MINUS expression
+               | expression TIMES expression
+               | expression DIVIDE expression
+               | expression POWER expression
                | LPAREN expression RPAREN
-               | NUMBER MINUS term
-               | REAL MINUS term
-               | CHARACTER PLUS term
-               | list
+               | term
     """
     #if len(p) == 4:
     #    if p[2] == '+':
@@ -139,18 +127,18 @@ def p_expression(p):
     #else:
     #    p[0] = p[1]
     if len(p) == 4:
-        p[0] = ('expression', p[1], p[2], p[3])
-    if len(p) == 3:
-        p[0] = ('expression', p[1], p[2])
+        p[0] = ('expression', p[2], p[1], p[3])
+    #if len(p) == 3:
+    #    p[0] = ('expression', p[1], p[2])
     else:
         p[0] = p[1]
 
 def p_term(p):
     """
-    term : term TIMES factor
-         | term DIVIDE factor
+    term : NUMBER
+         | STRING_LITERAL
+         | BOOLEAN
          | IDENTIFIER
-         | factor
     """
     #if len(p) == 4:
     #    if p[2] == '*':
@@ -159,47 +147,34 @@ def p_term(p):
     #        p[0] = p[1] / p[3]
     #else:
     #    p[0] = p[1]
-    if len(p) == 4:
-        p[0] = ('term', p[1], p[2], p[3])
-    else:
-        p[0] = p[1]
+    #if len(p) == 4:
+    #    p[0] = ('term', p[1], p[2], p[3])
+    #else:
+    p[0] = p[1]
 
-def p_factor(p):
-    """
-    factor : NUMBER
-           | LPAREN expression RPAREN
-           | REAL
-    """
-    if len(p) == 4:
-        p[0] = p[2]
-    else:
-        p[0] = p[1]
 
-def p_input(p):
+def p_boolean(p):
     """
-    input : LET IDENTIFIER EQUAL SHOW IDENTIFIER LPAREN STRING_LITERAL RPAREN
+    boolean : TRUE
+            | FALSE
     """
-    p[0] = ('input', p[2], p[9])
+    p[0] = ('boolean', p[1])
+
+
+#def p_factor(p):
+#    """
+#    factor : NUMBER
+#           | LPAREN expression RPAREN
+#    """
+#    if len(p) == 4:
+#        p[0] = p[2]
+#    else:
+#        p[0] = p[1]
 
 def p_display(p):
     """
-    display : SHOW expression
-            | SHOW STRING_LITERAL
+    display : SHOW STRING_LITERAL
             | SHOW IDENTIFIER
-            | SHOW NUMBER
-            | SHOW REAL
-            | SHOW CHARACTER
-            | SHOW list
-            | SHOW function
-            | SHOW conditional
-            | SHOW loop
-            | SHOW input
-            | SHOW comment
-            | SHOW program
-            | SHOW statements
-            | SHOW expression_list
-            | SHOW assignment
-            | SHOW display
     """
     p[0] = ('display', p[2])
 
@@ -224,7 +199,7 @@ def p_list(p):
 def p_expression_list(p):
     """
     expression_list : expression
-                    | expression_list COMMA expression
+                    | expression COMMA expression_list
                     | empty
     """
     if len(p) == 2:
@@ -235,18 +210,19 @@ def p_expression_list(p):
 def p_function(p):
     """
     function : FUNCTION IDENTIFIER LPAREN parameters RPAREN LBRACE statements RBRACE return_statement_opt RBRACE
+             | FUNCTION IDENTIFIER LPAREN parameters RPAREN LBRACE statements RBRACE 
     """
     p[0] = ('function', p[2], p[4], p[7], p[8])
 
 def p_parameters(p):
     """
     parameters : IDENTIFIER
-               | parameters COMMA IDENTIFIER
+               | IDENTIFIER COMMA parameters
                | empty
     """
     if len(p) == 2:
         p[0] = ('parameters', p[1])
-    else:
+    elif len(p) == 4:
         p[0] = ('parameters', p[1], p[3])
 
 def p_return_statement_opt(p):
@@ -267,8 +243,7 @@ def p_empty(p):
 
 def p_error(p):
     print("\n-------------------------------------------------------------------")
-    print("Syntax error in input!: ")
-    print(p)
+    print(f"SyntaxError: Illegal character {p.value}")
     print('--------------------------------------------------------------------')
     
 
