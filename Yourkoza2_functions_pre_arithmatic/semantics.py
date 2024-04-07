@@ -14,14 +14,14 @@ def semantic_analysis(tree):
     symbol_table = {}  # Reset symbol table
     
     # Function to add a variable to the symbol table
-    def add_variable(name, type, value, symb_table):
-        if name in symb_table:
+    def add_variable(name, type, value, symb_t_reference):
+        if name in symb_t_reference:
             raise Exception(f"Variable '{name}' redeclaration error")
-        symb_table[name] = (type, value)
+        symb_t_reference[name] = (type, value)
 
     # Function to check if a variable has been declared
-    def check_variable(name, symb_table):
-        if name not in symb_table:
+    def check_variable(name, symb_t_reference):
+        if name not in symb_t_reference:
             raise Exception(f"Variable '{name}' not declared")
 
     def compare(a, op, b):
@@ -49,8 +49,8 @@ def semantic_analysis(tree):
 
     # Traverse the syntax tree and perform semantic analysis
     def traverse(node):
-        symb_table = symbol_table if len(functioncall_stack) <= 0 else functioncall_stack[-1:][0]["symbol_table"]
-        # print(symb_table)
+        symb_t_reference = symbol_table if len(functioncall_stack) <= 0 else functioncall_stack[-1:][0]["symbol_table"]
+        # print(symb_t_reference)
         if node is None:
             print("`node` provided is `None`")
             return
@@ -58,14 +58,14 @@ def semantic_analysis(tree):
         if node[0] == 'assignment':
             var_name = node[1]
             var_value = node[2]
-            add_variable(var_name, type(var_value).__name__, var_value, symb_table)  # Add variable to symbol table
+            add_variable(var_name, type(var_value).__name__, var_value, symb_t_reference)  # Add variable to symbol table
 
         elif node[0] == 'expression':
             # Example: Check if variables used in expression are declared
             # Assuming expression is a binary operation (e.g., '+', '-', '*', '/')
 
-            check_variable(node[1], symb_table)
-            check_variable(node[3], symb_table)
+            check_variable(node[1], symb_t_reference)
+            check_variable(node[3], symb_t_reference)
 
         elif node[0] == 'function':
             function_stack[node[1]] = (node[2], node[3])
@@ -94,16 +94,16 @@ def semantic_analysis(tree):
         
         elif node[0] == "display":
             # checks if there is a function currently on the functioncall stack to determine what symbol table to use due to scope
-            if symb_table.get(node[1]) is not None:
-                print(symb_table[node[1]][1])
+            if symb_t_reference.get(node[1]) is not None:
+                print(symb_t_reference[node[1]][1])
 
             # if node[1][0] == "expression_list":
             #     s, v = [], ""
             #
             #     parse(node[1], s, "expression_list")
             #     for ch in s:
-            #         if symb_table.get(ch) is not None:
-            #             v += symb_table[ch][1]
+            #         if symb_t_reference.get(ch) is not None:
+            #             v += symb_t_reference[ch][1]
             #             continue
             #
             #         v += ch
@@ -116,11 +116,11 @@ def semantic_analysis(tree):
             # Example: Check if condition expression has boolean type
             _, a, op, b = node[1]
 
-            if symb_table.get(a) is not None:
-                a = symb_table[a][1]
+            if symb_t_reference.get(a) is not None:
+                a = symb_t_reference[a][1]
 
-            if symb_table.get(b) is not None:
-                b = symb_table[b][1]
+            if symb_t_reference.get(b) is not None:
+                b = symb_t_reference[b][1]
 
             if compare(a, op, b):
                 traverse(node[2])
@@ -147,8 +147,7 @@ let y equal 18
 show y
 
 function greetings(name) {
-    !show "Hey there ", name
-    show "Hey there "
+    show "Hey there " show name
 }
 greetings("John")
 """

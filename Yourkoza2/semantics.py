@@ -15,14 +15,14 @@ def semantic_analysis(tree):
     symbol_table = {}  # Reset symbol table
     
     # Function to add a variable to the symbol table
-    def add_variable(name, type, value):
-        if name in symbol_table:
+    def add_variable(name, type, value, symb_t_reference):
+        if name in symb_t_reference:
             raise Exception(f"Variable '{name}' redeclaration error")
-        symbol_table[name] = (type, value)
+        symb_t_reference[name] = (type, value)
 
     # Function to check if a variable has been declared
-    def check_variable(name):
-        if name not in symbol_table:
+    def check_variable(name, symb_t_reference):
+        if name not in symb_t_reference:
             raise Exception(f"Variable '{name}' not declared")
     
     def compare(a, op, b):
@@ -39,13 +39,23 @@ def semantic_analysis(tree):
         if op == "!=":
             return a != b
 
+    
+    def parse(args, symbols, remove):
+        if isinstance(args, tuple):
+            for a in args:
+                parse(a, symbols, remove)
+        else:
+            if args != remove:
+                symbols.append(args)
+    
     # Traverse the syntax tree and perform semantic analysis
     def traverse(node):
-        #print("Processing node:", node)
-        #print("Node length:", len(node))
-        if len(node) == 0:
-            return  # Empty node, nothing to traverse
-        #print(node[0])
+        symb_t_reference = symbol_table if len(functioncall_stack) <= 0 else functioncall_stack[-1:][0]["symbol_table"]
+        # print(symb_t_reference)
+        if node is None:
+            print("`node` provided is `None`")
+            return
+
         if node[0] == 'assignment':
             var_name = node[1]
             #print(node[2])
@@ -59,7 +69,7 @@ def semantic_analysis(tree):
                     #print(traverse(node[2]))
                 #print(f"Assigning {var_value} to {var_name}")
                 if var_name not in symbol_table:
-                    add_variable(var_name, type(var_value).__name__, var_value)  # Add variable to symbol table                
+                    add_variable(var_name, type(var_value).__name__, var_value, symb_t_reference)   # Add variable to symbol table                
                 else:
                     raise SyntaxError(f"Variable {var_name} already exists")
                 return
@@ -69,6 +79,9 @@ def semantic_analysis(tree):
 
 
         elif node[0] == 'expression':
+            check_variable(node[1], symb_t_reference)
+            check_variable(node[3], symb_t_reference)
+            
             if len(node) == 4:  # Binary operation
                 operator = node[1]
                 left_operand = node[2]
@@ -95,12 +108,9 @@ def semantic_analysis(tree):
                     return
 
         elif node[0] == 'function':
-            # Example: Check function signature
-            function_name = node[1]
-            parameters = node[2]
-            function_body = node[3]
-            # Add function signature to symbol table
-        
+            function_stack[node[1]] = (node[2], node[3])
+            return
+
         elif node[0] == "display":
             if symbol_table.get(node[1]) is not None:
                 print(symbol_table[node[1]][1])
@@ -135,7 +145,7 @@ def semantic_analysis(tree):
 
 # Example usage:
 input_code = """
-show "boy" 
+show "boy test" 
 let y equal 3 ^ 4 
 show y
 
@@ -148,25 +158,10 @@ if age < drinking_age then
 else
     show "Have a good one my guy"
 end
-let name equal jada
-function greetings(name) {
-    show "Hey there "
-    show name
-    !let name equal 9
-    show name
-}
 
-!return name
-!}
-
-!while age < 21 do
-    !show "You are underage"
-    !let age equal age + 1
-!end
 
 function greetings(name) {
-    show "Hey there ", name
-    !show "Hey there "
+    show "Hey there " show name
 }
 greetings("John")
 """
