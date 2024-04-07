@@ -9,7 +9,7 @@
 run
 
 ```sh
-cd Yourkoza2 && python3 -m venv .venv && . .venv/bin/activate && pip install Flask && pip install ply
+cd Yourkoza2 ; python3 -m venv .venv ; . .venv/bin/activate ; pip install Flask ; pip install ply
 ```
 
 ## Settup Windows
