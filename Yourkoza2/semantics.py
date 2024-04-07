@@ -183,10 +183,10 @@ end
 
 !let name equal "John"
 
-function greetings(name) {
-    show "Hey there " show name
-}
-greetings("John")
+#function greetings(name) {
+#    show "Hey there " show name
+#}
+#greetings("John")
 """
 
 # Testing area
