@@ -150,11 +150,12 @@ let name equal jada
 function greetings(name) {
     show "Hey there "
     show name
-    let name equal 9
+    !let name equal 9
     show name
 }
-return name
-}
+
+!return name
+!}
 
 !while age < 21 do
     !show "You are underage"
@@ -201,4 +202,3 @@ parsex(input_code)
 #    raise Exception("No filename provided")
 
 #parsex(open(filename).read())
-
