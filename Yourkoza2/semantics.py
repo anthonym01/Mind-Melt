@@ -160,6 +160,11 @@ return name
     !show "You are underage"
     !let age equal age + 1
 !end
+
+!function greetings(name) {
+!    show "Hey there ", name
+!}
+!greetings("John")
 """
 
 # Testing area
@@ -197,19 +202,3 @@ parsex(input_code)
 
 #parsex(open(filename).read())
 
-
-"""DOESN'T WORK WITH THIS INPUT
-let age equal 18
-let drinking_age equal 21
-
-! Check if you are underage
-if age < drinking_age then
-    show "You are too young to drink"
-else
-    show "Have a good one my guy"
-end
-
-!while age < 21 do
-    !show "You are underage"
-    !let age equal age + 1
-!end"""

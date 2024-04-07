@@ -142,13 +142,14 @@ def semantic_analysis(tree):
 
 # Example usage:
 input_code = """
-let x equal 10
-let y equal 12+5
-!let x equal 0
-show y
-let k equal 18
-!k equal 4
-show x
+let x equal 1
+let y equal 18
+
+function greetings(name) {
+    show "Hey there ", name
+}
+greetings("John")
+show y + 10
 """
 
 # Testing area
@@ -179,4 +180,5 @@ filename = sys.argv[1]
 if not filename:
     raise Exception("No filename provided")
 
-parsex(open(filename).read())
+#parsex(open(filename).read())
+parsex(input_code)
