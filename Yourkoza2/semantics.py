@@ -7,6 +7,7 @@ import sys
 lexer = lex.lex()
 
 symbol_table = {}  # Initialize symbol table
+symb_t_reference = symbol_table
 function_stack = {}
 functioncall_stack = []
 show_puts = []
@@ -18,12 +19,14 @@ def semantic_analysis(tree):
     # Function to add a variable to the symbol table
     def add_variable(name, type, value, symb_t_reference):
         if name in symb_t_reference:
+            show_puts.append(f"Variable '{name}' redeclaration error")
             raise Exception(f"Variable '{name}' redeclaration error")
         symb_t_reference[name] = (type, value)
 
     # Function to check if a variable has been declared
     def check_variable(name, symb_t_reference):
         if name not in symb_t_reference:
+            show_puts.append(f"Variable '{name}' not declared")
             raise Exception(f"Variable '{name}' not declared")
     
     def compare(a, op, b):
@@ -72,6 +75,7 @@ def semantic_analysis(tree):
                 if var_name not in symb_t_reference:
                     add_variable(var_name, type(var_value).__name__, var_value, symb_t_reference)   # Add variable to symbol table                
                 else:
+                    show_puts.append(f"Variable {var_name} already exists")
                     raise SyntaxError(f"Variable {var_name} already exists")
                 return
             else:
@@ -127,6 +131,7 @@ def semantic_analysis(tree):
                         if isinstance(params, tuple):  # Parameter is a tuple indicating multiple possible types
                             types = [t for t in params if isinstance(args, t)]
                             if len(types) != 1:
+                                show_puts.append(f"Argument {args} does not match any expected type in {params}")
                                 raise TypeError(f"Argument {args} does not match any expected type in {params}")
                             symbols[args] = (types[0].__name__, args)
                         else:
