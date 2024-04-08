@@ -9,6 +9,7 @@ lexer = lex.lex()
 symbol_table = {}  # Initialize symbol table
 function_stack = {}
 functioncall_stack = []
+show_puts = []
 
 # Semantic analysis function
 def semantic_analysis(tree):
@@ -68,7 +69,7 @@ def semantic_analysis(tree):
                     var_value = traverse(node[2])
                     #print(traverse(node[2]))
                 #print(f"Assigning {var_value} to {var_name}")
-                if var_name not in symbol_table:
+                if var_name not in symb_t_reference:
                     add_variable(var_name, type(var_value).__name__, var_value, symb_t_reference)   # Add variable to symbol table                
                 else:
                     raise SyntaxError(f"Variable {var_name} already exists")
@@ -104,6 +105,8 @@ def semantic_analysis(tree):
                             raise Exception("Division by zero error")
                         return left_operand / right_operand
                 else:
+                    
+                    show_puts.append(f"Unsupported operator in expression: {operator}")
                     print(f"Unsupported operator in assignment: {operator}")
                     return
 
@@ -152,8 +155,10 @@ def semantic_analysis(tree):
         
         elif node[0] == "display":
             if symb_t_reference.get(node[1]) is not None:
+                show_puts.append(str(symb_t_reference[node[1]][1]))
                 print(symb_t_reference[node[1]][1])
             else:
+                show_puts.append(str(node[1]))
                 print(node[1])
 
         elif node[0] == 'conditional':
@@ -212,6 +217,7 @@ greetings("John")
 # Testing area
 # Parse code and prime execution
 def parsex(program_code):
+    show_puts.clear()
     
     print("\n----------------------------------------------------------")
     print("Input code: ")
@@ -223,7 +229,6 @@ def parsex(program_code):
     for tokenx in lexer: print(tokenx)
     lexer.input(program_code)
     
-    
     syntax_tree = parser.parse(lexer=lexer)
     
     print("\n-----------------------------------------------------")
@@ -232,7 +237,10 @@ def parsex(program_code):
     print("\n-------------------------------------------------------------------")
     semantic_analysis(syntax_tree)# send ast tree to be analysizded
     
-    return syntax_tree
+    print(show_puts)
+    
+    return show_puts
+    
 
 parsex(input_code)
 
