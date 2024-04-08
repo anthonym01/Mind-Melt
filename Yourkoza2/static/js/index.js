@@ -59,9 +59,11 @@ let code_handler = {
     },
     editor: false,
     initalize: async function () {
-        document.getElementById('compile_button').addEventListener('click', code_handler.compile_and_run);
+        document.getElementById('compile_button').addEventListener('click', function(){code_handler.compile_and_run()});
 
-        document.getElementById('clear_btn').addEventListener('click', code_handler.clear_screen);
+        document.getElementById('ask_gemini_btn').addEventListener('click', function(){ code_handler.geminaize()});
+
+        document.getElementById('clear_btn').addEventListener('click', function(){ code_handler.clear_screen()});
 
         this.editor = ace.edit("editor", {
             //theme: "ace/theme/GitHub",
@@ -147,6 +149,23 @@ let code_handler = {
 
         }
 
+    },
+    geminaize: async function () {
+        console.log('Geminaize')
+        let code_query = document.getElementById('AI_input').value;
+        console.log(code_query)
+        const response = await fetch('/post/geminaize', {
+            method: "POST",
+            body: JSON.stringify({ code_query }),
+            headers: { "Content-type": "application/json; charset=UTF-8" }
+        });
+
+        if (!response.ok) { throw new Error('Network failiure'); }
+
+        const code_output = await response.json();
+        console.log(code_output[0]);
+
+        code_handler.editor.setValue(code_output[0]);
     },
     abort_run: async function () {
 

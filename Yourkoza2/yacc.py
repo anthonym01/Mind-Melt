@@ -11,7 +11,7 @@ precedence = (
         'IS_NOT_EQUAL_TO',
         'GREATER_THAN_OR_EQUAL_TO',
         'LESS_THAN_OR_EQUAL_TO'
-    ),  # fix maybe
+    ),  
     (
         'left',
         'PLUS',
@@ -111,26 +111,8 @@ def p_expression(p):
                | term
                | function_call
     """
-    #if len(p) == 4:
-    #    if p[2] == '+':
-    #        p[0] = p[1] + p[3]
-    #    elif p[2] == '-':
-    #        p[0] = p[1] - p[3]
-    #    elif p[2] == '**':  # Handle power operator
-    #        p[0] = p[1] ** p[3]
-    #elif len(p) == 3:
-    #    if p[1] == 'not':  # Handle NOT operator
-    #        p[0] = not p[2]
-    #    elif p[1] == '-':  # Handle unary minus
-    #        p[0] = -p[2]
-    #    elif p[1] == '+':  # Handle unary plus
-    #        p[0] = p[2]
-    #else:
-    #    p[0] = p[1]
     if len(p) == 4:
         p[0] = ('expression', p[2], p[1], p[3])
-    #if len(p) == 3:
-    #    p[0] = ('expression', p[1], p[2])
     else:
         p[0] = p[1]
 
@@ -141,16 +123,6 @@ def p_term(p):
          | BOOLEAN
          | IDENTIFIER
     """
-    #if len(p) == 4:
-    #    if p[2] == '*':
-    #        p[0] = p[1] * p[3]
-    #    elif p[2] == '/':
-    #        p[0] = p[1] / p[3]
-    #else:
-    #    p[0] = p[1]
-    #if len(p) == 4:
-    #    p[0] = ('term', p[1], p[2], p[3])
-    #else:
     p[0] = p[1]
 
 
@@ -161,16 +133,6 @@ def p_boolean(p):
     """
     p[0] = ('boolean', p[1])
 
-
-#def p_factor(p):
-#    """
-#    factor : NUMBER
-#           | LPAREN expression RPAREN
-#    """
-#    if len(p) == 4:
-#        p[0] = p[2]
-#    else:
-#        p[0] = p[1]
 
 def p_display(p):
     """

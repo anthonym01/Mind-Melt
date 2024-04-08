@@ -7,6 +7,10 @@ import ply.lex as lex
 
 # PLY lexer
 # Handling reserved words
+# The `reserved` dictionary in the provided code snippet is mapping certain keywords in the Yorkoza
+# language to their corresponding token types. Each key-value pair in the dictionary represents a
+# keyword and its associated token type. For example, the keyword 'if' is mapped to the token type
+# 'IF', 'then' to 'THEN', 'else' to 'ELSE', and so on.
 reserved = {
     'if': 'IF',
     'then': 'THEN',
@@ -28,9 +32,7 @@ reserved = {
 
 # List of token names
 tokens = list(reserved.values()) + [
-    #'INTEGER',
     'IDENTIFIER',
-    #'REAL',
     'NUMBER',
     'CHARACTER',
     'LETTER',
@@ -64,9 +66,11 @@ tokens = list(reserved.values()) + [
     'FALSE',
 ]
 
-#literals = ['{', '}', '[', ']', '(', ')', ',']
 
 # Regular expression rules for simple tokens
+# These lines of code in the lexer file are defining regular expression rules for various arithmetic
+# and logical operators, as well as other symbols used in the Yorkoza language. Each line associates a
+# regular expression pattern with a token name.
 t_PLUS = r'\+'
 t_MINUS = r'\-'
 t_TIMES = r'\*'
@@ -101,17 +105,6 @@ def t_NUMBER(t):
     r'\d+'
     t.value = int(t.value) 
     return t
-
-#def t_INTEGER(t):
-#    r'^-?(0|[1-9]\d*)$'
-#    t.value = int(t.value)
-#    return t
-
-#def t_REAL(t):
-#    r'^-?(\d+(\.\d*)?|\.\d+)([eE][-+]?\d+)?$'
-#    t.value = float(t.value)
-#    return t
-
 
 def t_CHARACTER(t):
     r"'.*'"
@@ -158,7 +151,5 @@ t_ignore = ' \t'
 
 # Error handling rule
 def t_error(t):
-    #print("\n---------------------------------")
     print("Illegal character '%s'" % t.value[0])
-    # code_output.append(str("Illegal character '%s'" % t.value[0]))
     t.lexer.skip(1)

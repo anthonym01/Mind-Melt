@@ -248,7 +248,7 @@ def parsex(program_code):
     print("Ast Syntax tree: ")
     print(syntax_tree)
     print("\n-------------------------------------------------------------------")
-    semantic_analysis(syntax_tree)# send ast tree to be analysizded
+    semantic_analysis(syntax_tree)# send ast tree to be analyzed
     
     print(show_puts)
     
@@ -256,11 +256,3 @@ def parsex(program_code):
     
 
 parsex(input_code)
-
-
-
-#filename = sys.argv[1]
-#if not filename:
-#    raise Exception("No filename provided")
-
-#parsex(open(filename).read())

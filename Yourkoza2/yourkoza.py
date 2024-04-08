@@ -8,6 +8,7 @@ import json
 from flask import Flask, render_template, request
 
 from semantics import parsex
+from api import api
 
 
 app = Flask(__name__)
@@ -34,3 +35,17 @@ def process_code():
     print(code_output)
     
     return code_output # An array of tokens
+
+
+@app.route('/post/geminaize', methods=['GET', 'POST'])
+def gemini_interface():
+    code_input = json.loads(request.get_data())["code_query"]
+    api_output = api(code_input)
+    print("API Output: ")
+    print(api_output[11:-3])
+    return [api_output[11:-3]]
+
+#```yourkoza
+#let sum = 10 + 20
+#show "The sum of 10 and 20 is " + sum
+#```

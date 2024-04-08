@@ -15,21 +15,3 @@ end
     !let age equal age + 1
 !end
 show age
-
-#######################################
-
-let name equal jada
-function greetings(name) {
-    show "Hey there "
-    show name
-    !let name equal 9
-    show name
-}
-
-!return name
-!}
-
-!while age < 21 do
-    !show "You are underage"
-    !let age equal age + 1
-!end
