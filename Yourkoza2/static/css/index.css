@@ -150,6 +150,7 @@ body {
 }
 
 
+
 .menu_container .menu_item:hover {
     border-bottom: 0.3rem solid var(--accent-color);
 }
@@ -163,6 +164,21 @@ body {
     color: var(--background-color);*/
 }
 
+#AI_input{
+    position: relative;
+    height: 3rem;
+    width: fit-content;
+    min-width: 20.5rem;
+    font-size: 1.3rem;
+    box-sizing: border-box;
+    appearance: none;
+    -webkit-appearance: none;
+    border: none;
+    color: black;
+    border-top: 0.3rem solid var(--offwhite);
+    border-bottom: 0.3rem solid var(--offwhite);
+    background-color: white;
+}
 /* code inputs */
 
 #editor {
