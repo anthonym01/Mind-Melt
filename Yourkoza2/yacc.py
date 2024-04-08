@@ -214,8 +214,11 @@ def p_empty(p):
 
 
 def p_error(p):
+    from semantics import show_puts
     print("\n-------------------------------------------------------------------")
     print(f"SyntaxError: Illegal character {p.value}")
+    show_puts.append(f"SyntaxError: Illegal character {p.value} at position {str(p.lexpos)} ")
+    #show_puts.append(f"SyntaxError: Illegal character {str(p.lexline)}")
     print('--------------------------------------------------------------------')
     
 

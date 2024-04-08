@@ -89,6 +89,8 @@ def semantic_analysis(tree):
             #check_variable(node[3], symb_t_reference)
             
             if len(node) == 4:  # Binary operation
+                #check_variable(node[1], symb_t_reference)
+                #check_variable(node[3], symb_t_reference)
                 operator = node[1]
                 left_operand = node[2]
                 right_operand = node[3]
