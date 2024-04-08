@@ -73,6 +73,7 @@ def semantic_analysis(tree):
                     #print(traverse(node[2]))
                 #print(f"Assigning {var_value} to {var_name}")
                 if var_name not in symb_t_reference:
+                #if var_name not in symbol_table:
                     add_variable(var_name, type(var_value).__name__, var_value, symb_t_reference)   # Add variable to symbol table                
                 else:
                     show_puts.append(f"Variable {var_name} already exists")
@@ -147,16 +148,22 @@ def semantic_analysis(tree):
             # Parse arguments with expected types
             parse_args(args, function_stack[name][0], symbols, "parameters")
 
+            # Fetch actual values for arguments from the symbol table
+            arg_values = []
+            for arg in args:
+                if arg in symbols:
+                    arg_values.append(symbols[arg][1])
+                else:
+                    arg_values.append(arg)
+
             # Append function call to the function call stack
             functioncall_stack.append({"name": name, "params": function_stack[name][0], "body": function_stack[name][1], "symbol_table": symbols})
 
-            # Traverse the function body
+            # Traverse the function body with actual argument values
             traverse(function_stack[name][1])
 
             # Pop the function call from the function call stack
             functioncall_stack.pop()
-
-
         
         elif node[0] == "display":
             if symb_t_reference.get(node[1]) is not None:
@@ -223,10 +230,6 @@ greetings("John")
 # Parse code and prime execution
 def parsex(program_code):
     show_puts.clear()
-    symbol_table.clear()  # Initialize symbol table
-    symb_t_reference.clear()
-    function_stack.clear()
-    functioncall_stack.clear()
     
     print("\n----------------------------------------------------------")
     print("Input code: ")
@@ -237,6 +240,7 @@ def parsex(program_code):
     lexer.input(program_code)
     for tokenx in lexer: print(tokenx)
     lexer.input(program_code)
+    
     
     syntax_tree = parser.parse(lexer=lexer)
     
@@ -249,7 +253,7 @@ def parsex(program_code):
     print(show_puts)
     
     return show_puts
-
+    
 
 parsex(input_code)
 
