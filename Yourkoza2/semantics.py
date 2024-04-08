@@ -112,24 +112,42 @@ def semantic_analysis(tree):
             return
 
         elif node[0] == 'function_call':
-            from operator import itemgetter
             symbols = {}
+
+            # Define a function to parse arguments
             def parse_args(args, params, symbols, remove):
                 if isinstance(args, tuple) and isinstance(params, tuple):
                     for a, p in zip(args, params):
                         parse_args(a, p, symbols, remove)
                 else:
                     if args != remove:
-                        symbols[args] = (type(params).__name__, params)
-            
-            name, args = itemgetter("name", "arguments")(node[1])
-            parse_args(function_stack[name][0], args, symbols, "parameters")
+                        if isinstance(params, tuple):  # Parameter is a tuple indicating multiple possible types
+                            types = [t for t in params if isinstance(args, t)]
+                            if len(types) != 1:
+                                raise TypeError(f"Argument {args} does not match any expected type in {params}")
+                            symbols[args] = (types[0].__name__, args)
+                        else:
+                            symbols[args] = (params.__name__, args)
 
+            # Extract function name and arguments from the node
+            if isinstance(node[1], tuple):  # Check if there are multiple arguments
+                name, *args = node[1]  # Unpack function name and remaining arguments
+            else:
+                name = node[1]  # Only function name provided
+                args = ()
+
+            # Parse arguments with expected types
+            parse_args(args, function_stack[name][0], symbols, "parameters")
+
+            # Append function call to the function call stack
             functioncall_stack.append({"name": name, "params": function_stack[name][0], "body": function_stack[name][1], "symbol_table": symbols})
 
+            # Traverse the function body
             traverse(function_stack[name][1])
 
+            # Pop the function call from the function call stack
             functioncall_stack.pop()
+
 
         
         elif node[0] == "display":
@@ -167,10 +185,11 @@ def semantic_analysis(tree):
 
 # Example usage:
 input_code = """
-show "boy test" 
+show "Arithmethic Test" 
 let y equal 3 ^ 4 
 show y
 
+show "Conditional Test" 
 let age equal 18
 let drinking_age equal 21
 
@@ -181,12 +200,13 @@ else
     show "Have a good one my guy"
 end
 
+show "Functions Test" 
 !let name equal "John"
 
-#function greetings(name) {
-#    show "Hey there " show name
-#}
-#greetings("John")
+function greetings(name) {
+    show "Hey there " show name
+}
+greetings("John")
 """
 
 # Testing area

@@ -1,4 +1,3 @@
-
 import ply.yacc as yacc
 #from ply.lex import lex
 from lexTokens import *
@@ -59,6 +58,7 @@ def p_statement(p):
               | conditional
               | loop
               | function
+              | function_call
               | display
               | expression
     """
@@ -109,6 +109,7 @@ def p_expression(p):
                | expression POWER expression
                | LPAREN expression RPAREN
                | term
+               | function_call
     """
     #if len(p) == 4:
     #    if p[2] == '+':
@@ -213,6 +214,15 @@ def p_function(p):
              | FUNCTION IDENTIFIER LPAREN parameters RPAREN LBRACE statements RBRACE 
     """
     p[0] = ('function', p[2], p[4], p[7], p[8])
+
+
+def p_function_call(p):
+    """
+    function_call : IDENTIFIER LPAREN STRING_LITERAL RPAREN
+                  | IDENTIFIER LPAREN NUMBER RPAREN
+    """
+    p[0] = ('function_call', p[1], p[3])
+
 
 def p_parameters(p):
     """
