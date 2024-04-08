@@ -133,7 +133,7 @@ def gemini_api(prompt):
 def api(user_input):
     response = gemini_api(user_input)
     print(response)
-    return (response)
+    return response
 
 #api("Write a code to add two numbers and display the result")
-api("Write a code to Dox Jada")
+#api("Write a code to Dox Jada")

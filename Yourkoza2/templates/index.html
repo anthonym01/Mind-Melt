@@ -11,7 +11,7 @@
     <meta name="format-detection" content="telephone=no" />
     <meta name="msapplication-tap-highlight" content="no" />
 
-    <link rel="icon" type="image/png" href="/static/img/icon.png" />
+    <link rel="icon" type="image/svg" href="/static/img/eye-open-svgrepo-com.svg" />
 
     <!--<link rel="manifest" href="manifest.json" />-->
     <meta name="theme-color" content="#31d53d" />
@@ -34,10 +34,8 @@
 
     <div class="headbar" id="headbar">
         <div class="menu_container">
-            <button class="menu_item" id="documentaion_btn">Docs</button>
-            <button class="menu_item" id="team_btn">About Us</button>
-            <button class="menu_item" id="help_btn">Help</button>
-
+            <button class="menu_item" id="help_btn">Ask Gemini</button>
+            <button class="menu_item" id="documentaion_btn">Documentation</button>
         </div>
     </div>
     <div class="main_view visible" id="Coding_view">
@@ -68,9 +66,7 @@ end
                 <div class="Console_block centered">Console emulator</div>
             </div>
             <div class="console_menu_container">
-                <button class="console_menu_button">Clear</button>
-                <button class="console_menu_button">Reset</button>
-                <button class="console_menu_button">Abort</button>
+                <button class="console_menu_button" id="clear_btn">Clear</button>
             </div>
         </div>
 

@@ -19,3 +19,5 @@ run
 ```bash
 cd Yourkoza2 ; py -3 -m venv .venv ; .venv\Scripts\activate ; pip install Flask ; pip install ply
 ```
+
+flask --app yourkoza run --host=0.0.0.0 --debug --port=8080

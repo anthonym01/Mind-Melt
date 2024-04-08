@@ -5,6 +5,7 @@ window.addEventListener('load', async function () {//Starting point
     } catch (err) {
         console.warn('Something bad happened: ', err)
     } finally {
+        ui_handler.initalize();
         code_handler.initalize();
     }
 });
@@ -38,7 +39,8 @@ let config = {
 
 let ui_handler = {
     initalize: async function () {
-
+        let help_btn = document.getElementById('help_btn')
+        help_btn.addEventListener('click', function(){ui_handler.help)
     },
     blurse: async function () {
         console.log('Blur UI')
@@ -46,6 +48,10 @@ let ui_handler = {
         document.getElementById('blurser').classList = "blurser visible"
         document.getElementById('Coding_view').classList = "main_view visible blured"
 
+    },
+    help: async function () {
+        console.log('Help button pressed')
+        window.open('https://docs.google.com/document/d/e/2PACX-1vQfKBo7yHPKxUQgmhqBi7-t-hrFrS2hQzjpOIq_cFLWdAy48lAE6yK467EAAoMvJqYFGOp0e-KkfqNX/pub', '_blank');
     }
 }
 
@@ -56,6 +62,8 @@ let code_handler = {
     editor: false,
     initalize: async function () {
         document.getElementById('compile_button').addEventListener('click', code_handler.compile_and_run);
+
+        document.getElementById('clear_btn').addEventListener('click', code_handler.clear_screen);
 
         this.editor = ace.edit("editor", {
             //theme: "ace/theme/GitHub",
@@ -149,6 +157,7 @@ let code_handler = {
 
     },
     clear_screen: async function () {
-
+        code_handler.state.running = false;
+        document.getElementById('console_emulation_space').innerHTML = "";
     }
 }
