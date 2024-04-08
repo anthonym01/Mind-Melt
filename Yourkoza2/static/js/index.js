@@ -39,17 +39,15 @@ let config = {
 
 let ui_handler = {
     initalize: async function () {
-        let help_btn = document.getElementById('help_btn')
-        help_btn.addEventListener('click', function(){ui_handler.help)
+        document.getElementById('documentaion_btn').addEventListener('click', function(){ui_handler.documentaion()})
     },
     blurse: async function () {
         console.log('Blur UI')
         document.getElementById('headbar').classList = "headbar blured"
         document.getElementById('blurser').classList = "blurser visible"
         document.getElementById('Coding_view').classList = "main_view visible blured"
-
     },
-    help: async function () {
+    documentaion: async function () {
         console.log('Help button pressed')
         window.open('https://docs.google.com/document/d/e/2PACX-1vQfKBo7yHPKxUQgmhqBi7-t-hrFrS2hQzjpOIq_cFLWdAy48lAE6yK467EAAoMvJqYFGOp0e-KkfqNX/pub', '_blank');
     }
