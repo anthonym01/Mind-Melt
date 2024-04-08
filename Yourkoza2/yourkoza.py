@@ -26,7 +26,7 @@ def process_code():
 
     code_output = []
     #code_output = Tokenize(code_input)
-    code_output.append(str(parsex(code_input)))
+    code_output = parsex(code_input)
     
     print("Input: ")
     print(code_input)

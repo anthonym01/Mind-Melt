@@ -223,6 +223,10 @@ greetings("John")
 # Parse code and prime execution
 def parsex(program_code):
     show_puts.clear()
+    symbol_table.clear()  # Initialize symbol table
+    symb_t_reference.clear()
+    function_stack.clear()
+    functioncall_stack.clear()
     
     print("\n----------------------------------------------------------")
     print("Input code: ")
@@ -245,7 +249,7 @@ def parsex(program_code):
     print(show_puts)
     
     return show_puts
-    
+
 
 parsex(input_code)
 
