@@ -1,9 +1,0 @@
-# Potential Limitations of language
-
-/*
-p[0] = p[1] + p[3]
-           ~~~~~^~~~~~
-TypeError: unsupported operand type(s) for +: 'int' and 'str'
-*/
-    let y equal 12
-    let x equal 12 + y # Cannot add variable to term at assignment
