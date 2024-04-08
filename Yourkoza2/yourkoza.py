@@ -22,29 +22,35 @@ def index():
 
 @app.route('/post/code_string', methods=['GET', 'POST'])
 def process_code():
-
-    code_input = json.loads(request.get_data())["code_string"]
-
-    code_output = []
-    #code_output = Tokenize(code_input)
-    code_output = parsex(code_input)
     
-    print("Input: ")
-    print(code_input)
-    print("Output: ")
-    print(code_output)
+    try:
+        code_input = json.loads(request.get_data())["code_string"]
+        code_output = []
+        #code_output = Tokenize(code_input)
+        code_output = parsex(code_input)
     
-    return code_output # An array of tokens
+        print("Input: ")
+        print(code_input)
+        print("Output: ")
+        print(code_output)
+    
+        return code_output # An array of tokens
+    except Exception as e:
+        print(e)
+        return ["Error: " + str(e)]
+    
 
 
 @app.route('/post/geminaize', methods=['GET', 'POST'])
 def gemini_interface():
-    code_input = json.loads(request.get_data())["code_query"]
-    api_output = api(code_input)
-    print("API Output: ")
-    print(api_output[11:-3])
-    return [api_output[11:-3]]
-
+    try:
+        code_input = json.loads(request.get_data())["code_query"]
+        api_output = api(code_input)
+        return [api_output[11:-3]]
+    except Exception as e:
+        print(e)
+        return ["Error: " + str(e)]
+    
 #```yourkoza
 #let sum = 10 + 20
 #show "The sum of 10 and 20 is " + sum
