@@ -112,7 +112,7 @@ let code_handler = {
             code_handler.state.running = true;
 
             //call to server
-            const response = await fetch('/post/code_string', {
+            const response = await fetch('http://yourkoza.us.to:8080/post/code_string', {
                 method: "POST",
                 body: JSON.stringify({ code_string }),
                 headers: { "Content-type": "application/json; charset=UTF-8" }
